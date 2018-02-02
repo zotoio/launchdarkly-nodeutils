@@ -10,7 +10,16 @@ export class LaunchDarklyUtils {
         return this;
     }
 
-    async getFlags(projectKey) {
+    async getFeatureFlags(projectKey) {
         return this.apiClient.apis.flags.getFeatureFlags({ projectKey: projectKey });
+    }
+
+    async getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery) {
+        return this.apiClient.apis.flags.getFeatureFlag({
+            projectKey: projectKey,
+            featureFlagKey: featureFlagKey,
+            environmentKeyQuery: environmentKeyQuery
+        });
+        // todo environmentKeyQuery is not transformed correctly to 'env` querystring
     }
 }

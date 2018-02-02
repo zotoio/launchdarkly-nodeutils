@@ -15,7 +15,7 @@ This unofficial module provides NodeJs functions wrapping the LaunchDarkly API. 
 ## Why?
 There does not appear to be a project currently providing a simple interface to manage flags in LaunchDarkly via API in nodejs.  
 
-## How
+## How?
 There is a swagger.yaml available to generate bindings (https://launchdarkly.github.io/ld-openapi/swagger.yaml).  Uses the swagger-js module to generate a client (https://github.com/swagger-api/swagger-js), and adds some extra features around logging and input validation.
 
 ## Install
