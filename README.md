@@ -10,7 +10,7 @@
 
 LaunchDarkly (https://launchdarkly.com/) provides SaaS based Feature Flag management at scale, with SDKs for all major Languages.
 
-This module provides NodeJs functions wrapping the LaunchDarkly API.  Note that this is not the sdk for implementing flags - it is the api to manage your account/flags.
+This unofficial module provides NodeJs functions wrapping the LaunchDarkly API.  This is not the sdk for implementing flags in your app - it is the api to manage your account/flags.
 
 ## Why?
 There does not appear to be a project currently providing a simple interface to manage flags in LaunchDarkly via API in nodejs.  
@@ -27,4 +27,4 @@ Note that the api token is not the same as your sdk keys.  You need to generate 
 export LAUNCHDARKLY_API_TOKEN=<api-token>
 npm run api getFlags <myProjectId>
 ```
-TODO show usage in node app.
+TODO show usage in node app..
