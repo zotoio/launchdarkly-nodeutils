@@ -16,6 +16,10 @@ export class LaunchDarklyApiClient {
             usePromise: true,
             requestInterceptor: req => {
                 req.headers.Authorization = API_TOKEN;
+
+                // hack - fix incorrect qs mapping..
+                req.url = req.url.replace('environmentKeyQuery', 'env');
+
                 return req;
             }
         });
