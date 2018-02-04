@@ -22,6 +22,12 @@ export class LaunchDarklyUtils {
         });
     }
 
+    async getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery) {
+        return this.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery).then(result => {
+            return result.obj.environments[environmentKeyQuery].on;
+        });
+    }
+
     async toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value) {
         return this.apiClient.apis.flags.patchFeatureFlag({
             projectKey: projectKey,

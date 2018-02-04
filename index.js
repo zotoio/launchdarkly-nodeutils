@@ -45,6 +45,25 @@ log.info(`command line args: ${args}`);
             result = await ldUtils.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery);
             break;
 
+        case 'getFeatureFlagState':
+            projectKey = args[1];
+            featureFlagKey = args[2];
+            environmentKeyQuery = args[3];
+            if (!projectKey || projectKey.trim() === '') {
+                result = 'please supply a projectKey as second parameter'
+                break;
+            }
+            if (!featureFlagKey || featureFlagKey.trim() === '') {
+                result = 'please supply a featureFlagKey as third parameter'
+                break;
+            }
+            if (!environmentKeyQuery || environmentKeyQuery.trim() === '') {
+                result = 'please supply a environmentKeyQuery as fourth parameter'
+                break;
+            }
+            result = await ldUtils.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery);
+            break;
+
         case 'toggleFeatureFlag':
             projectKey = args[1];
             featureFlagKey = args[2];
