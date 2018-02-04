@@ -45,6 +45,31 @@ log.info(`command line args: ${args}`);
             result = await ldUtils.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery);
             break;
 
+        case 'toggleFeatureFlag':
+            projectKey = args[1];
+            featureFlagKey = args[2];
+            environmentKeyQuery = args[3];
+            if (!projectKey || projectKey.trim() === '') {
+                result = 'please supply a projectKey as second parameter'
+                break;
+            }
+            if (!featureFlagKey || featureFlagKey.trim() === '') {
+                result = 'please supply a featureFlagKey as third parameter'
+                break;
+            }
+            if (!environmentKeyQuery || environmentKeyQuery.trim() === '') {
+                result = 'please supply a environmentKeyQuery as fourth parameter'
+                break;
+            }
+            let enabled = args[4];
+            if (enabled === undefined || !['true', 'false'].includes(enabled)) {
+                result = 'please supply either \'true\' or \'false\' as fifth parameter';
+                break;
+            }
+            enabled = enabled === 'true';
+            result = await ldUtils.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, enabled);
+            break;
+
         default:
             result = 'please supply a mode parameter: getFeatureFlags, getFeatureFlag';
 

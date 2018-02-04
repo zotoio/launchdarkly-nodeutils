@@ -20,6 +20,13 @@ export class LaunchDarklyUtils {
             featureFlagKey: featureFlagKey,
             environmentKeyQuery: environmentKeyQuery
         });
-        // todo environmentKeyQuery is not transformed correctly to 'env` querystring
+    }
+
+    async toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value) {
+        return this.apiClient.apis.flags.patchFeatureFlag({
+            projectKey: projectKey,
+            featureFlagKey: featureFlagKey,
+            patchDelta: [{ op: 'replace', path: `/environments/${environmentKeyQuery}/on`, value: value }]
+        });
     }
 }

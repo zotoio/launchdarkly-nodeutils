@@ -20,6 +20,8 @@ export class LaunchDarklyApiClient {
                 // hack - fix incorrect qs mapping..
                 req.url = req.url.replace('environmentKeyQuery', 'env');
 
+                log.debug(req);
+
                 return req;
             }
         });
