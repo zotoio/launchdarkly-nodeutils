@@ -1,5 +1,7 @@
 import { LaunchDarklyApiClient } from './LaunchDarklyApiClient';
 import { LaunchDarklyLogger } from './LaunchDarklyLogger';
+import { default as dotenv } from 'dotenv';
+dotenv.config();
 
 let log = LaunchDarklyLogger.logger();
 

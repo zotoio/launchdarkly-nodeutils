@@ -3,7 +3,7 @@ import { LaunchDarklyLogger } from './src/LaunchDarklyLogger';
 import { default as dotenv } from 'dotenv';
 dotenv.config();
 
-let log = LaunchDarklyLogger.logger();
+let log = LaunchDarklyLogger.logger(process.env.LAUNCHDARKLY_API_LOGLEVEL);
 
 let args = process.argv.slice(2);
 log.info(`command line args: ${args}`);
