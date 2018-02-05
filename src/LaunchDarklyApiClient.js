@@ -1,14 +1,13 @@
 import Swagger from 'swagger-client';
 import jsYaml from 'js-yaml';
 import { default as fs } from 'fs';
-import appRoot from 'app-root-path';
 
 export class LaunchDarklyApiClient {
     static async create(API_TOKEN, log) {
         log.info(`creating client with api token: ${API_TOKEN}`);
 
         // swagger.yaml from https://launchdarkly.github.io/ld-openapi/swagger.yaml
-        const yaml = fs.readFileSync(`${appRoot}/swagger.yaml`, 'utf-8').toString();
+        const yaml = fs.readFileSync(__dirname + `/../swagger.yaml`, 'utf-8').toString();
         const json = jsYaml.safeLoad(yaml);
 
         return Swagger({
