@@ -4,7 +4,7 @@
   "description": "NodeJs utils to manage LaunchDarkly SaaS Feature Flags via API",
   "main": "index.js",
   "scripts": {
-    "api": "node ./dist/index.js",
+    "api": "node ./dist/api.js",
     "build": "npm run lint && rimraf dist/ && babel ./src --out-dir dist/src --copy-files && babel ./test --out-dir dist/test --copy-files && babel ./*.js --out-dir dist/ --copy-files",
     "commit": "./node_modules/.bin/git-cz",
     "lint": "node ./node_modules/.bin/eslint ./src ./test --fix --ext=.js --ignore-pattern node_modules/ --ignore-pattern dist/ --ignore-pattern coverage/ --quiet",

@@ -23,8 +23,20 @@ There is a swagger.yaml available to generate bindings (https://launchdarkly.git
 
 ## Example usage
 Note that the api token is not the same as your sdk keys.  You need to generate this for your account in LaunchDarkly console.
+
+### commandline usage
 ```
 export LAUNCHDARKLY_API_TOKEN=<api-token>
 npm run api getFlags <myProjectId>
 ```
-TODO show usage in node app..
+
+### node app usage
+```
+let ldUtils = await new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN);
+
+// get flag state
+let flagEnabled = await ldUtils.getFeatureFlagState('myProject', 'feature-abc', 'dev');
+
+// update flag state to on=true
+await ldUtils.toggleFeatureFlag(proj'myProject', 'feature-def', 'dev', true);
+```
