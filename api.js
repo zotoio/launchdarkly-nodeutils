@@ -89,6 +89,10 @@ log.info(`command line args: ${args}`);
             result = await ldUtils.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, enabled);
             break;
 
+        case 'getCustomRoles':
+            result = await ldUtils.getCustomRoles();
+            break;
+
         default:
             result = 'please supply a mode parameter: getFeatureFlags, getFeatureFlag';
 
