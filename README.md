@@ -70,5 +70,12 @@ The command line modes and parameters map directly to the functions exposed for 
 | createCustomRole | createCustomRole |
 | updateCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | upsertCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
+| bulkUpsertCustomRoles | roleBulkLoadFile |
+
+Bulk upsert iterates over a json file containing an array of role json and either creates or updates each.  Promises are resolved sequentially to avoid rate limiting.
+
+```
+npm run api -- bulkUpsertCustomRoles ./exampleRoleBulkLoad.json
+```
 
 For details on role policy object structures, please see: https://docs.launchdarkly.com/docs/custom-roles
