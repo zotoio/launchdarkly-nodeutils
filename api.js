@@ -194,8 +194,14 @@ log.debug(`command line args: ${args}`);
 
             break;
 
+        case 'bulkUpsertCustomRoleFolder':
+            let roleFolder = args[1];
+            result = await ldUtils.roles.bulkUpsertCustomRoleFolder(roleFolder);
+
+            break;
+
         default:
-            result = 'please supply a valid mode parameter';
+            result = 'Please Supply a Valid Mode Parameter';
 
     }
 

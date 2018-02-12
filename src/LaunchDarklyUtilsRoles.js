@@ -1,5 +1,7 @@
 import { default as jsonPatch } from 'fast-json-patch';
 import { default as fs } from 'fs';
+import { default as path } from 'path';
+import { default as globule } from 'globule';
 
 export class LaunchDarklyUtilsRoles {
     constructor(apiClient, log) {
@@ -66,7 +68,7 @@ export class LaunchDarklyUtilsRoles {
         return this.getCustomRole(customRoleKey)
 
             .then(() => {
-                that.log.info(`role '${customRoleKey}' found, updating..`);
+                that.log.info(`Role '${customRoleKey}' Found, Updating...`);
                 return this.updateCustomRole(
                     customRoleKey,
                     customRoleName,
@@ -75,8 +77,9 @@ export class LaunchDarklyUtilsRoles {
                 );
             })
 
-            .catch(() => {
-                that.log.info(`role '${customRoleKey}' not found, creating..`);
+            .catch(e => {
+                that.log.error(e);
+                that.log.info(`Role '${customRoleKey}' Not Found, Creating...`);
                 return this.createCustomRole(
                     customRoleKey,
                     customRoleName,
@@ -87,11 +90,11 @@ export class LaunchDarklyUtilsRoles {
     }
 
     async bulkUpsertCustomRoles(roleBulkLoadFile) {
-        let filePath = `${process.cwd()}/${roleBulkLoadFile}`;
+        let filePath = path.resolve(roleBulkLoadFile);
         let roles = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
         let that = this;
 
-        this.log.info(`bulk upserting roles from file: ${filePath}`);
+        this.log.info(`Bulk Upserting Roles from File: ${filePath}`);
 
         return roles.reduce(function(acc, role) {
             return acc.then(function(results) {
@@ -101,5 +104,20 @@ export class LaunchDarklyUtilsRoles {
                 });
             });
         }, Promise.resolve([]));
+    }
+
+    async bulkUpsertCustomRoleFolder(roleFolder) {
+        let folderPath = path.normalize(path.resolve(roleFolder));
+        let globMatch = folderPath + '/*.json';
+        this.log.info(`Looking for Files with Pattern '${globMatch}'`);
+        let fileArray = globule.find(globMatch);
+        let results = [];
+        let that = this;
+        fileArray.forEach(async function(file) {
+            that.log.info(`Found File '${file}'. Calling 'bulkUpsertCustomRoles'`);
+            let result = await that.bulkUpsertCustomRoles(file);
+            results.push(result);
+        });
+        return results;
     }
 }
