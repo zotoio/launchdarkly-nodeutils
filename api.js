@@ -6,7 +6,7 @@ dotenv.config();
 let log = LaunchDarklyLogger.logger();
 
 let args = process.argv.slice(2);
-log.info(`command line args: ${args}`);
+log.debug(`command line args: ${args}`);
 
 (async () => {
 
@@ -23,7 +23,7 @@ log.info(`command line args: ${args}`);
                 result = 'please supply a projectKey as second parameter'
                 break;
             }
-            result = await ldUtils.getFeatureFlags(projectKey);
+            result = await ldUtils.flags.getFeatureFlags(projectKey);
             break;
 
         case 'getFeatureFlag':
@@ -42,7 +42,7 @@ log.info(`command line args: ${args}`);
                 result = 'please supply a environmentKeyQuery as fourth parameter';
                 break;
             }
-            result = await ldUtils.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery);
+            result = await ldUtils.flags.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery);
             break;
 
         case 'getFeatureFlagState':
@@ -61,7 +61,7 @@ log.info(`command line args: ${args}`);
                 result = 'please supply a environmentKeyQuery as fourth parameter';
                 break;
             }
-            result = await ldUtils.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery);
+            result = await ldUtils.flags.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery);
             break;
 
         case 'toggleFeatureFlag':
@@ -86,11 +86,11 @@ log.info(`command line args: ${args}`);
                 break;
             }
             enabled = enabled === 'true';
-            result = await ldUtils.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, enabled);
+            result = await ldUtils.flags.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, enabled);
             break;
 
         case 'getCustomRoles':
-            result = await ldUtils.getCustomRoles();
+            result = await ldUtils.roles.getCustomRoles();
             break;
 
         case 'getCustomRole':
@@ -99,7 +99,7 @@ log.info(`command line args: ${args}`);
                 result = 'please supply a customRoleKey as second parameter'
                 break;
             }
-            result = await ldUtils.getCustomRole(customRoleKey);
+            result = await ldUtils.roles.getCustomRole(customRoleKey);
             break;
 
         case 'createCustomRole':
@@ -123,7 +123,7 @@ log.info(`command line args: ${args}`);
                 break;
             }
 
-            result = await ldUtils.createCustomRole(
+            result = await ldUtils.roles.createCustomRole(
                 customRoleKey,
                 customRoleName,
                 customRolePolicyArray,
@@ -152,7 +152,7 @@ log.info(`command line args: ${args}`);
                 result = 'please supply a customRolePolicyArray as fourth parameter';
                 break;
             }
-            result = await ldUtils.updateCustomRole(
+            result = await ldUtils.roles.updateCustomRole(
                 customRoleKey,
                 customRoleName,
                 customRolePolicyArray,
@@ -180,7 +180,7 @@ log.info(`command line args: ${args}`);
                 result = 'please supply a customRolePolicyArray as fourth parameter';
                 break;
             }
-            result = await ldUtils.upsertCustomRole(
+            result = await ldUtils.roles.upsertCustomRole(
                 customRoleKey,
                 customRoleName,
                 customRolePolicyArray,
@@ -190,7 +190,7 @@ log.info(`command line args: ${args}`);
 
         case 'bulkUpsertCustomRoles':
             let roleBulkLoadFile = args[1];
-            result = await ldUtils.bulkUpsertCustomRoles(roleBulkLoadFile);
+            result = await ldUtils.roles.bulkUpsertCustomRoles(roleBulkLoadFile);
 
             break;
 

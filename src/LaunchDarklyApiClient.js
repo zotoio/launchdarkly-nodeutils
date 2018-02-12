@@ -4,7 +4,7 @@ import { default as fs } from 'fs';
 
 export class LaunchDarklyApiClient {
     static async create(API_TOKEN, log) {
-        log.info(`creating client with api token: ${API_TOKEN}`);
+        log.debug(`creating api client with token: ${API_TOKEN}`);
 
         // swagger.yaml from https://launchdarkly.github.io/ld-openapi/swagger.yaml
         const yaml = fs.readFileSync(__dirname + `/../swagger.yaml`, 'utf-8').toString();
@@ -15,9 +15,6 @@ export class LaunchDarklyApiClient {
             usePromise: true,
             requestInterceptor: req => {
                 req.headers.Authorization = API_TOKEN;
-
-                // hack - fix incorrect qs mapping..
-                req.url = req.url.replace('environmentKeyQuery', 'env');
 
                 log.debug(req);
 
