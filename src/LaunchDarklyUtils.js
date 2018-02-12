@@ -2,6 +2,7 @@ import { LaunchDarklyApiClient } from './LaunchDarklyApiClient';
 import { LaunchDarklyLogger } from './LaunchDarklyLogger';
 import { default as jsonPatch } from 'fast-json-patch';
 import { default as dotenv } from 'dotenv';
+import { default as fs } from 'fs';
 dotenv.config();
 
 let log = LaunchDarklyLogger.logger();
@@ -110,5 +111,22 @@ export class LaunchDarklyUtils {
                     customRoleDescription
                 );
             });
+    }
+
+    async bulkUpsertCustomRoles(roleBulkLoadFile) {
+        let filePath = `${process.cwd()}/${roleBulkLoadFile}`;
+        let roles = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        let that = this;
+
+        log.info(`bulk upserting roles from file: ${filePath}`);
+
+        return roles.reduce(function(acc, role) {
+            return acc.then(function(results) {
+                return that.upsertCustomRole(role.key, role.name, role.policy, role.description).then(function(data) {
+                    results.push(data);
+                    return results;
+                });
+            });
+        }, Promise.resolve([]));
     }
 }

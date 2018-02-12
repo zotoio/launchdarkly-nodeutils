@@ -188,6 +188,12 @@ log.info(`command line args: ${args}`);
             );
             break;
 
+        case 'bulkUpsertCustomRoles':
+            let roleBulkLoadFile = args[1];
+            result = await ldUtils.bulkUpsertCustomRoles(roleBulkLoadFile);
+
+            break;
+
         default:
             result = 'please supply a valid mode parameter';
 
