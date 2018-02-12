@@ -25,8 +25,8 @@ There is a swagger.yaml available to generate bindings (https://launchdarkly.git
 ## Example usage
 Please note that the api token is not the same as your sdk keys.  You need to generate this for your account in LaunchDarkly console as above, and set it as the LAUNCHDARKLY_API_TOKEN env var.
 
-### commandline usage
-Command line support is primarily for debugging api calls.
+### commandline usage OLD
+This command line support was primarily for debugging api calls.  The NEW version below is aimed at general usage.
 ```
 export LAUNCHDARKLY_API_TOKEN=<api-token>
 
@@ -36,6 +36,18 @@ npm run api -- getFeatureFlags <myProjectId>
 // update or create a customRole with array of policies
 npm run api -- upsertCustomRole <customRoleKey> <customRoleName> '[{"resources":["proj/*"],"actions":["*"],"effect":"allow"}]'
 ```
+
+### commandline usage NEW (in progress)
+A more complete commandline solution is underway - try it out using:
+
+```
+chmod 755 ./ldutils
+./ldutils
+```
+
+The above will display a help screen of instructions, thanks to https://github.com/tj/commander.js/
+
+Make sure you have env var LAUNCHDARKLY_API_TOKEN set, and if piping output to another command, ensure that LAUNCHDARKLY_API_LOGLEVEL is not set to 'debug'.
 
 ### node app usage
 Assumes that you have set the LAUNCHDARKLY_API_TOKEN environment var.
@@ -71,8 +83,10 @@ The command line modes and parameters map directly to the functions exposed for 
 | updateCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | upsertCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | bulkUpsertCustomRoles | roleBulkLoadFile |
+| bulkUpsertCustomRoleFolder | roleFolder |
 
-Bulk upsert iterates over a json file containing an array of role json and either creates or updates each.  Promises are resolved sequentially to avoid rate limiting.
+- `bulkUpsertCustomRoles` mode iterates over a json file containing an array of role json and either creates or updates each.  Promises are resolved sequentially to avoid rate limiting.
+- `bulkUpsertCustomRoleFolder` mode does the same on a folder of json files.
 
 ```
 npm run api -- bulkUpsertCustomRoles ./exampleRoleBulkLoad.json

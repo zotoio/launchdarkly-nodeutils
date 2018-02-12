@@ -7,22 +7,25 @@ dotenv.config();
 
 export class LaunchDarklyUtils {
     async create(API_TOKEN, customLogger) {
-        // setup logger
-        this.log = customLogger ? customLogger : LaunchDarklyLogger.logger();
-        this.log.debug('logger attached..');
+        let that = this;
+        return new Promise(async (resolve, reject) => {
+            // setup logger
+            that.log = customLogger ? customLogger : LaunchDarklyLogger.logger();
+            that.log.debug('logger attached..');
 
-        // create LaunchDarkly apiClient
-        this.apiClient = await LaunchDarklyApiClient.create(API_TOKEN, this.log);
-        this.log.debug('api client instantiated..');
+            // create LaunchDarkly apiClient
+            try {
+                that.apiClient = await LaunchDarklyApiClient.create(API_TOKEN, this.log);
+                that.log.debug('api client instantiated..');
 
-        // attach flag utils
-        this.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log);
-        this.log.debug(`flag functions: ${this.flags}`);
-
-        // attach role utils
-        this.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log);
-        this.log.debug(`role functions: ${this.roles}`);
-
-        return this;
+                // attach utils
+                that.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log);
+                that.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log);
+                that.log.debug(`utils ready.`);
+            } catch (e) {
+                return reject(e);
+            }
+            return resolve(that);
+        });
     }
 }
