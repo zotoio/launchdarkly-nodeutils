@@ -18,15 +18,7 @@ export class LaunchDarklyUtilsRoles {
     }
 
     async getCustomRole(customRoleKey) {
-        let that = this;
-        return this.apiClient.apis[this.API_GROUP]
-            .getCustomRole({
-                customRoleKey: customRoleKey
-            })
-            .catch(e => {
-                that.log.error(e);
-                throw e;
-            });
+        return this.apiClient.apis[this.API_GROUP].getCustomRole({ customRoleKey: customRoleKey });
     }
 
     async createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {

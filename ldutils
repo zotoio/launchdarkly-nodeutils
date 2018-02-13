@@ -10,7 +10,15 @@ if (!process.env.LAUNCHDARKLY_API_TOKEN) {
 }
 
 let log = console;
+
+// fallback to bunyan logger if debug mode
 if (process.env.LAUNCHDARKLY_API_LOGLEVEL === 'debug') log = undefined;
+
+process.on('unhandledRejection', (reason, p) => {
+    console.error(json.plain({"error": reason}));
+    process.exit(1);
+});
+
 new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(function(ldUtils) {
 
     program
@@ -119,7 +127,6 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
             });
         });
 
-    console.log(process.argv);
     if (process.argv.length < 3) {
         program.help();
         process.exit(1);
@@ -128,8 +135,5 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .parse(process.argv);
 
-})
-.catch(function(e) {
-    console.log(json.plain(e));
 });
 

@@ -79,7 +79,7 @@ The command line modes and parameters map directly to the functions exposed for 
 | ---- | ---------- |
 | getCustomRoles | none |
 | getCustomRole | customRoleKey |
-| createCustomRole | createCustomRole |
+| createCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | updateCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | upsertCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | bulkUpsertCustomRoles | roleBulkLoadFile |
