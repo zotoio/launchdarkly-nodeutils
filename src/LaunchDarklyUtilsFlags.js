@@ -30,7 +30,7 @@ export class LaunchDarklyUtilsFlags {
         return this.apiClient.apis[this.API_GROUP].patchFeatureFlag({
             projectKey: projectKey,
             featureFlagKey: featureFlagKey,
-            patchDelta: [{ op: 'replace', path: `/environments/${environmentKeyQuery}/on`, value: value }]
+            patchComment: [{ op: 'replace', path: `/environments/${environmentKeyQuery}/on`, value: value }]
         });
     }
 }

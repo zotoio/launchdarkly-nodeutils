@@ -1,0 +1,139 @@
+#!/usr/bin/env node
+let json = require('format-json');
+let program = require('commander');
+let LaunchDarklyUtils = require('./dist/src/LaunchDarklyUtils.js').LaunchDarklyUtils;
+require('dotenv').config();
+
+if (!process.env.LAUNCHDARKLY_API_TOKEN) {
+    console.log('missing environment var LAUNCHDARKLY_API_TOKEN - exiting..');
+    process.exit(1);
+}
+
+let log = console;
+
+// fallback to bunyan logger if debug mode
+if (process.env.LAUNCHDARKLY_API_LOGLEVEL === 'debug') log = undefined;
+
+process.on('unhandledRejection', (reason, p) => {
+    console.error(json.plain({"error": reason}));
+    process.exit(1);
+});
+
+new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(function(ldUtils) {
+
+    program
+        .version('0.1.0');
+
+    program
+        .command('getFeatureFlags <projectKey>')
+        .description('get all flags for a given project')
+        .action(function(projectKey) {
+            ldUtils.flags.getFeatureFlags(projectKey).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command(`getFeatureFlag <projectKey> <featureFlagKey> [environmentKeyQuery]`)
+        .description('get a single flag - with optional env')
+        .action(function(projectKey, featureFlagKey) {
+            ldUtils.flags.getFeatureFlag(projectKey, featureFlagKey).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command(`getFeatureFlagState <projectKey> <featureFlagKey> <environmentKeyQuery>`)
+        .description('get boolean flag state')
+        .action(function(projectKey, featureFlagKey, environmentKeyQuery) {
+            ldUtils.flags.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command(`toggleFeatureFlag <projectKey> <featureFlagKey> <environmentKeyQuery> <value>`)
+        .description('set boolean flag state')
+        .action(function(projectKey, featureFlagKey, environmentKeyQuery, value) {
+            let enabled = value === 'true';
+            ldUtils.flags.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, enabled).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('getCustomRoles')
+        .description('get all custom roles in account')
+        .action(function() {
+            ldUtils.roles.getCustomRoles().then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('getCustomRole <customRoleKey>')
+        .description('get custom role by key')
+        .action(function(customRoleKey) {
+            ldUtils.roles.getCustomRole(customRoleKey).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command(`createCustomRole <customRoleKey> <customRoleName> <customRolePolicyArray> [customRoleDescription]`)
+        .description('create custom role')
+        .action(function(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
+            customRolePolicyArray = JSON.parse(customRolePolicyArray);
+            ldUtils.roles.createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command(`updateCustomRole <customRoleKey> <customRoleName> <customRolePolicyArray> [customRoleDescription]`)
+        .description('update custom role')
+        .action(function(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
+            customRolePolicyArray = JSON.parse(customRolePolicyArray);
+            ldUtils.roles.updateCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command(`upsertCustomRole <customRoleKey> <customRoleName> <customRolePolicyArray> [customRoleDescription]`)
+        .description('create or update custom role')
+        .action(function(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
+            customRolePolicyArray = JSON.parse(customRolePolicyArray);
+            ldUtils.roles.upsertCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('bulkUpsertCustomRoles <roleBulkLoadFile>')
+        .description('path to a file containing array of role json')
+        .action(function(roleBulkLoadFile) {
+            ldUtils.roles.bulkUpsertCustomRoles(roleBulkLoadFile).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('bulkUpsertCustomRoleFolder <roleFolder>')
+        .description('path to a directory containing multiple files of role json')
+        .action(function(roleFolder) {
+            ldUtils.roles.bulkUpsertCustomRoleFolder(roleFolder).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    if (process.argv.length < 3) {
+        program.help();
+        process.exit(1);
+    }
+
+    program
+        .parse(process.argv);
+
+});
+

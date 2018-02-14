@@ -34,6 +34,7 @@
     "fast-json-patch": "^2.0.6",
     "globule": "^1.2.0",
     "js-yaml": "^3.10.0",
+    "json-format": "^1.0.1",
     "ldclient-node": "^3.3.2",
     "swagger-client": "^3.4.7",
     "webpack": "^3.10.0"
