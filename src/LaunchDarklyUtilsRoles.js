@@ -17,7 +17,11 @@ export class LaunchDarklyUtilsRoles {
         try {
             return this.apiClient.apis[this.API_GROUP].getCustomRoles();
         } catch (e) {
-            throw { api: 'getCustomRoles', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles' };
+            throw {
+                api: 'getCustomRoles',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+            };
         }
     }
 
@@ -25,7 +29,11 @@ export class LaunchDarklyUtilsRoles {
         try {
             return this.apiClient.apis[this.API_GROUP].getCustomRole({ customRoleKey: customRoleKey });
         } catch (e) {
-            throw { api: 'getCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles' };
+            throw {
+                api: 'getCustomRole',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+            };
         }
     }
 
@@ -39,7 +47,11 @@ export class LaunchDarklyUtilsRoles {
         try {
             return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole });
         } catch (e) {
-            throw { api: 'postCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/create-custom-role' };
+            throw {
+                api: 'postCustomRole',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/create-custom-role'
+            };
         }
     }
 
@@ -66,7 +78,11 @@ export class LaunchDarklyUtilsRoles {
                         patchDelta: patchDelta
                     });
                 } catch (e) {
-                    throw { api: 'patchCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/update-custom-role' };
+                    throw {
+                        api: 'patchCustomRole',
+                        message: e.message,
+                        docs: 'https://apidocs.launchdarkly.com/docs/update-custom-role'
+                    };
                 }
             });
     }
