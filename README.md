@@ -47,10 +47,7 @@ sudo ln -s /<clonepath>/launchdarkly-nodeutils/ldutils /usr/local/bin/ldutils
 
 # or after 'npm install launchdarkly-nodeutils --save'
 sudo ln -s /<installpath>/node_modules/launchdarkly-nodeutils/ldutils /usr/local/bin/ldutils
-
-
 ```
-
 > Make sure you have env var LAUNCHDARKLY_API_TOKEN set, and if piping output to another command, ensure that LAUNCHDARKLY_API_LOGLEVEL is not set to 'debug' to ensure only the json result of the command is returned.
 
 Here are some examples of commandline usage (if you have not added ldutils to PATH, prefix with `./`:
