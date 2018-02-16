@@ -25,10 +25,6 @@ There is a swagger.yaml available to generate bindings (https://launchdarkly.git
 ## Example usage
 Please note that the api token is not the same as your sdk keys.  You need to generate this for your account in LaunchDarkly console as above, and set it as the LAUNCHDARKLY_API_TOKEN env var.
 
-### commandline usage OLD
-This command line support was primarily for debugging api calls.  The NEW version below is aimed at general usage.
-
-
 ### commandline usage
 After cloning this repo you can make `ldutils` executable, and use it to make api calls based on passed in parameters.
 
