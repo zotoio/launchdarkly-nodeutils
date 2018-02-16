@@ -14,11 +14,19 @@ export class LaunchDarklyUtilsRoles {
     }
 
     async getCustomRoles() {
-        return this.apiClient.apis[this.API_GROUP].getCustomRoles();
+        try {
+            return this.apiClient.apis[this.API_GROUP].getCustomRoles();
+        } catch (e) {
+            throw { api: 'getCustomRoles', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles' };
+        }
     }
 
     async getCustomRole(customRoleKey) {
-        return this.apiClient.apis[this.API_GROUP].getCustomRole({ customRoleKey: customRoleKey });
+        try {
+            return this.apiClient.apis[this.API_GROUP].getCustomRole({ customRoleKey: customRoleKey });
+        } catch (e) {
+            throw { api: 'getCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles' };
+        }
     }
 
     async createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
@@ -28,7 +36,11 @@ export class LaunchDarklyUtilsRoles {
             description: customRoleDescription,
             policy: customRolePolicyArray
         };
-        return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole });
+        try {
+            return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole });
+        } catch (e) {
+            throw { api: 'postCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/create-custom-role' };
+        }
     }
 
     async updateCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
@@ -48,10 +60,14 @@ export class LaunchDarklyUtilsRoles {
                 return patchDelta;
             })
             .then(patchDelta => {
-                return this.apiClient.apis[this.API_GROUP].patchCustomRole({
-                    customRoleKey: customRoleKey,
-                    patchDelta: patchDelta
-                });
+                try {
+                    return this.apiClient.apis[this.API_GROUP].patchCustomRole({
+                        customRoleKey: customRoleKey,
+                        patchDelta: patchDelta
+                    });
+                } catch (e) {
+                    throw { api: 'patchCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/update-custom-role' };
+                }
             });
     }
 

@@ -27,18 +27,10 @@ Please note that the api token is not the same as your sdk keys.  You need to ge
 
 ### commandline usage OLD
 This command line support was primarily for debugging api calls.  The NEW version below is aimed at general usage.
-```
-export LAUNCHDARKLY_API_TOKEN=<api-token>
 
-// collect all flags for a project
-npm run api -- getFeatureFlags <myProjectId>
 
-// update or create a customRole with array of policies
-npm run api -- upsertCustomRole <customRoleKey> <customRoleName> '[{"resources":["proj/*"],"actions":["*"],"effect":"allow"}]'
-```
-
-### commandline usage NEW (in progress)
-A more complete commandline solution is underway - try it out using:
+### commandline usage
+After cloning this repo you can make `ldutils` executable, and use it to make api calls based on passed in parameters.
 
 ```
 chmod 755 ./ldutils
@@ -47,7 +39,30 @@ chmod 755 ./ldutils
 
 The above will display a help screen of instructions, thanks to https://github.com/tj/commander.js/
 
-Make sure you have env var LAUNCHDARKLY_API_TOKEN set, and if piping output to another command, ensure that LAUNCHDARKLY_API_LOGLEVEL is not set to 'debug'.
+Optionally you can add `ldutils` to your PATH:
+
+```
+# cloned repo
+sudo ln -s /<clonepath>/launchdarkly-nodeutils/ldutils /usr/local/bin/ldutils
+
+# or after 'npm install launchdarkly-nodeutils --save'
+sudo ln -s /<installpath>/node_modules/launchdarkly-nodeutils/ldutils /usr/local/bin/ldutils
+
+
+```
+
+> Make sure you have env var LAUNCHDARKLY_API_TOKEN set, and if piping output to another command, ensure that LAUNCHDARKLY_API_LOGLEVEL is not set to 'debug' to ensure only the json result of the command is returned.
+
+Here are some examples of commandline usage (if you have not added ldutils to PATH, prefix with `./`:
+```
+export LAUNCHDARKLY_API_TOKEN=<api-token>
+
+// collect all flags for a project
+ldutils getFeatureFlags <myProjectId>
+
+// update or create a customRole with array of policies
+ldutils upsertCustomRole <customRoleKey> <customRoleName> '[{"resources":["proj/*"],"actions":["*"],"effect":"allow"}]'
+```
 
 ### node app usage
 Assumes that you have set the LAUNCHDARKLY_API_TOKEN environment var.
@@ -62,7 +77,7 @@ await ldUtils.toggleFeatureFlag('myProject', 'feature-def', 'dev', true);
 ```
 
 ## commandline modes and parameters
-The command line modes and parameters map directly to the functions exposed for use in nodejs apps.
+The command line modes and parameters map directly to the functions exposed for use in nodejs apps.  This info is also available using `ldutils -help`
 
 ### Feature flags
 
@@ -71,7 +86,11 @@ The command line modes and parameters map directly to the functions exposed for 
 | getFeatureFlags | projectKey |
 | getFeatureFlag | projectKey, featureFlagKey, environmentKeyQuery |
 | getFeatureFlagState | projectKey, featureFlagKey, environmentKeyQuery |
+| updateFeatureFlag | projectKey, featureFlagKey, patchComment |
 | toggleFeatureFlag | projectKey, featureFlagKey, environmentKeyQuery, enabled |
+| migrateFeatureFlag | projectKey, featureFlagKey, fromEnv, toEnv, includeState |
+
+> migrateFeatureFlag mode is used to copy flag attributes between environments.  This covers: targets, rules, fallthrough, offVariation, prerequisites and optionally the flag on/off state.
 
 ### Custom roles
 
@@ -89,7 +108,7 @@ The command line modes and parameters map directly to the functions exposed for 
 - `bulkUpsertCustomRoleFolder` mode does the same on a folder of json files.
 
 ```
-npm run api -- bulkUpsertCustomRoles ./exampleRoleBulkLoad.json
+ldutils bulkUpsertCustomRoles ./exampleRoleBulkLoad.json
 ```
 
 For details on role policy object structures, please see: https://docs.launchdarkly.com/docs/custom-roles
