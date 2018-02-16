@@ -4,7 +4,6 @@
   "description": "NodeJs utils to manage LaunchDarkly SaaS Feature Flags via API",
   "main": "index.js",
   "scripts": {
-    "api": "node ./dist/api.js",
     "build": "npm run lint && rimraf dist/ && babel ./src --out-dir dist/src --copy-files && babel ./test --out-dir dist/test --copy-files && babel ./*.js --out-dir dist/ --copy-files && cp swagger.yaml dist/",
     "commit": "./node_modules/.bin/git-cz",
     "lint": "node ./node_modules/.bin/eslint ./src ./test --fix --ext=.js --ignore-pattern node_modules/ --ignore-pattern dist/ --ignore-pattern coverage/ --quiet",
@@ -35,7 +34,6 @@
     "globule": "^1.2.0",
     "js-yaml": "^3.10.0",
     "json-format": "^1.0.1",
-    "ldclient-node": "^3.3.2",
     "swagger-client": "^3.4.7",
     "webpack": "^3.10.0"
   },
