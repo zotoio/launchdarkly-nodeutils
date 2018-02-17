@@ -1,0 +1,24 @@
+{
+  "_links": {
+    "parent": {
+      "href": "/api/v2/roles",
+      "type": "application/json"
+    },
+    "self": {
+      "href": "/api/v2/roles/test-role",
+      "type": "application/json"
+    }
+  },
+  "name": "test role",
+  "key": "test-role",
+  "description": "Allow access to production",
+  "_id": "5a580a01b4ff89217bdf9dc1",
+  "policy": [{
+    "resources": ["proj/*:env/production"],
+    "actions": ["*"],
+    "effect": "allow"
+  }],
+  "_access": {
+    "denied": []
+  }
+}
