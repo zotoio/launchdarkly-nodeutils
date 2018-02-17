@@ -2,6 +2,7 @@ import { default as jsonPatch } from 'fast-json-patch';
 import { default as fs } from 'fs';
 import { default as path } from 'path';
 import { default as globule } from 'globule';
+import { default as _ } from 'lodash';
 
 export class LaunchDarklyUtilsRoles {
     constructor(apiClient, log) {
@@ -35,6 +36,22 @@ export class LaunchDarklyUtilsRoles {
                 docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
             };
         }
+    }
+
+    async getCustomRoleById(customRoleId) {
+        return this.apiClient.apis[this.API_GROUP].getCustomRoles().then(roleList => {
+            let roles = _.filter(roleList.body.items, { _id: customRoleId });
+
+            if (roles.length !== 1) {
+                throw {
+                    api: 'getCustomRoles',
+                    message: `role not found for _id ${customRoleId}`,
+                    docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+                };
+            }
+
+            return this.getCustomRole(roles[0].key);
+        });
     }
 
     async createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {

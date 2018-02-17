@@ -52,6 +52,29 @@ describe('LaunchDarklyUtilsRoles', function() {
         });
     });
 
+    describe('getCustomRoleById', function() {
+        before(done => {
+            let scope = nock('https://app.launchdarkly.com')
+                .get('/api/v2/roles')
+                .replyWithFile(200, __dirname + '/fixtures/custom-roles-list.json', {
+                    'Content-Type': 'application/json'
+                })
+                .get('/api/v2/roles/example-role')
+                .replyWithFile(200, __dirname + '/fixtures/custom-roles-get.json', {
+                    'Content-Type': 'application/json'
+                });
+            assert(scope);
+            done();
+        });
+
+        it('should make expected api call and return results', async function() {
+            let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/custom-roles-get.json', 'utf-8'));
+            return ldutils.roles.getCustomRoleById('5a593f890z875421af55d96e').then(actual => {
+                expect(actual.obj).to.deep.equal(expected);
+            });
+        });
+    });
+
     describe('createCustomRole', function() {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')

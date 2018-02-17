@@ -1,0 +1,26 @@
+{
+  "_links": {
+    "parent": {
+      "href": "/api/v2/members",
+      "type": "application/json"
+    },
+    "self": {
+      "href": "/api/v2/members/5a3ad672761af020881a8814",
+      "type": "application/json"
+    },
+    "sendMfaEnableRequest": {
+      "href": "/api/v2/members/5a3ad672761af020881a8814/mfa/request",
+      "type": "application/json"
+    }
+  },
+  "_id": "5a3ad672761af020881a8814",
+  "role": "owner",
+  "email": "owner-sample-account@launchdarkly.com",
+  "_pendingInvite": false,
+  "isBeta": false,
+  "customRoles": [],
+  "mfa": "disabled",
+  "_access": {
+    "denied": []
+  }
+}
