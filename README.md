@@ -83,7 +83,11 @@ The command line modes and parameters map directly to the functions exposed for 
 | toggleFeatureFlag | projectKey, featureFlagKey, environmentKeyQuery, enabled |
 | migrateFeatureFlag | projectKey, featureFlagKey, fromEnv, toEnv, includeState |
 
-> migrateFeatureFlag mode is used to copy flag attributes between environments.  This covers: targets, rules, fallthrough, offVariation, prerequisites and optionally the flag on/off state.
+- `migrateFeatureFlag` mode is used to copy flag attributes between environments.  This covers: targets, rules, fallthrough, offVariation, prerequisites and optionally the flag on/off state. eg. to migrate a flag from dev to test env.
+
+```
+ldutils migrateFeatureFlag my-project my-flag dev test
+```
 
 ### Custom roles
 
@@ -91,6 +95,7 @@ The command line modes and parameters map directly to the functions exposed for 
 | ---- | ---------- |
 | getCustomRoles | none |
 | getCustomRole | customRoleKey |
+| getCustomRoleById | customRoleId |
 | createCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | updateCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
 | upsertCustomRole | customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription(optional) |
@@ -102,6 +107,15 @@ The command line modes and parameters map directly to the functions exposed for 
 
 ```
 ldutils bulkUpsertCustomRoles ./exampleRoleBulkLoad.json
+ldutils bulkUpsertCustomRoleFolder ./companyRoles
 ```
 
 For details on role policy object structures, please see: https://docs.launchdarkly.com/docs/custom-roles
+
+### Team members
+
+| Mode | parameters |
+| ---- | ---------- |
+| getTeamMembers | none |
+| getTeamMember | memberId |
+| getTeamMemberByEmail | emailAddress |

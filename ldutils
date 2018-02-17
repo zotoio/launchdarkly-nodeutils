@@ -89,6 +89,15 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         });
 
     program
+        .command('getCustomRoleById <customRoleId>')
+        .description('get custom role by id')
+        .action(function(customRoleId) {
+            ldUtils.roles.getCustomRoleById(customRoleId).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
         .command(`createCustomRole <customRoleKey> <customRoleName> <customRolePolicyArray> [customRoleDescription]`)
         .description('create custom role')
         .action(function(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
@@ -132,6 +141,33 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         .description('path to a directory containing multiple files of role json')
         .action(function(roleFolder) {
             ldUtils.roles.bulkUpsertCustomRoleFolder(roleFolder).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('getTeamMembers')
+        .description('list all team members in account')
+        .action(function() {
+            ldUtils.members.getTeamMembers().then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('getTeamMember <memberId>')
+        .description('list all team members in account')
+        .action(function(memberId) {
+            ldUtils.members.getTeamMember(memberId).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('getTeamMemberByEmail <emailAddress>')
+        .description('list all team members in account')
+        .action(function(emailAddress) {
+            ldUtils.members.getTeamMemberByEmail(emailAddress).then(function(response) {
                 console.log(json.plain(response));
             });
         });

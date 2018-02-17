@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "_links": {
+        "parent": {
+          "href": "/api/v2/members",
+          "type": "application/json"
+        }
+      },
+      "_id": "599335395c0a211d59c7ae30",
+      "firstName": "Member",
+      "lastName": "One",
+      "role": "admin",
+      "email": "Member.NumeroUno@example.com",
+      "_pendingInvite": true,
+      "isBeta": false,
+      "customRoles": [],
+      "mfa": "disabled",
+      "_access": null
+    },
+    {
+      "_links": {
+        "parent": {
+          "href": "/api/v2/members",
+          "type": "application/json"
+        }
+      },
+      "_id": "599335395c0a211d59c7ae31",
+      "firstName": "Member",
+      "lastName": "Two",
+      "role": "reader",
+      "email": "Member.TheSecond@example.com",
+      "_pendingInvite": true,
+      "isBeta": false,
+      "customRoles": [
+        "ab412d4",
+        "a4fe934"
+      ],
+      "mfa": "disabled",
+      "_access": null
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "/api/v2/members",
+      "type": "application/json"
+    }
+  }
+}

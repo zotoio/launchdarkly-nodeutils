@@ -1,3 +1,4 @@
+import { LaunchDarklyUtilsMembers } from './LaunchDarklyUtilsMembers';
 import { LaunchDarklyUtilsFlags } from './LaunchDarklyUtilsFlags';
 import { LaunchDarklyUtilsRoles } from './LaunchDarklyUtilsRoles';
 import { LaunchDarklyApiClient } from './LaunchDarklyApiClient';
@@ -21,6 +22,7 @@ export class LaunchDarklyUtils {
                 // attach utils
                 that.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log);
                 that.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log);
+                that.members = new LaunchDarklyUtilsMembers(this.apiClient, this.log);
                 that.log.debug(`utils ready.`);
             } catch (e) {
                 return reject(e);
