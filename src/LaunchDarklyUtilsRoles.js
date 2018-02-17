@@ -17,7 +17,11 @@ export class LaunchDarklyUtilsRoles {
         try {
             return this.apiClient.apis[this.API_GROUP].getCustomRoles();
         } catch (e) {
-            throw { api: 'getCustomRoles', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles' };
+            throw {
+                api: 'getCustomRoles',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+            };
         }
     }
 
@@ -25,7 +29,11 @@ export class LaunchDarklyUtilsRoles {
         try {
             return this.apiClient.apis[this.API_GROUP].getCustomRole({ customRoleKey: customRoleKey });
         } catch (e) {
-            throw { api: 'getCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles' };
+            throw {
+                api: 'getCustomRole',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+            };
         }
     }
 
@@ -39,7 +47,11 @@ export class LaunchDarklyUtilsRoles {
         try {
             return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole });
         } catch (e) {
-            throw { api: 'postCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/create-custom-role' };
+            throw {
+                api: 'postCustomRole',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/create-custom-role'
+            };
         }
     }
 
@@ -66,7 +78,11 @@ export class LaunchDarklyUtilsRoles {
                         patchDelta: patchDelta
                     });
                 } catch (e) {
-                    throw { api: 'patchCustomRole', message: e.message, docs: 'https://apidocs.launchdarkly.com/docs/update-custom-role' };
+                    throw {
+                        api: 'patchCustomRole',
+                        message: e.message,
+                        docs: 'https://apidocs.launchdarkly.com/docs/update-custom-role'
+                    };
                 }
             });
     }
@@ -76,7 +92,7 @@ export class LaunchDarklyUtilsRoles {
         return this.getCustomRole(customRoleKey)
 
             .then(() => {
-                that.log.info(`Role '${customRoleKey}' Found, Updating...`);
+                that.log.debug(`Role '${customRoleKey}' Found, Updating...`);
                 return this.updateCustomRole(
                     customRoleKey,
                     customRoleName,
@@ -85,9 +101,8 @@ export class LaunchDarklyUtilsRoles {
                 );
             })
 
-            .catch(e => {
-                that.log.error(e);
-                that.log.info(`Role '${customRoleKey}' Not Found, Creating...`);
+            .catch(() => {
+                that.log.debug(`Role '${customRoleKey}' Not Found, Creating...`);
                 return this.createCustomRole(
                     customRoleKey,
                     customRoleName,
@@ -102,7 +117,7 @@ export class LaunchDarklyUtilsRoles {
         let roles = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
         let that = this;
 
-        this.log.info(`Bulk Upserting Roles from File: ${filePath}`);
+        this.log.debug(`Bulk Upserting Roles from File: ${filePath}`);
 
         return roles.reduce(function(acc, role) {
             return acc.then(function(results) {
@@ -117,12 +132,12 @@ export class LaunchDarklyUtilsRoles {
     async bulkUpsertCustomRoleFolder(roleFolder) {
         let folderPath = path.normalize(path.resolve(roleFolder));
         let globMatch = folderPath + '/*.json';
-        this.log.info(`Looking for Files with Pattern '${globMatch}'`);
+        this.log.debug(`Looking for Files with Pattern '${globMatch}'`);
         let fileArray = globule.find(globMatch);
         let results = [];
         let that = this;
         fileArray.forEach(async function(file) {
-            that.log.info(`Found File '${file}'. Calling 'bulkUpsertCustomRoles'`);
+            that.log.debug(`Found File '${file}'. Calling 'bulkUpsertCustomRoles'`);
             let result = await that.bulkUpsertCustomRoles(file);
             results.push(result);
         });

@@ -1,0 +1,27 @@
+{
+  "_links": {
+    "parent": {
+      "href": "/api/v2/roles",
+      "type": "application/json"
+    },
+    "self": {
+      "href": "/api/v2/roles/example-role",
+      "type": "application/json"
+    }
+  },
+  "name": "example role",
+  "key": "example-role",
+  "description": "sets a good example",
+  "_id": "5a554j890b575421b255d96e",
+  "policy": [
+    {
+      "resources": [
+        "proj/*:env/test"
+      ],
+      "actions": [
+        "*"
+      ],
+      "effect": "deny"
+    }
+  ]
+}

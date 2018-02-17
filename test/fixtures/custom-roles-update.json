@@ -1,0 +1,30 @@
+{
+  "_links": {
+    "parent": {
+      "href": "/api/v2/roles",
+      "type": "application/json"
+    },
+    "self": {
+      "href": "/api/v2/roles/role-role",
+      "type": "application/json"
+    }
+  },
+  "name": "sample role",
+  "key": "sample-role",
+  "description": "stuff",
+  "_id": "5a5806c35bdd0d2171353753",
+  "policy": [
+    {
+      "resources": [
+        "proj/*:env/production"
+      ],
+      "actions": [
+        "*"
+      ],
+      "effect": "allow"
+    }
+  ],
+  "_access": {
+    "denied": []
+  }
+}

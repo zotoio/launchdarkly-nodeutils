@@ -1,0 +1,202 @@
+{
+  "items": [
+    {
+      "name": "Alternate product page",
+      "kind": "boolean",
+      "description": "This is a description",
+      "key": "alternate.page",
+      "creationDate": 1418684722483,
+      "includeInSnippet": true,
+      "variations": [
+        {
+          "value": true,
+          "name": "true"
+        },
+        {
+          "value": false,
+          "name": "false"
+        }
+      ],
+      "temporary": false,
+      "tags": [
+        "ops",
+        "experiments"
+      ],
+      "_links": {
+        "parent": {
+          "href": "/api/v2/flags/default",
+          "type": "application/json"
+        },
+        "self": {
+          "href": "/api/v2/flags/default/alternate.page",
+          "type": "application/json"
+        }
+      },
+      "maintainerId": "548f6741c1efad40031b18ae",
+      "_maintainer": {
+        "_links": {
+          "parent": {
+            "href": "/internal/account/members",
+            "type": "application/json"
+          },
+          "self": {
+            "href": "/internal/account/members/548f6741c1efad40031b18ae",
+            "type": "application/json"
+          }
+        },
+        "_id": "548f6741c1efad40031b18ae",
+        "firstName": "Reese",
+        "lastName": "Applebaum",
+        "role": "owner",
+        "email": "refapp@launchdarkly.com",
+        "_pendingInvite": false,
+        "isBeta": false,
+        "customRoles": []
+      },
+      "goalIds": [],
+      "environments": {
+        "production": {
+          "on": false,
+          "archived": false,
+          "salt": "YWx0ZXJuYXRlLnBhZ2U=",
+          "sel": "45501b9314dc4641841af774cb038b96",
+          "lastModified": 1469326565348,
+          "version": 65,
+          "targets": [
+            {
+              "values": [
+                "1461797806427-7-115540266",
+                "00142875-a39d-4028-a3b7-987ccd151649"
+              ],
+              "variation": 0
+            },
+            {
+              "values": [
+                "Gerhard.Little@yahoo.com"
+              ],
+              "variation": 1
+            }
+          ],
+          "rules": [
+            {
+              "variation": 0,
+              "clauses": [
+                {
+                  "attribute": "groups",
+                  "op": "in",
+                  "values": [
+                    "Top Customers"
+                  ],
+                  "negate": false
+                },
+                {
+                  "attribute": "email",
+                  "op": "endsWith",
+                  "values": [
+                    "gmail.com"
+                  ],
+                  "negate": false
+                },
+                {
+                  "attribute": "lastName",
+                  "op": "in",
+                  "values": [
+                    "Baker"
+                  ],
+                  "negate": false
+                }
+              ]
+            }
+          ],
+          "fallthrough": {
+            "rollout": {
+              "variations": [
+                {
+                  "variation": 0,
+                  "weight": 55000
+                },
+                {
+                  "variation": 1,
+                  "weight": 45000
+                }
+              ]
+            }
+          },
+          "offVariation": 1,
+          "prerequisites": [],
+          "_site": {
+            "href": "/default/production/features/alternate.page",
+            "type": "text/html"
+          }
+        }
+      }
+    },
+    {
+      "name": "New dashboard",
+      "kind": "boolean",
+      "key": "new.dashboard.enable",
+      "creationDate": 1419030416299,
+      "includeInSnippet": false,
+      "variations": [
+        {
+          "value": true,
+          "name": "true"
+        },
+        {
+          "value": false,
+          "name": "false"
+        }
+      ],
+      "temporary": false,
+      "tags": [],
+      "_links": {
+        "parent": {
+          "href": "/api/v2/flags/default",
+          "type": "application/json"
+        },
+        "self": {
+          "href": "/api/v2/flags/default/new.dashboard.enable",
+          "type": "application/json"
+        }
+      },
+      "goalIds": [],
+      "environments": {
+        "production": {
+          "on": false,
+          "archived": false,
+          "salt": "bmV3LmRhc2hib2FyZC5lbmFibGU=",
+          "sel": "a2a85b7d62614a769cd43e383a393336",
+          "lastModified": 1467316590766,
+          "version": 37,
+          "targets": [
+            {
+              "values": [
+                "Ernesto.Gidney@example.com",
+                "000d8dca-5c71-4de3-8405-16b219d07718",
+                "00045aff-915e-46ab-bd56-d0042688fa02",
+                "1461797806427-7-115540266"
+              ],
+              "variation": 0
+            }
+          ],
+          "rules": [],
+          "fallthrough": {
+            "variation": 0
+          },
+          "offVariation": 1,
+          "prerequisites": [],
+          "_site": {
+            "href": "/default/production/features/new.dashboard.enable",
+            "type": "text/html"
+          }
+        }
+      }
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "/api/v2/flags/default",
+      "type": "application/json"
+    }
+  }
+}
