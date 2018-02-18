@@ -71,7 +71,7 @@ export class LaunchDarklyUtilsFlags {
      * Get the boolean state of a single feature flag by key, and optional environment
      * @param {string} projectKey - project identifier
      * @param {string} featureFlagKey - feature flag identifier
-     * @param {string} environmentKeyQuery - optional environment name
+     * @param {string} environmentKeyQuery - environment name
      * @returns {Promise}
      * @fulfil {boolean} true/false
      * @reject {Error} object with message
@@ -108,10 +108,10 @@ export class LaunchDarklyUtilsFlags {
     }
 
     /**
-     * Set the boolean state of a single feature flag by key, and optional environment
+     * Set the boolean state of a single feature flag by key, and environment name
      * @param {string} projectKey - project identifier
      * @param {string} featureFlagKey - feature flag identifier
-     * @param {string} environmentKeyQuery - optional environment name
+     * @param {string} environmentKeyQuery - environment name
      * @param {boolean} value - true or false
      * @returns {Promise}
      * @fulfil {Object} updated feature flag json
