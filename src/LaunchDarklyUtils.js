@@ -6,12 +6,13 @@ import { LaunchDarklyLogger } from './LaunchDarklyLogger';
 import { default as dotenv } from 'dotenv';
 dotenv.config();
 
-// Class representing ldutils api
+/**
+ * @class
+ */
 export class LaunchDarklyUtils {
     /**
      * Create an instance of ldutils with api specific classes attached. This is the primary class used to access apis,
      * as api grouping util classes are attached to this class.
-     * @constructor LaunchDarklyUtils
      * @param {string} API_TOKEN - from LaunchDarkly dashboard
      * @param { Object } customLogger - logger implementation, or 'console'. If not supplied, defaults to Bunyan logger
      * @returns {Promise}

@@ -48,14 +48,15 @@ Get handle on Bunyan logger.  This is the default logger if not supplied to util
 
 ## LaunchDarklyUtils
 **Kind**: global class  
-**Fulfil**: [<code>LaunchDarklyUtils</code>](#LaunchDarklyUtils)  
-**Reject**: <code>Error</code> object with message  
-<a name="new_LaunchDarklyUtils_new"></a>
+<a name="LaunchDarklyUtils+create"></a>
 
-### new LaunchDarklyUtils(API_TOKEN, customLogger)
+### launchDarklyUtils.create(API_TOKEN, customLogger) ⇒ <code>Promise</code>
 Create an instance of ldutils with api specific classes attached. This is the primary class used to access apis,
 as api grouping util classes are attached to this class.
 
+**Kind**: instance method of [<code>LaunchDarklyUtils</code>](#LaunchDarklyUtils)  
+**Fulfil**: [<code>LaunchDarklyUtils</code>](#LaunchDarklyUtils)  
+**Reject**: <code>Error</code> object with message  
 
 | Param | Type | Description |
 | --- | --- | --- |
