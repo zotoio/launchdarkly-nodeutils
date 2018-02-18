@@ -1,16 +1,35 @@
 import { default as json } from 'format-json';
 import { default as jsonPatch } from 'fast-json-patch';
 
+// Class representing Feature flag functionality
 export class LaunchDarklyUtilsFlags {
+    /**
+     * Feature flag specific api functions attached as 'LaunchDarklyUtils.flags'
+     * @constructor LaunchDarklyUtilsFlags
+     * @param { Swagger } apiClient - generated launchdarkly apiClient
+     * @param { Object } log - logger implementation, or 'console'
+     * @returns { LaunchDarklyUtilsFlags } feature flag api functions
+     */
     constructor(apiClient, log) {
         this.log = log;
         this.apiClient = apiClient;
     }
 
+    /**
+     * Api group object key in LD api
+     * @returns {string}
+     */
     get API_GROUP() {
         return 'Feature flags';
     }
 
+    /**
+     * Get all feature flags in project
+     * @param {string} projectKey - project identifier
+     * @returns {Promise}
+     * @fulfil {Object} feature flag list json
+     * @reject {Error} object with message
+     */
     async getFeatureFlags(projectKey) {
         try {
             return this.apiClient.apis[this.API_GROUP].getFeatureFlags({ projectKey: projectKey });
@@ -23,6 +42,15 @@ export class LaunchDarklyUtilsFlags {
         }
     }
 
+    /**
+     * Get a single feature flag by key, and optional environment
+     * @param {string} projectKey - project identifier
+     * @param {string} featureFlagKey - feature flag identifier
+     * @param {string} environmentKeyQuery - optional environment name
+     * @returns {Promise}
+     * @fulfil {Object} feature flag json
+     * @reject {Error} object with message
+     */
     async getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery) {
         try {
             return this.apiClient.apis[this.API_GROUP].getFeatureFlag({
@@ -39,12 +67,30 @@ export class LaunchDarklyUtilsFlags {
         }
     }
 
+    /**
+     * Get the boolean state of a single feature flag by key, and optional environment
+     * @param {string} projectKey - project identifier
+     * @param {string} featureFlagKey - feature flag identifier
+     * @param {string} environmentKeyQuery - optional environment name
+     * @returns {Promise}
+     * @fulfil {boolean} true/false
+     * @reject {Error} object with message
+     */
     async getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery) {
         return this.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery).then(result => {
             return result.obj.environments[environmentKeyQuery].on;
         });
     }
 
+    /**
+     * patch a feature flag by key
+     * @param {string} projectKey - project identifier
+     * @param {string} featureFlagKey - feature flag identifier
+     * @param {Array<Object>} patchComment - array of valid json patch descriptors
+     * @returns {Promise}
+     * @fulfil {Object} updated feature flag json
+     * @reject {Error} object with message
+     */
     async updateFeatureFlag(projectKey, featureFlagKey, patchComment) {
         try {
             return this.apiClient.apis[this.API_GROUP].patchFeatureFlag({
@@ -61,12 +107,34 @@ export class LaunchDarklyUtilsFlags {
         }
     }
 
+    /**
+     * Set the boolean state of a single feature flag by key, and optional environment
+     * @param {string} projectKey - project identifier
+     * @param {string} featureFlagKey - feature flag identifier
+     * @param {string} environmentKeyQuery - optional environment name
+     * @param {boolean} value - true or false
+     * @returns {Promise}
+     * @fulfil {Object} updated feature flag json
+     * @reject {Error} object with message
+     */
     async toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value) {
         return this.updateFeatureFlag(projectKey, featureFlagKey, [
             { op: 'replace', path: `/environments/${environmentKeyQuery}/on`, value: value }
         ]);
     }
 
+    /**
+     * Migrate feature flag properties between environments in a project. this includes:
+     * targets, rules, fallthrough, offVariation, prerequisites and optionally the flags on/off state.
+     * @param {string} projectKey - project identifier
+     * @param {string} featureFlagKey - feature flag identifier
+     * @param {string} fromEnv - environment to copy flag attributes from
+     * @param {string} toEnv - environment to copy flag attributes to
+     * @param {boolean} includeState - optionally copy boolean state true/false
+     * @returns {Promise}
+     * @fulfil {Object} updated feature flag json
+     * @reject {Error} object with message
+     */
     async migrateFeatureFlag(projectKey, featureFlagKey, fromEnv, toEnv, includeState) {
         let that = this;
 

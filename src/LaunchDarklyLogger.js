@@ -15,7 +15,14 @@ let LOG = bunyan.createLogger({
     ]
 });
 
+/**
+ * @class
+ */
 export class LaunchDarklyLogger {
+    /**
+     * Get handle on Bunyan logger.  This is the default logger if not supplied to utils.
+     * @returns {Logger}
+     */
     static logger() {
         return LOG;
     }

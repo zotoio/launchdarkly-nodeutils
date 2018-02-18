@@ -13,19 +13,16 @@ LaunchDarkly (https://launchdarkly.com/) provides SaaS based Feature Flag manage
 This unofficial module provides NodeJs functions wrapping the LaunchDarkly API.  This is not the sdk for implementing flags in your app - it is the api to manage your account/flags.
 
 ## Why?
-There does not appear to be a project currently providing a simple interface to manage flags in LaunchDarkly via API in nodejs.  
+There is not another project currently providing a simple interface to manage flags and other objects in LaunchDarkly via API in nodejs.
 
 ## How?
-There is a swagger.yaml available to generate bindings (https://launchdarkly.github.io/ld-openapi/swagger.yaml), so we use the swagger-js module to generate a client (https://github.com/swagger-api/swagger-js), and add some extra features around logging and chaining of operations.
+There is a swagger.yaml available to generate bindings (https://launchdarkly.github.io/ld-openapi/swagger.yaml), so we use the swagger-js module to generate a client (https://github.com/swagger-api/swagger-js), and add some extra features around logging, error handling, and chaining of operations.
 
 ## Install
-1. `npm install launchdarkly-nodeutils --save`
+1. `npm install launchdarkly-nodeutils --save` or clone this repo.
 2. Generate an access token with the permissions for the operations you will use. Please read: https://docs.launchdarkly.com/v2.0/docs/api-access-tokens
 
-## Example usage
-Please note that the api token is not the same as your sdk keys.  You need to generate this for your account in LaunchDarkly console as above, and set it as the LAUNCHDARKLY_API_TOKEN env var.
-
-### commandline usage
+## commandline usage
 After cloning this repo you can make `ldutils` executable, and use it to make api calls based on passed in parameters.
 
 ```
@@ -57,22 +54,17 @@ ldutils getFeatureFlags <myProjectId>
 ldutils upsertCustomRole <customRoleKey> <customRoleName> '[{"resources":["proj/*"],"actions":["*"],"effect":"allow"}]'
 ```
 
-### node app usage
-Assumes that you have set the LAUNCHDARKLY_API_TOKEN environment var.
+### commandline modes and parameters
+The command line modes and parameters map directly to the functions exposed for use in nodejs apps.
+Each call to `ldutils` takes a 'mode', and associated parameters as below:
+
 ```
-let ldUtils = await new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN);
-
-// get flag state
-let flagEnabled = await ldUtils.getFeatureFlagState('myProject', 'feature-abc', 'dev');
-
-// update flag state to on=true
-await ldUtils.toggleFeatureFlag('myProject', 'feature-def', 'dev', true);
+ldutils <mode> [parameter values space separated]
 ```
 
-## commandline modes and parameters
-The command line modes and parameters map directly to the functions exposed for use in nodejs apps.  This info is also available using `ldutils -help`
+The following modes are supported.  This info is also available via: `ldutils -help`
 
-### Feature flags
+#### Feature flags
 
 | Mode | parameters |
 | ---- | ---------- |
@@ -89,7 +81,7 @@ The command line modes and parameters map directly to the functions exposed for 
 ldutils migrateFeatureFlag my-project my-flag dev test
 ```
 
-### Custom roles
+#### Custom roles
 
 | Mode | parameters |
 | ---- | ---------- |
@@ -112,10 +104,39 @@ ldutils bulkUpsertCustomRoleFolder ./companyRoles
 
 For details on role policy object structures, please see: https://docs.launchdarkly.com/docs/custom-roles
 
-### Team members
+#### Team members
 
 | Mode | parameters |
 | ---- | ---------- |
 | getTeamMembers | none |
 | getTeamMember | memberId |
 | getTeamMemberByEmail | emailAddress |
+
+## node app usage
+Assumes that you have set the LAUNCHDARKLY_API_TOKEN environment var.
+
+```
+let ldUtils = await new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN);
+
+// get flag state
+let flagEnabled = await ldUtils.getFeatureFlagState('myProject', 'feature-abc', 'dev');
+
+// update flag state to on=true
+await ldUtils.toggleFeatureFlag('myProject', 'feature-def', 'dev', true);
+```
+
+> please read the [API documentation](API.md) for further details.
+
+## Contributing
+
+Here is a summary.  For more detail see [Contributing](CONTRIBUTING.md).
+1. Fork this repo and work on your enhancements.  See note on Commitizen below.
+2. Ensure that you include unit tests and jsdoc annotations.
+3. Ensure that `npm test` passes.
+4. Raise a pull request
+
+### Commitizen
+This project uses commitizen for conventional commit messages via `git cz` instead of `git commit`.
+The reason for this is that it attaches meaning to each commit that is useful to others, and that is used to automatically version new releases based on http://semver.org
+
+> Just use `npm run commit` instead of git commit and follow instructions.

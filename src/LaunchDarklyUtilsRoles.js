@@ -4,16 +4,34 @@ import { default as path } from 'path';
 import { default as globule } from 'globule';
 import { default as _ } from 'lodash';
 
+// Class representing Custom role functionality
 export class LaunchDarklyUtilsRoles {
+    /**
+     * Custom role specific api functions attached as 'LaunchDarklyUtils.roles'
+     * @constructor LaunchDarklyUtilsRoles
+     * @param { Swagger } apiClient - generated launchdarkly apiClient
+     * @param { Object } log - logger implementation, or 'console'
+     * @returns { LaunchDarklyUtilsRoles } custom flag api functions
+     */
     constructor(apiClient, log) {
         this.log = log;
         this.apiClient = apiClient;
     }
 
+    /**
+     * Api group object key in LD api
+     * @returns {string}
+     */
     get API_GROUP() {
         return 'Custom roles';
     }
 
+    /**
+     * Get all custom roles in account
+     * @returns {Promise}
+     * @fulfil {Object} custom role list json
+     * @reject {Error} object with message
+     */
     async getCustomRoles() {
         try {
             return this.apiClient.apis[this.API_GROUP].getCustomRoles();
@@ -26,6 +44,13 @@ export class LaunchDarklyUtilsRoles {
         }
     }
 
+    /**
+     * Get a single custom role by key
+     * @param {string} customRoleKey - custom role key
+     * @returns {Promise}
+     * @fulfil {Object} custom role json
+     * @reject {Error} object with message
+     */
     async getCustomRole(customRoleKey) {
         try {
             return this.apiClient.apis[this.API_GROUP].getCustomRole({ customRoleKey: customRoleKey });
@@ -38,6 +63,13 @@ export class LaunchDarklyUtilsRoles {
         }
     }
 
+    /**
+     * Get a single role by _id
+     * @param {string} customRoleId - custom role _id
+     * @returns {Promise}
+     * @fulfil {Object} custom role json
+     * @reject {Error} object with message
+     */
     async getCustomRoleById(customRoleId) {
         return this.apiClient.apis[this.API_GROUP].getCustomRoles().then(roleList => {
             let roles = _.filter(roleList.body.items, { _id: customRoleId });
@@ -54,6 +86,16 @@ export class LaunchDarklyUtilsRoles {
         });
     }
 
+    /**
+     * Create a new custom role
+     * @param {string} customRoleKey - custom role key
+     * @param {string} customRoleName - custom role name
+     * @param {string} customRolePolicyArray - array of policy objects per https://docs.launchdarkly.com/docs/custom-roles
+     * @param {string} customRoleDescription - user friendly description
+     * @returns {Promise}
+     * @fulfil {Object} custom role json
+     * @reject {Error} object with message
+     */
     async createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
         let customRole = {
             name: customRoleName,
@@ -72,6 +114,16 @@ export class LaunchDarklyUtilsRoles {
         }
     }
 
+    /**
+     * Update an existing custom role
+     * @param {string} customRoleKey - custom role key
+     * @param {string} customRoleName - custom role name
+     * @param {string} customRolePolicyArray - array of policy objects per https://docs.launchdarkly.com/docs/custom-roles
+     * @param {string} customRoleDescription - user friendly description
+     * @returns {Promise}
+     * @fulfil {Object} updated custom role json
+     * @reject {Error} object with message
+     */
     async updateCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
         let updatedCustomRole = {
             name: customRoleName,
@@ -104,6 +156,16 @@ export class LaunchDarklyUtilsRoles {
             });
     }
 
+    /**
+     * Check for existence of role by key; update if exists, otherwise create new role
+     * @param {string} customRoleKey - custom role key
+     * @param {string} customRoleName - custom role name
+     * @param {string} customRolePolicyArray - array of policy objects per https://docs.launchdarkly.com/docs/custom-roles
+     * @param {string} customRoleDescription - user friendly description
+     * @returns {Promise}
+     * @fulfil {Object} updated/created custom role json
+     * @reject {Error} object with message
+     */
     async upsertCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
         let that = this;
         return this.getCustomRole(customRoleKey)
@@ -129,6 +191,13 @@ export class LaunchDarklyUtilsRoles {
             });
     }
 
+    /**
+     * Load a file of custom role json, and update/create roles based on this
+     * @param {string} roleBulkLoadFile - path to json file (eg. exampleRoleBulkLoad.json)
+     * @returns {Promise}
+     * @fulfil {Object} array of updated/created role json
+     * @reject {Error} object with message
+     */
     async bulkUpsertCustomRoles(roleBulkLoadFile) {
         let filePath = path.resolve(roleBulkLoadFile);
         let roles = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -146,6 +215,13 @@ export class LaunchDarklyUtilsRoles {
         }, Promise.resolve([]));
     }
 
+    /**
+     * Create/update custom roles based on a folder of multiple json files
+     * @param {string} roleFolder - path to folder containing json
+     * @returns {Promise}
+     * @fulfil {Object} array of updated/created role json
+     * @reject {Error} object with message
+     */
     async bulkUpsertCustomRoleFolder(roleFolder) {
         let folderPath = path.normalize(path.resolve(roleFolder));
         let globMatch = folderPath + '/*.json';

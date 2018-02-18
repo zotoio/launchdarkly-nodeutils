@@ -1,15 +1,33 @@
 import { default as _ } from 'lodash';
 
+// Class representing Team member functionality
 export class LaunchDarklyUtilsMembers {
+    /**
+     * Team member specific api functions attached as 'LaunchDarklyUtils.members'
+     * @constructor LaunchDarklyUtilsMembers
+     * @param { Swagger } apiClient - generated launchdarkly apiClient
+     * @param { Object } log - logger implementation, or 'console'
+     * @returns { LaunchDarklyUtilsMembers } team member api functions
+     */
     constructor(apiClient, log) {
         this.log = log;
         this.apiClient = apiClient;
     }
 
+    /**
+     * Api group object key in LD api
+     * @returns {string}
+     */
     get API_GROUP() {
         return 'Team members';
     }
 
+    /**
+     * Get all team members in account
+     * @returns {Promise}
+     * @fulfil {Object} team member list json
+     * @reject {Error} object with message
+     */
     async getTeamMembers() {
         try {
             return this.apiClient.apis[this.API_GROUP].getMembers();
@@ -22,6 +40,13 @@ export class LaunchDarklyUtilsMembers {
         }
     }
 
+    /**
+     * get a single team member by id
+     * @param memberId - _id field of team member
+     * @returns {Promise}
+     * @fulfil {Object} team member object json
+     * @reject {Error} object with message
+     */
     async getTeamMember(memberId) {
         try {
             return this.apiClient.apis[this.API_GROUP].getMember({ memberId: memberId });
@@ -34,6 +59,13 @@ export class LaunchDarklyUtilsMembers {
         }
     }
 
+    /**
+     * Get a team member using a supplied email address
+     * @param {string} emailAddress - email address of member to locate
+     * @returns {Promise}
+     * @fulfil {Object} team member json
+     * @reject {Error} object with message
+     */
     async getTeamMemberByEmail(emailAddress) {
         return this.getTeamMembers().then(memberList => {
             let members = _.filter(memberList.body.items, { email: emailAddress });
