@@ -22,7 +22,8 @@ process.on('unhandledRejection', (reason, p) => {
 new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(function(ldUtils) {
 
     program
-        .version('0.1.0');
+        .version('1.0.0')
+        .description('Manage LaunchDarkly flags and other assets from the command line.');
 
     program
         .command('getFeatureFlags <projectKey>')
@@ -156,7 +157,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
 
     program
         .command('getTeamMember <memberId>')
-        .description('list all team members in account')
+        .description('get a team members by id')
         .action(function(memberId) {
             ldUtils.members.getTeamMember(memberId).then(function(response) {
                 console.log(json.plain(response));
@@ -165,12 +166,16 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
 
     program
         .command('getTeamMemberByEmail <emailAddress>')
-        .description('list all team members in account')
+        .description('get a team member by email address')
         .action(function(emailAddress) {
             ldUtils.members.getTeamMemberByEmail(emailAddress).then(function(response) {
                 console.log(json.plain(response));
             });
         });
+
+    program.on('--help', function() {
+        console.log('\n  See https://github.com/wyvern8/launchdarkly-nodeutils for details.\n');
+    });
 
     if (process.argv.length < 3) {
         program.help();

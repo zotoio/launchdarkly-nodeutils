@@ -13,10 +13,11 @@ LaunchDarkly (https://launchdarkly.com/) provides SaaS based Feature Flag manage
 This unofficial module provides NodeJs functions wrapping the LaunchDarkly API.  This is not the sdk for implementing flags in your app - it is the api to manage your account/flags.
 
 ## Why?
-There is not another project currently providing a simple interface to manage flags and other objects in LaunchDarkly via API in nodejs.
+We need a way to manage flags as part of CI/CD pipelines, and there is not another project currently providing a simple interface to manage flags and other objects in LaunchDarkly via API in nodejs.
 
 ## How?
 There is a swagger.yaml available to generate bindings (https://launchdarkly.github.io/ld-openapi/swagger.yaml), so we use the swagger-js module to generate a client (https://github.com/swagger-api/swagger-js), and add some extra features around logging, error handling, and chaining of operations.
+In addition we expose apis as a commandline tool.
 
 ## Install
 1. `npm install launchdarkly-nodeutils --save` or clone this repo.
@@ -82,6 +83,8 @@ ldutils migrateFeatureFlag my-project my-flag dev test
 ```
 
 #### Custom roles
+
+Custom role functionality requires an Enterprise LaunchDarkly account.
 
 | Mode | parameters |
 | ---- | ---------- |
