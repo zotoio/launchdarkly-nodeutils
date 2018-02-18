@@ -137,7 +137,7 @@ Get the boolean state of a single feature flag by key, and optional environment
 | --- | --- | --- |
 | projectKey | <code>string</code> | project identifier |
 | featureFlagKey | <code>string</code> | feature flag identifier |
-| environmentKeyQuery | <code>string</code> | optional environment name |
+| environmentKeyQuery | <code>string</code> | environment name |
 
 <a name="LaunchDarklyUtilsFlags+updateFeatureFlag"></a>
 
@@ -157,7 +157,7 @@ patch a feature flag by key
 <a name="LaunchDarklyUtilsFlags+toggleFeatureFlag"></a>
 
 ### launchDarklyUtilsFlags.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value) ⇒ <code>Promise</code>
-Set the boolean state of a single feature flag by key, and optional environment
+Set the boolean state of a single feature flag by key, and environment name
 
 **Kind**: instance method of [<code>LaunchDarklyUtilsFlags</code>](#LaunchDarklyUtilsFlags)  
 **Fulfil**: <code>Object</code> updated feature flag json  
@@ -167,7 +167,7 @@ Set the boolean state of a single feature flag by key, and optional environment
 | --- | --- | --- |
 | projectKey | <code>string</code> | project identifier |
 | featureFlagKey | <code>string</code> | feature flag identifier |
-| environmentKeyQuery | <code>string</code> | optional environment name |
+| environmentKeyQuery | <code>string</code> | environment name |
 | value | <code>boolean</code> | true or false |
 
 <a name="LaunchDarklyUtilsFlags+migrateFeatureFlag"></a>
