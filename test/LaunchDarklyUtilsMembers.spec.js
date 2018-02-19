@@ -1,4 +1,5 @@
 import { default as fs } from 'fs';
+import { default as _ } from 'lodash';
 import { expect } from 'chai';
 import { default as assert } from 'assert';
 import { describe, it, before, beforeEach } from 'mocha';
@@ -28,7 +29,7 @@ describe('LaunchDarklyUtilsMembers', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-list.json', 'utf-8'));
             return ldutils.members.getTeamMembers().then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -47,7 +48,7 @@ describe('LaunchDarklyUtilsMembers', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-get.json', 'utf-8'));
             return ldutils.members.getTeamMember('5a3ad672761af020881a8814').then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -58,9 +59,29 @@ describe('LaunchDarklyUtilsMembers', function() {
                 .get('/api/v2/members')
                 .replyWithFile(200, __dirname + '/fixtures/team-members-list.json', {
                     'Content-Type': 'application/json'
+                });
+            assert(scope);
+            done();
+        });
+
+        it('should make expected api call and return results', async function() {
+            let memberList = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-list.json', 'utf-8'));
+            let expected = _.filter(memberList.items, { email: 'Member.TheSecond@example.com' })[0];
+            return ldutils.members.getTeamMemberByEmail('Member.TheSecond@example.com').then(actual => {
+                expect(actual).to.deep.equal(expected);
+            });
+        });
+    });
+
+    describe('getTeamMemberCustomRoles', function() {
+        before(done => {
+            let scope = nock('https://app.launchdarkly.com')
+                .get('/api/v2/members')
+                .replyWithFile(200, __dirname + '/fixtures/team-members-list.json', {
+                    'Content-Type': 'application/json'
                 })
-                .get('/api/v2/members/599335395c0a211d59c7ae31')
-                .replyWithFile(200, __dirname + '/fixtures/team-members-get.json', {
+                .get('/api/v2/roles')
+                .replyWithFile(200, __dirname + '/fixtures/custom-roles-list.json', {
                     'Content-Type': 'application/json'
                 });
             assert(scope);
@@ -68,9 +89,12 @@ describe('LaunchDarklyUtilsMembers', function() {
         });
 
         it('should make expected api call and return results', async function() {
-            let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-get.json', 'utf-8'));
-            return ldutils.members.getTeamMemberByEmail('Member.TheSecond@example.com').then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+            let teamMembers = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-list.json', 'utf-8'));
+            let member = _.filter(teamMembers.items, { email: 'Member.TheSecond@example.com' })[0];
+            let expected = _.cloneDeep(member);
+            expected.customRoleKeys = ['example-role'];
+            return ldutils.members.getTeamMemberCustomRoles('Member.TheSecond@example.com').then(actual => {
+                expect(actual).to.deep.equal(expected);
             });
         });
     });

@@ -69,7 +69,7 @@ as api grouping util classes are attached to this class.
 **Kind**: global class  
 
 * [LaunchDarklyUtilsFlags](#LaunchDarklyUtilsFlags)
-    * [new LaunchDarklyUtilsFlags(apiClient, log)](#new_LaunchDarklyUtilsFlags_new)
+    * [new LaunchDarklyUtilsFlags(apiClient, log, ldUtils)](#new_LaunchDarklyUtilsFlags_new)
     * [.API_GROUP](#LaunchDarklyUtilsFlags+API_GROUP) ⇒ <code>string</code>
     * [.getFeatureFlags(projectKey)](#LaunchDarklyUtilsFlags+getFeatureFlags) ⇒ <code>Promise</code>
     * [.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery)](#LaunchDarklyUtilsFlags+getFeatureFlag) ⇒ <code>Promise</code>
@@ -80,7 +80,7 @@ as api grouping util classes are attached to this class.
 
 <a name="new_LaunchDarklyUtilsFlags_new"></a>
 
-### new LaunchDarklyUtilsFlags(apiClient, log)
+### new LaunchDarklyUtilsFlags(apiClient, log, ldUtils)
 Feature flag specific api functions attached as 'LaunchDarklyUtils.flags'
 
 **Returns**: [<code>LaunchDarklyUtilsFlags</code>](#LaunchDarklyUtilsFlags) - feature flag api functions  
@@ -89,6 +89,7 @@ Feature flag specific api functions attached as 'LaunchDarklyUtils.flags'
 | --- | --- | --- |
 | apiClient | <code>Swagger</code> | generated launchdarkly apiClient |
 | log | <code>Object</code> | logger implementation, or 'console' |
+| ldUtils | [<code>LaunchDarklyUtils</code>](#LaunchDarklyUtils) | primary utils class |
 
 <a name="LaunchDarklyUtilsFlags+API_GROUP"></a>
 
@@ -194,15 +195,16 @@ targets, rules, fallthrough, offVariation, prerequisites and optionally the flag
 **Kind**: global class  
 
 * [LaunchDarklyUtilsMembers](#LaunchDarklyUtilsMembers)
-    * [new LaunchDarklyUtilsMembers(apiClient, log)](#new_LaunchDarklyUtilsMembers_new)
+    * [new LaunchDarklyUtilsMembers(apiClient, log, ldUtils)](#new_LaunchDarklyUtilsMembers_new)
     * [.API_GROUP](#LaunchDarklyUtilsMembers+API_GROUP) ⇒ <code>string</code>
     * [.getTeamMembers()](#LaunchDarklyUtilsMembers+getTeamMembers) ⇒ <code>Promise</code>
     * [.getTeamMember(memberId)](#LaunchDarklyUtilsMembers+getTeamMember) ⇒ <code>Promise</code>
     * [.getTeamMemberByEmail(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberByEmail) ⇒ <code>Promise</code>
+    * [.getTeamMemberCustomRoles(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberCustomRoles) ⇒ <code>Promise</code>
 
 <a name="new_LaunchDarklyUtilsMembers_new"></a>
 
-### new LaunchDarklyUtilsMembers(apiClient, log)
+### new LaunchDarklyUtilsMembers(apiClient, log, ldUtils)
 Team member specific api functions attached as 'LaunchDarklyUtils.members'
 
 **Returns**: [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers) - team member api functions  
@@ -211,6 +213,7 @@ Team member specific api functions attached as 'LaunchDarklyUtils.members'
 | --- | --- | --- |
 | apiClient | <code>Swagger</code> | generated launchdarkly apiClient |
 | log | <code>Object</code> | logger implementation, or 'console' |
+| ldUtils | [<code>LaunchDarklyUtils</code>](#LaunchDarklyUtils) | primary utils class |
 
 <a name="LaunchDarklyUtilsMembers+API_GROUP"></a>
 
@@ -252,13 +255,26 @@ Get a team member using a supplied email address
 | --- | --- | --- |
 | emailAddress | <code>string</code> | email address of member to locate |
 
+<a name="LaunchDarklyUtilsMembers+getTeamMemberCustomRoles"></a>
+
+### launchDarklyUtilsMembers.getTeamMemberCustomRoles(emailAddress) ⇒ <code>Promise</code>
+Get a team member including customRoleKeys translated from customRoles array
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
+**Fulfil**: <code>Object</code> team member json  
+**Reject**: <code>Error</code> object with message  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| emailAddress | <code>string</code> | email address of member to locate |
+
 <a name="LaunchDarklyUtilsRoles"></a>
 
 ## LaunchDarklyUtilsRoles
 **Kind**: global class  
 
 * [LaunchDarklyUtilsRoles](#LaunchDarklyUtilsRoles)
-    * [new LaunchDarklyUtilsRoles(apiClient, log)](#new_LaunchDarklyUtilsRoles_new)
+    * [new LaunchDarklyUtilsRoles(apiClient, log, ldUtils)](#new_LaunchDarklyUtilsRoles_new)
     * [.API_GROUP](#LaunchDarklyUtilsRoles+API_GROUP) ⇒ <code>string</code>
     * [.getCustomRoles()](#LaunchDarklyUtilsRoles+getCustomRoles) ⇒ <code>Promise</code>
     * [.getCustomRole(customRoleKey)](#LaunchDarklyUtilsRoles+getCustomRole) ⇒ <code>Promise</code>
@@ -271,7 +287,7 @@ Get a team member using a supplied email address
 
 <a name="new_LaunchDarklyUtilsRoles_new"></a>
 
-### new LaunchDarklyUtilsRoles(apiClient, log)
+### new LaunchDarklyUtilsRoles(apiClient, log, ldUtils)
 Custom role specific api functions attached as 'LaunchDarklyUtils.roles'
 
 **Returns**: [<code>LaunchDarklyUtilsRoles</code>](#LaunchDarklyUtilsRoles) - custom flag api functions  
@@ -280,6 +296,7 @@ Custom role specific api functions attached as 'LaunchDarklyUtils.roles'
 | --- | --- | --- |
 | apiClient | <code>Swagger</code> | generated launchdarkly apiClient |
 | log | <code>Object</code> | logger implementation, or 'console' |
+| ldUtils | [<code>LaunchDarklyUtils</code>](#LaunchDarklyUtils) | primary utils class |
 
 <a name="LaunchDarklyUtilsRoles+API_GROUP"></a>
 

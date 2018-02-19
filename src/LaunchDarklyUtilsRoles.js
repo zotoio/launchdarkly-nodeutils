@@ -11,11 +11,18 @@ export class LaunchDarklyUtilsRoles {
      * @constructor LaunchDarklyUtilsRoles
      * @param { Swagger } apiClient - generated launchdarkly apiClient
      * @param { Object } log - logger implementation, or 'console'
+     * @param { LaunchDarklyUtils } ldUtils - primary utils class
      * @returns { LaunchDarklyUtilsRoles } custom flag api functions
      */
-    constructor(apiClient, log) {
+    constructor(apiClient, log, ldUtils) {
         this.log = log;
         this.apiClient = apiClient;
+        this.ldUtils = ldUtils;
+        if (!this.ldUtils) {
+            throw {
+                message: 'LaunchDarklyUtilsRoles constructor requires ldUtils parameter'
+            };
+        }
     }
 
     /**
@@ -34,7 +41,9 @@ export class LaunchDarklyUtilsRoles {
      */
     async getCustomRoles() {
         try {
-            return this.apiClient.apis[this.API_GROUP].getCustomRoles();
+            return this.apiClient.apis[this.API_GROUP].getCustomRoles().then(response => {
+                return response.body;
+            });
         } catch (e) {
             throw {
                 api: 'getCustomRoles',
@@ -53,7 +62,11 @@ export class LaunchDarklyUtilsRoles {
      */
     async getCustomRole(customRoleKey) {
         try {
-            return this.apiClient.apis[this.API_GROUP].getCustomRole({ customRoleKey: customRoleKey });
+            return this.apiClient.apis[this.API_GROUP]
+                .getCustomRole({ customRoleKey: customRoleKey })
+                .then(response => {
+                    return response.body;
+                });
         } catch (e) {
             throw {
                 api: 'getCustomRole',
@@ -104,7 +117,9 @@ export class LaunchDarklyUtilsRoles {
             policy: customRolePolicyArray
         };
         try {
-            return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole });
+            return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole }).then(response => {
+                return response.body;
+            });
         } catch (e) {
             throw {
                 api: 'postCustomRole',
@@ -135,17 +150,21 @@ export class LaunchDarklyUtilsRoles {
         let that = this;
         return this.getCustomRole(customRoleKey)
 
-            .then(customRoleResponse => {
-                let patchDelta = jsonPatch.compare(customRoleResponse.obj, updatedCustomRole);
+            .then(customRole => {
+                let patchDelta = jsonPatch.compare(customRole, updatedCustomRole);
                 that.log.debug(`customRoleDiff for '${customRoleKey}' ${JSON.stringify(patchDelta)}`);
                 return patchDelta;
             })
             .then(patchDelta => {
                 try {
-                    return this.apiClient.apis[this.API_GROUP].patchCustomRole({
-                        customRoleKey: customRoleKey,
-                        patchDelta: patchDelta
-                    });
+                    return this.apiClient.apis[this.API_GROUP]
+                        .patchCustomRole({
+                            customRoleKey: customRoleKey,
+                            patchDelta: patchDelta
+                        })
+                        .then(response => {
+                            return response.body;
+                        });
                 } catch (e) {
                     throw {
                         api: 'patchCustomRole',
