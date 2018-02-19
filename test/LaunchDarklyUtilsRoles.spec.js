@@ -274,7 +274,6 @@ describe('LaunchDarklyUtilsRoles', function() {
             return ldutils.roles
                 .bulkUpsertCustomRoles(__dirname + '/fixtures/custom-roles-bulk-load-file.json')
                 .then(actual => {
-                    console.log(JSON.stringify(actual));
                     expect(actual).to.deep.equal(expected);
                 });
         });
