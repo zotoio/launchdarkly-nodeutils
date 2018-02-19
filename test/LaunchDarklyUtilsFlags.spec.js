@@ -28,7 +28,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-list.json', 'utf-8'));
             return ldutils.flags.getFeatureFlags('sample-project').then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -47,7 +47,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-get.json', 'utf-8'));
             return ldutils.flags.getFeatureFlag('sample-project', 'sort.order').then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -89,7 +89,7 @@ describe('LaunchDarklyUtilsFlags', function() {
                     { op: 'replace', path: '/environments/production/on', value: false }
                 ])
                 .then(actual => {
-                    expect(actual.obj).to.deep.equal(expected);
+                    expect(actual).to.deep.equal(expected);
                 });
         });
     });
@@ -108,7 +108,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8'));
             return ldutils.flags.toggleFeatureFlag('sample-project', 'sort.order', 'test', true).then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -133,7 +133,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             return ldutils.flags
                 .migrateFeatureFlag('sample-project', 'sort.order', 'test', 'production')
                 .then(actual => {
-                    expect(actual.obj).to.deep.equal(expected);
+                    expect(actual).to.deep.equal(expected);
                 });
         });
     });

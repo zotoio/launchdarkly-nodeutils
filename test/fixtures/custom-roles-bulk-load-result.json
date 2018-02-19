@@ -1,215 +1,92 @@
 [
   {
-    "ok": true,
-    "url": "https://app.launchdarkly.com/api/v2/roles/test-role-one",
-    "status": 200,
-    "statusText": "OK",
-    "headers": {
-      "content-type": "application/json"
-    },
-    "text": "{\n  \"_links\": {\n    \"parent\": {\n      \"href\": \"/api/v2/roles\",\n      \"type\": \"application/json\"\n    },\n    \"self\": {\n      \"href\": \"/api/v2/roles/role-role\",\n      \"type\": \"application/json\"\n    }\n  },\n  \"name\": \"sample role\",\n  \"key\": \"sample-role\",\n  \"description\": \"stuff\",\n  \"_id\": \"5a5806c35bdd0d2171353753\",\n  \"policy\": [\n    {\n      \"resources\": [\n        \"proj/*:env/production\"\n      ],\n      \"actions\": [\n        \"*\"\n      ],\n      \"effect\": \"allow\"\n    }\n  ],\n  \"_access\": {\n    \"denied\": []\n  }\n}",
-    "data": "{\n  \"_links\": {\n    \"parent\": {\n      \"href\": \"/api/v2/roles\",\n      \"type\": \"application/json\"\n    },\n    \"self\": {\n      \"href\": \"/api/v2/roles/role-role\",\n      \"type\": \"application/json\"\n    }\n  },\n  \"name\": \"sample role\",\n  \"key\": \"sample-role\",\n  \"description\": \"stuff\",\n  \"_id\": \"5a5806c35bdd0d2171353753\",\n  \"policy\": [\n    {\n      \"resources\": [\n        \"proj/*:env/production\"\n      ],\n      \"actions\": [\n        \"*\"\n      ],\n      \"effect\": \"allow\"\n    }\n  ],\n  \"_access\": {\n    \"denied\": []\n  }\n}",
-    "body": {
-      "_links": {
-        "parent": {
-          "href": "/api/v2/roles",
-          "type": "application/json"
-        },
-        "self": {
-          "href": "/api/v2/roles/role-role",
-          "type": "application/json"
-        }
+    "_links": {
+      "parent": {
+        "href": "/api/v2/roles",
+        "type": "application/json"
       },
-      "name": "sample role",
-      "key": "sample-role",
-      "description": "stuff",
-      "_id": "5a5806c35bdd0d2171353753",
-      "policy": [
-        {
-          "resources": [
-            "proj/*:env/production"
-          ],
-          "actions": [
-            "*"
-          ],
-          "effect": "allow"
-        }
-      ],
-      "_access": {
-        "denied": []
+      "self": {
+        "href": "/api/v2/roles/role-role",
+        "type": "application/json"
       }
     },
-    "obj": {
-      "_links": {
-        "parent": {
-          "href": "/api/v2/roles",
-          "type": "application/json"
-        },
-        "self": {
-          "href": "/api/v2/roles/role-role",
-          "type": "application/json"
-        }
-      },
-      "name": "sample role",
-      "key": "sample-role",
-      "description": "stuff",
-      "_id": "5a5806c35bdd0d2171353753",
-      "policy": [
-        {
-          "resources": [
-            "proj/*:env/production"
-          ],
-          "actions": [
-            "*"
-          ],
-          "effect": "allow"
-        }
-      ],
-      "_access": {
-        "denied": []
+    "name": "sample role",
+    "key": "sample-role",
+    "description": "stuff",
+    "_id": "5a5806c35bdd0d2171353753",
+    "policy": [
+      {
+        "resources": [
+          "proj/*:env/production"
+        ],
+        "actions": [
+          "*"
+        ],
+        "effect": "allow"
       }
+    ],
+    "_access": {
+      "denied": []
     }
   },
   {
-    "ok": true,
-    "url": "https://app.launchdarkly.com/api/v2/roles/test-role-two",
-    "status": 200,
-    "statusText": "OK",
-    "headers": {
-      "content-type": "application/json"
-    },
-    "text": "{\n  \"_links\": {\n    \"parent\": {\n      \"href\": \"/api/v2/roles\",\n      \"type\": \"application/json\"\n    },\n    \"self\": {\n      \"href\": \"/api/v2/roles/role-role\",\n      \"type\": \"application/json\"\n    }\n  },\n  \"name\": \"sample role\",\n  \"key\": \"sample-role\",\n  \"description\": \"stuff\",\n  \"_id\": \"5a5806c35bdd0d2171353753\",\n  \"policy\": [\n    {\n      \"resources\": [\n        \"proj/*:env/production\"\n      ],\n      \"actions\": [\n        \"*\"\n      ],\n      \"effect\": \"allow\"\n    }\n  ],\n  \"_access\": {\n    \"denied\": []\n  }\n}",
-    "data": "{\n  \"_links\": {\n    \"parent\": {\n      \"href\": \"/api/v2/roles\",\n      \"type\": \"application/json\"\n    },\n    \"self\": {\n      \"href\": \"/api/v2/roles/role-role\",\n      \"type\": \"application/json\"\n    }\n  },\n  \"name\": \"sample role\",\n  \"key\": \"sample-role\",\n  \"description\": \"stuff\",\n  \"_id\": \"5a5806c35bdd0d2171353753\",\n  \"policy\": [\n    {\n      \"resources\": [\n        \"proj/*:env/production\"\n      ],\n      \"actions\": [\n        \"*\"\n      ],\n      \"effect\": \"allow\"\n    }\n  ],\n  \"_access\": {\n    \"denied\": []\n  }\n}",
-    "body": {
-      "_links": {
-        "parent": {
-          "href": "/api/v2/roles",
-          "type": "application/json"
-        },
-        "self": {
-          "href": "/api/v2/roles/role-role",
-          "type": "application/json"
-        }
+    "_links": {
+      "parent": {
+        "href": "/api/v2/roles",
+        "type": "application/json"
       },
-      "name": "sample role",
-      "key": "sample-role",
-      "description": "stuff",
-      "_id": "5a5806c35bdd0d2171353753",
-      "policy": [
-        {
-          "resources": [
-            "proj/*:env/production"
-          ],
-          "actions": [
-            "*"
-          ],
-          "effect": "allow"
-        }
-      ],
-      "_access": {
-        "denied": []
+      "self": {
+        "href": "/api/v2/roles/role-role",
+        "type": "application/json"
       }
     },
-    "obj": {
-      "_links": {
-        "parent": {
-          "href": "/api/v2/roles",
-          "type": "application/json"
-        },
-        "self": {
-          "href": "/api/v2/roles/role-role",
-          "type": "application/json"
-        }
-      },
-      "name": "sample role",
-      "key": "sample-role",
-      "description": "stuff",
-      "_id": "5a5806c35bdd0d2171353753",
-      "policy": [
-        {
-          "resources": [
-            "proj/*:env/production"
-          ],
-          "actions": [
-            "*"
-          ],
-          "effect": "allow"
-        }
-      ],
-      "_access": {
-        "denied": []
+    "name": "sample role",
+    "key": "sample-role",
+    "description": "stuff",
+    "_id": "5a5806c35bdd0d2171353753",
+    "policy": [
+      {
+        "resources": [
+          "proj/*:env/production"
+        ],
+        "actions": [
+          "*"
+        ],
+        "effect": "allow"
       }
+    ],
+    "_access": {
+      "denied": []
     }
   },
   {
-    "ok": true,
-    "url": "https://app.launchdarkly.com/api/v2/roles",
-    "status": 200,
-    "statusText": "OK",
-    "headers": {
-      "content-type": "application/json"
-    },
-    "text": "{\n  \"_links\": {\n    \"parent\": {\n      \"href\": \"/api/v2/roles\",\n      \"type\": \"application/json\"\n    },\n    \"self\": {\n      \"href\": \"/api/v2/roles/test-role\",\n      \"type\": \"application/json\"\n    }\n  },\n  \"name\": \"test role\",\n  \"key\": \"test-role\",\n  \"description\": \"Allow access to production\",\n  \"_id\": \"5a580a01b4ff89217bdf9dc1\",\n  \"policy\": [{\n    \"resources\": [\"proj/*:env/production\"],\n    \"actions\": [\"*\"],\n    \"effect\": \"allow\"\n  }],\n  \"_access\": {\n    \"denied\": []\n  }\n}",
-    "data": "{\n  \"_links\": {\n    \"parent\": {\n      \"href\": \"/api/v2/roles\",\n      \"type\": \"application/json\"\n    },\n    \"self\": {\n      \"href\": \"/api/v2/roles/test-role\",\n      \"type\": \"application/json\"\n    }\n  },\n  \"name\": \"test role\",\n  \"key\": \"test-role\",\n  \"description\": \"Allow access to production\",\n  \"_id\": \"5a580a01b4ff89217bdf9dc1\",\n  \"policy\": [{\n    \"resources\": [\"proj/*:env/production\"],\n    \"actions\": [\"*\"],\n    \"effect\": \"allow\"\n  }],\n  \"_access\": {\n    \"denied\": []\n  }\n}",
-    "body": {
-      "_links": {
-        "parent": {
-          "href": "/api/v2/roles",
-          "type": "application/json"
-        },
-        "self": {
-          "href": "/api/v2/roles/test-role",
-          "type": "application/json"
-        }
+    "_links": {
+      "parent": {
+        "href": "/api/v2/roles",
+        "type": "application/json"
       },
-      "name": "test role",
-      "key": "test-role",
-      "description": "Allow access to production",
-      "_id": "5a580a01b4ff89217bdf9dc1",
-      "policy": [
-        {
-          "resources": [
-            "proj/*:env/production"
-          ],
-          "actions": [
-            "*"
-          ],
-          "effect": "allow"
-        }
-      ],
-      "_access": {
-        "denied": []
+      "self": {
+        "href": "/api/v2/roles/test-role",
+        "type": "application/json"
       }
     },
-    "obj": {
-      "_links": {
-        "parent": {
-          "href": "/api/v2/roles",
-          "type": "application/json"
-        },
-        "self": {
-          "href": "/api/v2/roles/test-role",
-          "type": "application/json"
-        }
-      },
-      "name": "test role",
-      "key": "test-role",
-      "description": "Allow access to production",
-      "_id": "5a580a01b4ff89217bdf9dc1",
-      "policy": [
-        {
-          "resources": [
-            "proj/*:env/production"
-          ],
-          "actions": [
-            "*"
-          ],
-          "effect": "allow"
-        }
-      ],
-      "_access": {
-        "denied": []
+    "name": "test role",
+    "key": "test-role",
+    "description": "Allow access to production",
+    "_id": "5a580a01b4ff89217bdf9dc1",
+    "policy": [
+      {
+        "resources": [
+          "proj/*:env/production"
+        ],
+        "actions": [
+          "*"
+        ],
+        "effect": "allow"
       }
+    ],
+    "_access": {
+      "denied": []
     }
   }
 ]

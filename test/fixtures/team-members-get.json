@@ -18,7 +18,9 @@
   "email": "owner-sample-account@launchdarkly.com",
   "_pendingInvite": false,
   "isBeta": false,
-  "customRoles": [],
+  "customRoles": [
+    "5a593f890z875421af55d96e"
+  ],
   "mfa": "disabled",
   "_access": {
     "denied": []

@@ -32,9 +32,9 @@ export class LaunchDarklyUtils {
                 that.log.debug('api client instantiated..');
 
                 // attach utils
-                that.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log);
-                that.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log);
-                that.members = new LaunchDarklyUtilsMembers(this.apiClient, this.log);
+                that.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log, that);
+                that.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log, that);
+                that.members = new LaunchDarklyUtilsMembers(this.apiClient, this.log, that);
                 that.log.debug(`utils ready.`);
             } catch (e) {
                 return reject(e);

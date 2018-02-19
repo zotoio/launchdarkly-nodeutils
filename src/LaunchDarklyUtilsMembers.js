@@ -7,11 +7,18 @@ export class LaunchDarklyUtilsMembers {
      * @constructor LaunchDarklyUtilsMembers
      * @param { Swagger } apiClient - generated launchdarkly apiClient
      * @param { Object } log - logger implementation, or 'console'
+     * @param { LaunchDarklyUtils } ldUtils - primary utils class
      * @returns { LaunchDarklyUtilsMembers } team member api functions
      */
-    constructor(apiClient, log) {
+    constructor(apiClient, log, ldUtils) {
         this.log = log;
         this.apiClient = apiClient;
+        this.ldUtils = ldUtils;
+        if (!this.ldUtils) {
+            throw {
+                message: 'LaunchDarklyUtilsRoles constructor requires ldUtils parameter'
+            };
+        }
     }
 
     /**
@@ -30,7 +37,9 @@ export class LaunchDarklyUtilsMembers {
      */
     async getTeamMembers() {
         try {
-            return this.apiClient.apis[this.API_GROUP].getMembers();
+            return this.apiClient.apis[this.API_GROUP].getMembers().then(response => {
+                return response.body;
+            });
         } catch (e) {
             throw {
                 api: 'getMembers',
@@ -49,7 +58,9 @@ export class LaunchDarklyUtilsMembers {
      */
     async getTeamMember(memberId) {
         try {
-            return this.apiClient.apis[this.API_GROUP].getMember({ memberId: memberId });
+            return this.apiClient.apis[this.API_GROUP].getMember({ memberId: memberId }).then(response => {
+                return response.body;
+            });
         } catch (e) {
             throw {
                 api: 'getMember',
@@ -68,7 +79,7 @@ export class LaunchDarklyUtilsMembers {
      */
     async getTeamMemberByEmail(emailAddress) {
         return this.getTeamMembers().then(memberList => {
-            let members = _.filter(memberList.body.items, { email: emailAddress });
+            let members = _.filter(memberList.items, { email: emailAddress });
 
             if (members.length !== 1) {
                 throw {
@@ -78,7 +89,33 @@ export class LaunchDarklyUtilsMembers {
                 };
             }
 
-            return this.getTeamMember(members[0]._id);
+            return members[0];
+        });
+    }
+
+    /**
+     * Get a team member including customRoleKeys translated from customRoles array
+     * @param {string} emailAddress - email address of member to locate
+     * @returns {Promise}
+     * @fulfil {Object} team member json
+     * @reject {Error} object with message
+     */
+    async getTeamMemberCustomRoles(emailAddress) {
+        let teamMember = await this.getTeamMemberByEmail(emailAddress);
+        teamMember.customRoleKeys = [];
+        return this.ldUtils.roles.getCustomRoles().then(roles => {
+            teamMember.customRoles.forEach(memberRoleId => {
+                try {
+                    teamMember.customRoleKeys.push(_.filter(roles.items, { _id: memberRoleId })[0]['key']);
+                } catch (e) {
+                    throw {
+                        api: 'getTeamMemberCustomRoles',
+                        message: `role not found for _id ${memberRoleId}`,
+                        docs: 'https://apidocs.launchdarkly.com/docs/list-team-members'
+                    };
+                }
+            });
+            return teamMember;
         });
     }
 }

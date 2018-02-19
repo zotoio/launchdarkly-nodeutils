@@ -114,6 +114,7 @@ For details on role policy object structures, please see: https://docs.launchdar
 | getTeamMembers | none |
 | getTeamMember | memberId |
 | getTeamMemberByEmail | emailAddress |
+| getTeamMemberCustomRoles | emailAddress |
 
 ## node app usage
 Assumes that you have set the LAUNCHDARKLY_API_TOKEN environment var.

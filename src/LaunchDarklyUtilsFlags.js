@@ -8,11 +8,18 @@ export class LaunchDarklyUtilsFlags {
      * @constructor LaunchDarklyUtilsFlags
      * @param { Swagger } apiClient - generated launchdarkly apiClient
      * @param { Object } log - logger implementation, or 'console'
+     * @param { LaunchDarklyUtils } ldUtils - primary utils class
      * @returns { LaunchDarklyUtilsFlags } feature flag api functions
      */
-    constructor(apiClient, log) {
+    constructor(apiClient, log, ldUtils) {
         this.log = log;
         this.apiClient = apiClient;
+        this.ldUtils = ldUtils;
+        if (!this.ldUtils) {
+            throw {
+                message: 'LaunchDarklyUtilsRoles constructor requires ldUtils parameter'
+            };
+        }
     }
 
     /**
@@ -32,7 +39,9 @@ export class LaunchDarklyUtilsFlags {
      */
     async getFeatureFlags(projectKey) {
         try {
-            return this.apiClient.apis[this.API_GROUP].getFeatureFlags({ projectKey: projectKey });
+            return this.apiClient.apis[this.API_GROUP].getFeatureFlags({ projectKey: projectKey }).then(response => {
+                return response.body;
+            });
         } catch (e) {
             throw {
                 api: 'getFeatureFlags',
@@ -53,11 +62,15 @@ export class LaunchDarklyUtilsFlags {
      */
     async getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery) {
         try {
-            return this.apiClient.apis[this.API_GROUP].getFeatureFlag({
-                projectKey: projectKey,
-                featureFlagKey: featureFlagKey,
-                environmentKeyQuery: environmentKeyQuery
-            });
+            return this.apiClient.apis[this.API_GROUP]
+                .getFeatureFlag({
+                    projectKey: projectKey,
+                    featureFlagKey: featureFlagKey,
+                    environmentKeyQuery: environmentKeyQuery
+                })
+                .then(response => {
+                    return response.body;
+                });
         } catch (e) {
             throw {
                 api: 'getFeatureFlag',
@@ -78,7 +91,7 @@ export class LaunchDarklyUtilsFlags {
      */
     async getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery) {
         return this.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery).then(result => {
-            return result.obj.environments[environmentKeyQuery].on;
+            return result.environments[environmentKeyQuery].on;
         });
     }
 
@@ -93,11 +106,15 @@ export class LaunchDarklyUtilsFlags {
      */
     async updateFeatureFlag(projectKey, featureFlagKey, patchComment) {
         try {
-            return this.apiClient.apis[this.API_GROUP].patchFeatureFlag({
-                projectKey: projectKey,
-                featureFlagKey: featureFlagKey,
-                patchComment: patchComment
-            });
+            return this.apiClient.apis[this.API_GROUP]
+                .patchFeatureFlag({
+                    projectKey: projectKey,
+                    featureFlagKey: featureFlagKey,
+                    patchComment: patchComment
+                })
+                .then(response => {
+                    return response.body;
+                });
         } catch (e) {
             throw {
                 api: 'patchFeatureFlag',
@@ -140,7 +157,7 @@ export class LaunchDarklyUtilsFlags {
 
         return this.getFeatureFlag(projectKey, featureFlagKey)
             .then(flag => {
-                let patchDelta = jsonPatch.compare(flag.obj.environments[toEnv], flag.obj.environments[fromEnv]);
+                let patchDelta = jsonPatch.compare(flag.environments[toEnv], flag.environments[fromEnv]);
                 that.log.debug(`envFlagDiff for '${featureFlagKey}' ${json.plain(patchDelta)}`);
                 return patchDelta;
             })

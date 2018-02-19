@@ -28,7 +28,7 @@ describe('LaunchDarklyUtilsRoles', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/custom-roles-list.json', 'utf-8'));
             return ldutils.roles.getCustomRoles().then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -47,7 +47,7 @@ describe('LaunchDarklyUtilsRoles', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/custom-roles-get.json', 'utf-8'));
             return ldutils.roles.getCustomRole('example-role').then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -70,7 +70,7 @@ describe('LaunchDarklyUtilsRoles', function() {
         it('should make expected api call and return results', async function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/custom-roles-get.json', 'utf-8'));
             return ldutils.roles.getCustomRoleById('5a593f890z875421af55d96e').then(actual => {
-                expect(actual.obj).to.deep.equal(expected);
+                expect(actual).to.deep.equal(expected);
             });
         });
     });
@@ -102,7 +102,7 @@ describe('LaunchDarklyUtilsRoles', function() {
                     'Allow access to production'
                 )
                 .then(actual => {
-                    expect(actual.obj).to.deep.equal(expected);
+                    expect(actual).to.deep.equal(expected);
                 });
         });
     });
@@ -138,7 +138,7 @@ describe('LaunchDarklyUtilsRoles', function() {
                     'Allow access to production'
                 )
                 .then(actual => {
-                    expect(actual.obj).to.deep.equal(expected);
+                    expect(actual).to.deep.equal(expected);
                 });
         });
     });
@@ -194,7 +194,7 @@ describe('LaunchDarklyUtilsRoles', function() {
                     'Allow access to production'
                 )
                 .then(actual => {
-                    expect(actual.obj).to.deep.equal(expected);
+                    expect(actual).to.deep.equal(expected);
                 });
         });
 
@@ -214,7 +214,7 @@ describe('LaunchDarklyUtilsRoles', function() {
                     'Allow access to production'
                 )
                 .then(actual => {
-                    expect(actual.obj).to.deep.equal(expected);
+                    expect(actual).to.deep.equal(expected);
                 });
         });
     });
