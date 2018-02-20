@@ -37,8 +37,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`getFeatureFlag <projectKey> <featureFlagKey> [environmentKeyQuery]`)
         .description('get a single flag - with optional env')
-        .action(function(projectKey, featureFlagKey) {
-            ldUtils.flags.getFeatureFlag(projectKey, featureFlagKey).then(function(response) {
+        .action(function(projectKey, featureFlagKey, environmentKeyQuery) {
+            ldUtils.flags.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery).then(function(response) {
                 console.log(json.plain(response));
             });
         });

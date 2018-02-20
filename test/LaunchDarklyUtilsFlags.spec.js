@@ -55,7 +55,7 @@ describe('LaunchDarklyUtilsFlags', function() {
     describe('getFeatureFlagState', function() {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .get('/api/v2/flags/sample-project/sort.order')
+                .get('/api/v2/flags/sample-project/sort.order?env=test')
                 .replyWithFile(200, __dirname + '/fixtures/feature-flags-get.json', {
                     'Content-Type': 'application/json'
                 });

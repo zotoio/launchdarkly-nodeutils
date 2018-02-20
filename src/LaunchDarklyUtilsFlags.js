@@ -66,7 +66,7 @@ export class LaunchDarklyUtilsFlags {
                 .getFeatureFlag({
                     projectKey: projectKey,
                     featureFlagKey: featureFlagKey,
-                    environmentKeyQuery: environmentKeyQuery
+                    env: environmentKeyQuery
                 })
                 .then(response => {
                     return response.body;
