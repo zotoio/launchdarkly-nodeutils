@@ -15,11 +15,12 @@ export class LaunchDarklyUtils {
      * as api grouping util classes are attached to this class.
      * @param {string} API_TOKEN - from LaunchDarkly dashboard
      * @param { Object } customLogger - logger implementation, or 'console'. If not supplied, defaults to Bunyan logger
+     * @param { string } swaggerYamlString - optional serialized yaml
      * @returns {Promise}
      * @fulfil {LaunchDarklyUtils}
      * @reject {Error} object with message
      */
-    async create(API_TOKEN, customLogger) {
+    async create(API_TOKEN, customLogger, swaggerYamlString) {
         let that = this;
         return new Promise(async (resolve, reject) => {
             // setup logger
@@ -28,7 +29,7 @@ export class LaunchDarklyUtils {
 
             // create LaunchDarkly apiClient
             try {
-                that.apiClient = await LaunchDarklyApiClient.create(API_TOKEN, this.log);
+                that.apiClient = await LaunchDarklyApiClient.create(API_TOKEN, this.log, swaggerYamlString);
                 that.log.debug('api client instantiated..');
 
                 // attach utils

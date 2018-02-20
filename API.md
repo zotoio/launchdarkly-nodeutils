@@ -21,7 +21,7 @@
 **Kind**: global class  
 <a name="LaunchDarklyApiClient.create"></a>
 
-### LaunchDarklyApiClient.create(API_TOKEN, log) ⇒ <code>Promise</code>
+### LaunchDarklyApiClient.create(API_TOKEN, log, swaggerYamlString) ⇒ <code>Promise</code>
 Used internally by LaunchDarklyUtils to create an instance of
 Swagger apiClient with interceptors configured
 
@@ -33,6 +33,7 @@ Swagger apiClient with interceptors configured
 | --- | --- | --- |
 | API_TOKEN | <code>string</code> | from LaunchDarkly dashboard |
 | log | <code>Object</code> | logger implementation |
+| swaggerYamlString | <code>string</code> | optional serialized yaml |
 
 <a name="LaunchDarklyLogger"></a>
 
@@ -50,7 +51,7 @@ Get handle on Bunyan logger.  This is the default logger if not supplied to util
 **Kind**: global class  
 <a name="LaunchDarklyUtils+create"></a>
 
-### launchDarklyUtils.create(API_TOKEN, customLogger) ⇒ <code>Promise</code>
+### launchDarklyUtils.create(API_TOKEN, customLogger, swaggerYamlString) ⇒ <code>Promise</code>
 Create an instance of ldutils with api specific classes attached. This is the primary class used to access apis,
 as api grouping util classes are attached to this class.
 
@@ -62,6 +63,7 @@ as api grouping util classes are attached to this class.
 | --- | --- | --- |
 | API_TOKEN | <code>string</code> | from LaunchDarkly dashboard |
 | customLogger | <code>Object</code> | logger implementation, or 'console'. If not supplied, defaults to Bunyan logger |
+| swaggerYamlString | <code>string</code> | optional serialized yaml |
 
 <a name="LaunchDarklyUtilsFlags"></a>
 
