@@ -70,4 +70,4 @@ typings/
 
 *.out
 
-.dockerImageWhitelist
+scripts/*.json

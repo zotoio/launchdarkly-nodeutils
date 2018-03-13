@@ -182,4 +182,26 @@ export class LaunchDarklyUtilsFlags {
                 return this.updateFeatureFlag(projectKey, featureFlagKey, patchComment);
             });
     }
+
+    /**
+     * Migrate multiple feature flags properties between environments in a project. this includes:
+     * targets, rules, fallthrough, offVariation, prerequisites and optionally the flags on/off state.
+     * @param {string} projectKey - project identifier
+     * @param {string} featureFlagKeys - comma-separated feature flag identifiers
+     * @param {string} fromEnv - environment to copy flag attributes from
+     * @param {string} toEnv - environment to copy flag attributes to
+     * @param {boolean} includeState - optionally copy boolean state true/false
+     * @returns {Promise}
+     * @fulfil {Object} updated feature flag json array
+     * @reject {Error} object with message
+     */
+    async bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState) {
+        let promises = [];
+
+        featureFlagKeys.split(',').forEach(key => {
+            promises.push(this.migrateFeatureFlag(projectKey, key, fromEnv, toEnv, includeState));
+        });
+
+        return Promise.all(promises);
+    }
 }

@@ -75,12 +75,14 @@ The following modes are supported.  This info is also available via: `ldutils -h
 | updateFeatureFlag | projectKey, featureFlagKey, patchComment |
 | toggleFeatureFlag | projectKey, featureFlagKey, environmentKeyQuery, enabled |
 | migrateFeatureFlag | projectKey, featureFlagKey, fromEnv, toEnv, includeState |
+| bulkMigrateFeatureFlags | projectKey, featureFlagKeys, fromEnv, toEnv, includeState |
 
 - `migrateFeatureFlag` mode is used to copy flag attributes between environments.  This covers: targets, rules, fallthrough, offVariation, prerequisites and optionally the flag on/off state. eg. to migrate a flag from dev to test env.
 
 ```
 ldutils migrateFeatureFlag my-project my-flag dev test
 ```
+> use `bulkMigrateFeatureFlags`with a comma separated list of flags ids to migrations multiple flags in one operation.
 
 #### Custom roles
 
