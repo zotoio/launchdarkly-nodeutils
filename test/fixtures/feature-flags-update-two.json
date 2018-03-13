@@ -1,0 +1,120 @@
+{
+  "name": "Alternate sort order2",
+  "kind": "boolean",
+  "key": "sort.order2",
+  "creationDate": 1443652232590,
+  "includeInSnippet": false,
+  "variations": [
+    {
+      "value": true,
+      "name": "true"
+    },
+    {
+      "value": false,
+      "name": "false"
+    }
+  ],
+  "temporary": false,
+  "tags": [
+    "th"
+  ],
+  "_links": {
+    "parent": {
+      "href": "/api/v2/flags/default",
+      "type": "application/json"
+    },
+    "self": {
+      "href": "/api/v2/flags/default/sort.order2",
+      "type": "application/json"
+    }
+  },
+  "maintainerId": "561c579cd8fd5c2704000001",
+  "_maintainer": {
+    "_links": {
+      "parent": {
+        "href": "/internal/account/members",
+        "type": "application/json"
+      },
+      "self": {
+        "href": "/internal/account/members/561c579cd8fd5c2704000001",
+        "type": "application/json"
+      }
+    },
+    "_id": "561c579cd8fd5c2704000001",
+    "firstName": "John",
+    "lastName": "Test",
+    "role": "reader",
+    "email": "john+test@launchdarkly.com",
+    "_pendingInvite": false,
+    "isBeta": false,
+    "customRoles": [
+      "569983b05a64a106b7000002"
+    ]
+  },
+  "goalIds": [
+    "567340e3846da0c33d6e1afd",
+    "567340e4846da0c33d6e1b05"
+  ],
+  "environments": {
+    "test": {
+      "on": true,
+      "archived": false,
+      "salt": "c29ydC5vcmRlcg==",
+      "sel": "fc724d64836544268660932f4ff8c7de",
+      "lastModified": 1469316314506,
+      "version": 1,
+      "targets": [
+        {
+          "values": [],
+          "variation": 0
+        },
+        {
+          "values": [],
+          "variation": 1
+        }
+      ],
+      "rules": [],
+      "fallthrough": {
+        "variation": 1
+      },
+      "prerequisites": [],
+      "_site": {
+        "href": "/default/test/features/sort.order2",
+        "type": "text/html"
+      }
+    },
+    "production": {
+      "on": true,
+      "archived": false,
+      "salt": "c29ydC5vcmRlcg==",
+      "sel": "8de1085cb7354b0ab41c0e778376dfd3",
+      "lastModified": 1469131558260,
+      "version": 81,
+      "targets": [
+        {
+          "values": [
+            "Gerhard.Little@yahoo.com"
+          ],
+          "variation": 0
+        },
+        {
+          "values": [
+            "1461797806429-33-861961230",
+            "1461797806426-2--1056309393"
+          ],
+          "variation": 1
+        }
+      ],
+      "rules": [],
+      "fallthrough": {
+        "variation": 0
+      },
+      "offVariation": 1,
+      "prerequisites": [],
+      "_site": {
+        "href": "/default/production/features/sort.order2",
+        "type": "text/html"
+      }
+    }
+  }
+}

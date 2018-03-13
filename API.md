@@ -79,6 +79,7 @@ as api grouping util classes are attached to this class.
     * [.updateFeatureFlag(projectKey, featureFlagKey, patchComment)](#LaunchDarklyUtilsFlags+updateFeatureFlag) ⇒ <code>Promise</code>
     * [.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value)](#LaunchDarklyUtilsFlags+toggleFeatureFlag) ⇒ <code>Promise</code>
     * [.migrateFeatureFlag(projectKey, featureFlagKey, fromEnv, toEnv, includeState)](#LaunchDarklyUtilsFlags+migrateFeatureFlag) ⇒ <code>Promise</code>
+    * [.bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState)](#LaunchDarklyUtilsFlags+bulkMigrateFeatureFlags) ⇒ <code>Promise</code>
 
 <a name="new_LaunchDarklyUtilsFlags_new"></a>
 
@@ -187,6 +188,24 @@ targets, rules, fallthrough, offVariation, prerequisites and optionally the flag
 | --- | --- | --- |
 | projectKey | <code>string</code> | project identifier |
 | featureFlagKey | <code>string</code> | feature flag identifier |
+| fromEnv | <code>string</code> | environment to copy flag attributes from |
+| toEnv | <code>string</code> | environment to copy flag attributes to |
+| includeState | <code>boolean</code> | optionally copy boolean state true/false |
+
+<a name="LaunchDarklyUtilsFlags+bulkMigrateFeatureFlags"></a>
+
+### launchDarklyUtilsFlags.bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState) ⇒ <code>Promise</code>
+Migrate multiple feature flags properties between environments in a project. this includes:
+targets, rules, fallthrough, offVariation, prerequisites and optionally the flags on/off state.
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsFlags</code>](#LaunchDarklyUtilsFlags)  
+**Fulfil**: <code>Object</code> updated feature flag json array  
+**Reject**: <code>Error</code> object with message  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| projectKey | <code>string</code> | project identifier |
+| featureFlagKeys | <code>string</code> | comma-separated feature flag identifiers |
 | fromEnv | <code>string</code> | environment to copy flag attributes from |
 | toEnv | <code>string</code> | environment to copy flag attributes to |
 | includeState | <code>boolean</code> | optionally copy boolean state true/false |

@@ -72,6 +72,15 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         });
 
     program
+        .command(`bulkMigrateFeatureFlags <projectKey> <featureFlagKeys> <fromEnv> <toEnv> (includeState)`)
+        .description('migrate multiple flag settings from one environment to another')
+        .action(function(projectKey, featureFlagKeys, fromEnv, toEnv, includeState) {
+            ldUtils.flags.bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
         .command('getCustomRoles')
         .description('get all custom roles in account')
         .action(function() {

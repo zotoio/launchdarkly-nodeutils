@@ -137,4 +137,39 @@ describe('LaunchDarklyUtilsFlags', function() {
                 });
         });
     });
+
+    describe('bulkMigrateFeatureFlags', function() {
+        before(done => {
+            let scope = nock('https://app.launchdarkly.com')
+                .get('/api/v2/flags/sample-project/sort.order')
+                .replyWithFile(200, __dirname + '/fixtures/feature-flags-get.json', {
+                    'Content-Type': 'application/json'
+                })
+                .patch('/api/v2/flags/sample-project/sort.order')
+                .replyWithFile(200, __dirname + '/fixtures/feature-flags-update.json', {
+                    'Content-Type': 'application/json'
+                })
+                .get('/api/v2/flags/sample-project/sort.order2')
+                .replyWithFile(200, __dirname + '/fixtures/feature-flags-get-two.json', {
+                    'Content-Type': 'application/json'
+                })
+                .patch('/api/v2/flags/sample-project/sort.order2')
+                .replyWithFile(200, __dirname + '/fixtures/feature-flags-update-two.json', {
+                    'Content-Type': 'application/json'
+                });
+            assert(scope);
+            done();
+        });
+
+        it('should make expected api call and return results', async function() {
+            let expected = [];
+            expected.push(JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8')));
+            expected.push(JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update-two.json', 'utf-8')));
+            return ldutils.flags
+                .bulkMigrateFeatureFlags('sample-project', 'sort.order,sort.order2', 'test', 'production')
+                .then(actual => {
+                    expect(actual).to.deep.equal(expected);
+                });
+        });
+    });
 });
