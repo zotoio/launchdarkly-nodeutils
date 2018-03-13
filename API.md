@@ -113,6 +113,10 @@ Get all feature flags in project
 | --- | --- | --- |
 | projectKey | <code>string</code> | project identifier |
 
+**Example**  
+```js
+ldutils getFeatureFlags my-project
+```
 <a name="LaunchDarklyUtilsFlags+getFeatureFlag"></a>
 
 ### launchDarklyUtilsFlags.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery) ⇒ <code>Promise</code>
@@ -128,6 +132,10 @@ Get a single feature flag by key, and optional environment
 | featureFlagKey | <code>string</code> | feature flag identifier |
 | environmentKeyQuery | <code>string</code> | optional environment name |
 
+**Example**  
+```js
+ldutils getFeatureFlag my-project my-flag dev
+```
 <a name="LaunchDarklyUtilsFlags+getFeatureFlagState"></a>
 
 ### launchDarklyUtilsFlags.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery) ⇒ <code>Promise</code>
@@ -143,6 +151,10 @@ Get the boolean state of a single feature flag by key, and optional environment
 | featureFlagKey | <code>string</code> | feature flag identifier |
 | environmentKeyQuery | <code>string</code> | environment name |
 
+**Example**  
+```js
+getFeatureFlagState ldutils my-project my-flag dev
+```
 <a name="LaunchDarklyUtilsFlags+updateFeatureFlag"></a>
 
 ### launchDarklyUtilsFlags.updateFeatureFlag(projectKey, featureFlagKey, patchComment) ⇒ <code>Promise</code>
@@ -158,6 +170,10 @@ patch a feature flag by key
 | featureFlagKey | <code>string</code> | feature flag identifier |
 | patchComment | <code>Array.&lt;Object&gt;</code> | array of valid json patch descriptors |
 
+**Example**  
+```js
+ldutils updateFeatureFlag my-project my-flag {jsonPatch}
+```
 <a name="LaunchDarklyUtilsFlags+toggleFeatureFlag"></a>
 
 ### launchDarklyUtilsFlags.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value) ⇒ <code>Promise</code>
@@ -174,6 +190,10 @@ Set the boolean state of a single feature flag by key, and environment name
 | environmentKeyQuery | <code>string</code> | environment name |
 | value | <code>boolean</code> | true or false |
 
+**Example**  
+```js
+ldutils toggleFeatureFlag my-project my-flag dev true
+```
 <a name="LaunchDarklyUtilsFlags+migrateFeatureFlag"></a>
 
 ### launchDarklyUtilsFlags.migrateFeatureFlag(projectKey, featureFlagKey, fromEnv, toEnv, includeState) ⇒ <code>Promise</code>
@@ -192,6 +212,10 @@ targets, rules, fallthrough, offVariation, prerequisites and optionally the flag
 | toEnv | <code>string</code> | environment to copy flag attributes to |
 | includeState | <code>boolean</code> | optionally copy boolean state true/false |
 
+**Example**  
+```js
+ldutils migrateFeatureFlag my-project my-flag dev test
+```
 <a name="LaunchDarklyUtilsFlags+bulkMigrateFeatureFlags"></a>
 
 ### launchDarklyUtilsFlags.bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState) ⇒ <code>Promise</code>
@@ -210,6 +234,10 @@ targets, rules, fallthrough, offVariation, prerequisites and optionally the flag
 | toEnv | <code>string</code> | environment to copy flag attributes to |
 | includeState | <code>boolean</code> | optionally copy boolean state true/false |
 
+**Example**  
+```js
+ldutils bulkMigrateFeatureFlags my-project my-flag,my-flag-two dev test
+```
 <a name="LaunchDarklyUtilsMembers"></a>
 
 ## LaunchDarklyUtilsMembers
@@ -250,6 +278,10 @@ Get all team members in account
 **Kind**: instance method of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
 **Fulfil**: <code>Object</code> team member list json  
 **Reject**: <code>Error</code> object with message  
+**Example**  
+```js
+ldutils getTeamMembers
+```
 <a name="LaunchDarklyUtilsMembers+getTeamMember"></a>
 
 ### launchDarklyUtilsMembers.getTeamMember(memberId) ⇒ <code>Promise</code>
@@ -263,6 +295,10 @@ get a single team member by id
 | --- | --- |
 | memberId | _id field of team member |
 
+**Example**  
+```js
+ldutils getTeamMember 5a3ad672761af020881a8814
+```
 <a name="LaunchDarklyUtilsMembers+getTeamMemberByEmail"></a>
 
 ### launchDarklyUtilsMembers.getTeamMemberByEmail(emailAddress) ⇒ <code>Promise</code>
@@ -276,6 +312,10 @@ Get a team member using a supplied email address
 | --- | --- | --- |
 | emailAddress | <code>string</code> | email address of member to locate |
 
+**Example**  
+```js
+ldutils getTeamMemberByEmail owner-sample-account@launchdarkly.com
+```
 <a name="LaunchDarklyUtilsMembers+getTeamMemberCustomRoles"></a>
 
 ### launchDarklyUtilsMembers.getTeamMemberCustomRoles(emailAddress) ⇒ <code>Promise</code>
@@ -289,6 +329,10 @@ Get a team member including customRoleKeys translated from customRoles array
 | --- | --- | --- |
 | emailAddress | <code>string</code> | email address of member to locate |
 
+**Example**  
+```js
+ldutils getTeamMemberCustomRoles owner-sample-account@launchdarkly.com
+```
 <a name="LaunchDarklyUtilsRoles"></a>
 
 ## LaunchDarklyUtilsRoles
@@ -333,6 +377,10 @@ Get all custom roles in account
 **Kind**: instance method of [<code>LaunchDarklyUtilsRoles</code>](#LaunchDarklyUtilsRoles)  
 **Fulfil**: <code>Object</code> custom role list json  
 **Reject**: <code>Error</code> object with message  
+**Example**  
+```js
+ldutils getTeamMemberCustomRoles owner-sample-account@launchdarkly.com
+```
 <a name="LaunchDarklyUtilsRoles+getCustomRole"></a>
 
 ### launchDarklyUtilsRoles.getCustomRole(customRoleKey) ⇒ <code>Promise</code>
@@ -346,6 +394,10 @@ Get a single custom role by key
 | --- | --- | --- |
 | customRoleKey | <code>string</code> | custom role key |
 
+**Example**  
+```js
+ldutils getCustomRole my-role
+```
 <a name="LaunchDarklyUtilsRoles+getCustomRoleById"></a>
 
 ### launchDarklyUtilsRoles.getCustomRoleById(customRoleId) ⇒ <code>Promise</code>
@@ -359,6 +411,10 @@ Get a single role by _id
 | --- | --- | --- |
 | customRoleId | <code>string</code> | custom role _id |
 
+**Example**  
+```js
+ldutils getCustomRoleById 5a554j890b575421b255d96e
+```
 <a name="LaunchDarklyUtilsRoles+createCustomRole"></a>
 
 ### launchDarklyUtilsRoles.createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) ⇒ <code>Promise</code>
@@ -375,6 +431,10 @@ Create a new custom role
 | customRolePolicyArray | <code>string</code> | array of policy objects per https://docs.launchdarkly.com/docs/custom-roles |
 | customRoleDescription | <code>string</code> | user friendly description |
 
+**Example**  
+```js
+ldutils createCustomRole my-role "My Role" [policyArrayJson] "some description"
+```
 <a name="LaunchDarklyUtilsRoles+updateCustomRole"></a>
 
 ### launchDarklyUtilsRoles.updateCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) ⇒ <code>Promise</code>
@@ -391,6 +451,10 @@ Update an existing custom role
 | customRolePolicyArray | <code>string</code> | array of policy objects per https://docs.launchdarkly.com/docs/custom-roles |
 | customRoleDescription | <code>string</code> | user friendly description |
 
+**Example**  
+```js
+ldutils updateCustomRole my-role "My Role" [policyArrayJson] "some description"
+```
 <a name="LaunchDarklyUtilsRoles+upsertCustomRole"></a>
 
 ### launchDarklyUtilsRoles.upsertCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) ⇒ <code>Promise</code>
@@ -407,6 +471,10 @@ Check for existence of role by key; update if exists, otherwise create new role
 | customRolePolicyArray | <code>string</code> | array of policy objects per https://docs.launchdarkly.com/docs/custom-roles |
 | customRoleDescription | <code>string</code> | user friendly description |
 
+**Example**  
+```js
+ldutils upsertCustomRole my-role "My Role" [policyArrayJson] "some description"
+```
 <a name="LaunchDarklyUtilsRoles+bulkUpsertCustomRoles"></a>
 
 ### launchDarklyUtilsRoles.bulkUpsertCustomRoles(roleBulkLoadFile) ⇒ <code>Promise</code>
@@ -420,6 +488,10 @@ Load a file of custom role json, and update/create roles based on this
 | --- | --- | --- |
 | roleBulkLoadFile | <code>string</code> | path to json file (eg. exampleRoleBulkLoad.json) |
 
+**Example**  
+```js
+ldutils bulkUpsertCustomRoles ./my-roles.json
+```
 <a name="LaunchDarklyUtilsRoles+bulkUpsertCustomRoleFolder"></a>
 
 ### launchDarklyUtilsRoles.bulkUpsertCustomRoleFolder(roleFolder) ⇒ <code>Promise</code>
@@ -433,3 +505,7 @@ Create/update custom roles based on a folder of multiple json files
 | --- | --- | --- |
 | roleFolder | <code>string</code> | path to folder containing json |
 
+**Example**  
+```js
+ldutils bulkUpsertCustomRoleFolder ./my-roles-dir-containing json
+```

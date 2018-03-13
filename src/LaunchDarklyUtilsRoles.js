@@ -38,6 +38,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} custom role list json
      * @reject {Error} object with message
+     * @example ldutils getTeamMemberCustomRoles owner-sample-account@launchdarkly.com
      */
     async getCustomRoles() {
         try {
@@ -59,6 +60,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} custom role json
      * @reject {Error} object with message
+     * @example ldutils getCustomRole my-role
      */
     async getCustomRole(customRoleKey) {
         try {
@@ -82,6 +84,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} custom role json
      * @reject {Error} object with message
+     * @example ldutils getCustomRoleById 5a554j890b575421b255d96e
      */
     async getCustomRoleById(customRoleId) {
         return this.apiClient.apis[this.API_GROUP].getCustomRoles().then(roleList => {
@@ -108,6 +111,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} custom role json
      * @reject {Error} object with message
+     * @example ldutils createCustomRole my-role "My Role" [policyArrayJson] "some description"
      */
     async createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
         let customRole = {
@@ -138,6 +142,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} updated custom role json
      * @reject {Error} object with message
+     * @example ldutils updateCustomRole my-role "My Role" [policyArrayJson] "some description"
      */
     async updateCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
         let updatedCustomRole = {
@@ -184,6 +189,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} updated/created custom role json
      * @reject {Error} object with message
+     * @example ldutils upsertCustomRole my-role "My Role" [policyArrayJson] "some description"
      */
     async upsertCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
         let that = this;
@@ -216,6 +222,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} array of updated/created role json
      * @reject {Error} object with message
+     * @example ldutils bulkUpsertCustomRoles ./my-roles.json
      */
     async bulkUpsertCustomRoles(roleBulkLoadFile) {
         let filePath = path.resolve(roleBulkLoadFile);
@@ -240,6 +247,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} array of updated/created role json
      * @reject {Error} object with message
+     * @example ldutils bulkUpsertCustomRoleFolder ./my-roles-dir-containing json
      */
     async bulkUpsertCustomRoleFolder(roleFolder) {
         let folderPath = path.normalize(path.resolve(roleFolder));

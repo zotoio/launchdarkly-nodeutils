@@ -36,6 +36,7 @@ export class LaunchDarklyUtilsFlags {
      * @returns {Promise}
      * @fulfil {Object} feature flag list json
      * @reject {Error} object with message
+     * @example ldutils getFeatureFlags my-project
      */
     async getFeatureFlags(projectKey) {
         try {
@@ -59,6 +60,7 @@ export class LaunchDarklyUtilsFlags {
      * @returns {Promise}
      * @fulfil {Object} feature flag json
      * @reject {Error} object with message
+     * @example ldutils getFeatureFlag my-project my-flag dev
      */
     async getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery) {
         try {
@@ -88,6 +90,7 @@ export class LaunchDarklyUtilsFlags {
      * @returns {Promise}
      * @fulfil {boolean} true/false
      * @reject {Error} object with message
+     * @example getFeatureFlagState ldutils my-project my-flag dev
      */
     async getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery) {
         return this.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery).then(result => {
@@ -103,6 +106,7 @@ export class LaunchDarklyUtilsFlags {
      * @returns {Promise}
      * @fulfil {Object} updated feature flag json
      * @reject {Error} object with message
+     * @example ldutils updateFeatureFlag my-project my-flag {jsonPatch}
      */
     async updateFeatureFlag(projectKey, featureFlagKey, patchComment) {
         try {
@@ -133,6 +137,7 @@ export class LaunchDarklyUtilsFlags {
      * @returns {Promise}
      * @fulfil {Object} updated feature flag json
      * @reject {Error} object with message
+     * @example ldutils toggleFeatureFlag my-project my-flag dev true
      */
     async toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value) {
         return this.updateFeatureFlag(projectKey, featureFlagKey, [
@@ -151,6 +156,7 @@ export class LaunchDarklyUtilsFlags {
      * @returns {Promise}
      * @fulfil {Object} updated feature flag json
      * @reject {Error} object with message
+     * @example ldutils migrateFeatureFlag my-project my-flag dev test
      */
     async migrateFeatureFlag(projectKey, featureFlagKey, fromEnv, toEnv, includeState) {
         let that = this;
@@ -194,6 +200,7 @@ export class LaunchDarklyUtilsFlags {
      * @returns {Promise}
      * @fulfil {Object} updated feature flag json array
      * @reject {Error} object with message
+     * @example ldutils bulkMigrateFeatureFlags my-project my-flag,my-flag-two dev test
      */
     async bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState) {
         let promises = [];

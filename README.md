@@ -26,6 +26,8 @@ In addition we expose apis as a commandline tool.
 ## commandline usage
 After cloning this repo you can make `ldutils` executable, and use it to make api calls based on passed in parameters.
 
+> please read the [API documentation](API.md) for examples.
+
 ```
 chmod 755 ./ldutils
 ./ldutils

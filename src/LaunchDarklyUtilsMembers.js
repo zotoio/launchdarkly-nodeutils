@@ -34,6 +34,7 @@ export class LaunchDarklyUtilsMembers {
      * @returns {Promise}
      * @fulfil {Object} team member list json
      * @reject {Error} object with message
+     * @example ldutils getTeamMembers
      */
     async getTeamMembers() {
         try {
@@ -55,6 +56,7 @@ export class LaunchDarklyUtilsMembers {
      * @returns {Promise}
      * @fulfil {Object} team member object json
      * @reject {Error} object with message
+     * @example ldutils getTeamMember 5a3ad672761af020881a8814
      */
     async getTeamMember(memberId) {
         try {
@@ -76,6 +78,7 @@ export class LaunchDarklyUtilsMembers {
      * @returns {Promise}
      * @fulfil {Object} team member json
      * @reject {Error} object with message
+     * @example ldutils getTeamMemberByEmail owner-sample-account@launchdarkly.com
      */
     async getTeamMemberByEmail(emailAddress) {
         return this.getTeamMembers().then(memberList => {
@@ -99,6 +102,7 @@ export class LaunchDarklyUtilsMembers {
      * @returns {Promise}
      * @fulfil {Object} team member json
      * @reject {Error} object with message
+     * @example ldutils getTeamMemberCustomRoles owner-sample-account@launchdarkly.com
      */
     async getTeamMemberCustomRoles(emailAddress) {
         let teamMember = await this.getTeamMemberByEmail(emailAddress);
