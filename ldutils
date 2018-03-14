@@ -175,7 +175,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
 
     program
         .command('getTeamMember <memberId>')
-        .description('get a team members by id')
+        .description('get a team member by id')
         .action(function(memberId) {
             ldUtils.members.getTeamMember(memberId).then(function(response) {
                 console.log(json.plain(response));
@@ -193,7 +193,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
 
     program
         .command('getTeamMemberCustomRoles <emailAddress>')
-        .description('get a team member by email address')
+        .description('get a team members custom roles by email address')
         .action(function(emailAddress) {
             ldUtils.members.getTeamMemberCustomRoles(emailAddress).then(function(response) {
                 console.log(json.plain(response));
@@ -201,7 +201,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         });
 
     program.on('--help', function() {
-        console.log('\n  See https://github.com/wyvern8/launchdarkly-nodeutils for details.\n');
+        console.log('\n  See https://github.com/wyvern8/launchdarkly-nodeutils/API.md for examples.\n');
     });
 
     if (process.argv.length < 3) {
