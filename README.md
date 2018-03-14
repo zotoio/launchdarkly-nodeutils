@@ -23,7 +23,34 @@ In addition we expose apis as a commandline tool.
 1. `npm install launchdarkly-nodeutils --save` or clone this repo.
 2. Generate an access token with the permissions for the operations you will use. Please read: https://docs.launchdarkly.com/v2.0/docs/api-access-tokens
 
-## commandline usage
+## Use cases
+The command line tool or nodejs module can be used for many things.  Here are some examples.
+
+***Automated management of ACLs***
+
+Users of Enterprise LaunchDarkly can create Custom Roles for fine-grained RBAC.  These can be maintained in git, and applied to LaunchDarkly when changes are committed via `bulkUpsertCustomRoles` or `bulkUpsertCustomRoleFolder`.
+
+***Setting flag state for automated tests***
+
+Automated test suites can call the apis to toggle features and set targetting rules before test executions.  With care, a matrix of flag based test scenarios could defined and executed.
+
+***Releasing flags in bulk***
+
+A typical release workflow to move a set of flag attributes from test to prod may consist of CI jobs calling ldutils to:
+1. create a backup of flags to be migrated using `getFeatureFlags my-proj > ./backup.json`
+2. use `bulkMigrateFeatureFlags my-proj flag-x,flag-y test prod` to copy flag attrs from test to prod
+3. if issues, to rollback the flags use `restoreFeatureFlags my-proj flag-x,flag-y prod ./backup.json`
+
+***Scheduled backup of flags***
+
+A cron/ci job could call getFeatureFlags for each project, and commit the json to private git repo in order to keep a versioned record of change.  This could also be used to recover environment state.
+
+***Refreshing Environments***
+
+Copying flag attributes from prod back to preprod for testing. Also newly created environments can be primed with flag targetting rules using `bulkMigrateFeatureFlags`.
+
+
+## Command line usage
 After cloning this repo you can make `ldutils` executable, and use it to make api calls based on passed in parameters.
 
 > please read the [API documentation](API.md) for examples.
@@ -78,6 +105,7 @@ The following modes are supported.  This info is also available via: `ldutils -h
 | toggleFeatureFlag | projectKey, featureFlagKey, environmentKeyQuery, enabled |
 | migrateFeatureFlag | projectKey, featureFlagKey, fromEnv, toEnv, includeState |
 | bulkMigrateFeatureFlags | projectKey, featureFlagKeys, fromEnv, toEnv, includeState |
+| restoreFeatureFlags | projectKey, featureFlagKeys, targetEnv, backupJsonFile, includeState |
 
 - `migrateFeatureFlag` mode is used to copy flag attributes between environments.  This covers: targets, rules, fallthrough, offVariation, prerequisites and optionally the flag on/off state. eg. to migrate a flag from dev to test env.
 

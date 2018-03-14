@@ -81,6 +81,15 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         });
 
     program
+        .command(`restoreFeatureFlags <projectKey> <featureFlagKeys> <targetEnv> <backupJsonFile> (includeState)`)
+        .description('restore environment flag settings from a backup file - backup from getFeatureFlags')
+        .action(function(projectKey, featureFlagKeys, targetEnv, backupJsonFile, includeState) {
+            ldUtils.flags.restoreFeatureFlags(projectKey, featureFlagKeys, targetEnv, backupJsonFile, includeState).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
         .command('getCustomRoles')
         .description('get all custom roles in account')
         .action(function() {
