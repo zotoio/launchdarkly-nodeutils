@@ -26,7 +26,7 @@ export class LaunchDarklyApiClient {
         let agent = null;
         if (proxy) {
             agent = new HttpsProxyAgent(proxy);
-            log.debug(`using proxy from env var 'https_proxy'`);
+            log.debug(`using proxy from env var https_proxy=${proxy}`);
         }
 
         // swagger.yaml from https://launchdarkly.github.io/ld-openapi/swagger.yaml
