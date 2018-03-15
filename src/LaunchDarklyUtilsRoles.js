@@ -254,13 +254,15 @@ export class LaunchDarklyUtilsRoles {
         let globMatch = folderPath + '/*.json';
         this.log.debug(`Looking for Files with Pattern '${globMatch}'`);
         let fileArray = globule.find(globMatch);
-        let results = [];
+        let promises = [];
         let that = this;
         fileArray.forEach(async function(file) {
             that.log.debug(`Found File '${file}'. Calling 'bulkUpsertCustomRoles'`);
-            let result = await that.bulkUpsertCustomRoles(file);
-            results.push(result);
+            promises.push(that.bulkUpsertCustomRoles(file));
         });
-        return results;
+        // resolve all and flatten into single result array
+        return Promise.all(promises).then(results => {
+            return Promise.resolve([].concat.apply([], results));
+        });
     }
 }

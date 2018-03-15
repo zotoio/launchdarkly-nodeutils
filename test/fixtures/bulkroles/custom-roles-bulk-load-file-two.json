@@ -1,0 +1,53 @@
+[
+  {
+    "name": "Test role two",
+    "key": "test-role-two",
+    "description": "Just testing two",
+    "policy": [
+      {
+        "resources": [
+          "proj/*"
+        ],
+        "actions": [
+          "*"
+        ],
+        "effect": "deny"
+      },
+      {
+        "resources": [
+          "proj/*"
+        ],
+        "actions": [
+          "read"
+        ],
+        "effect": "allow"
+      }
+    ]
+  },
+  {
+    "name": "Test role three",
+    "key": "test-role-three",
+    "description": "Just testing three",
+    "policy": [
+      {
+        "resources": [
+          "proj/*"
+        ],
+        "actions": [
+          "*"
+        ],
+        "effect": "deny"
+      },
+      {
+        "resources": [
+          "proj/*"
+        ],
+        "actions": [
+          "read"
+        ],
+        "effect": "allow"
+      }
+    ]
+  }
+]
+

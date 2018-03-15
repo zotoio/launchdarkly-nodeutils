@@ -2,6 +2,8 @@ import Swagger from 'swagger-client';
 import jsYaml from 'js-yaml';
 import { default as fs } from 'fs';
 import { default as json } from 'format-json';
+import { default as HttpsProxyAgent } from 'https-proxy-agent';
+import { default as fetch } from 'node-fetch';
 
 /**
  * @class
@@ -20,6 +22,13 @@ export class LaunchDarklyApiClient {
     static async create(API_TOKEN, log, swaggerYamlString) {
         log.debug(`creating api client with token: ${API_TOKEN}`);
 
+        let proxy = process.env.http_proxy || process.env.https_proxy || null;
+        let agent = null;
+        if (proxy) {
+            agent = new HttpsProxyAgent(proxy);
+            log.debug(`using proxy from env var https_proxy=${proxy}`);
+        }
+
         // swagger.yaml from https://launchdarkly.github.io/ld-openapi/swagger.yaml
         const swaggerYaml = swaggerYamlString || fs.readFileSync(__dirname + `/../swagger.yaml`, 'utf-8').toString();
         const swaggerJson = jsYaml.safeLoad(swaggerYaml);
@@ -28,6 +37,8 @@ export class LaunchDarklyApiClient {
             spec: swaggerJson,
             usePromise: true,
             requestInterceptor: req => {
+                req.userFetch = fetch;
+                req.agent = agent;
                 req.headers.Authorization = API_TOKEN;
                 log.debug(`REQUEST: ${json.plain(req)}`);
 

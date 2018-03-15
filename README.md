@@ -84,6 +84,13 @@ ldutils getFeatureFlags <myProjectId>
 ldutils upsertCustomRole <customRoleKey> <customRoleName> '[{"resources":["proj/*"],"actions":["*"],"effect":"allow"}]'
 ```
 
+### proxies
+If you are executing ldutils via a proxy, just set the https_proxy env var, eg:
+```
+export https_proxy=http://localhost:3128
+```
+
+
 ### commandline modes and parameters
 The command line modes and parameters map directly to the functions exposed for use in nodejs apps.
 Each call to `ldutils` takes a 'mode', and associated parameters as below:

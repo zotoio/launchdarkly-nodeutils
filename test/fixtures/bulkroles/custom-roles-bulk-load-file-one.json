@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Test role one",
+    "key": "test-role-one",
+    "description": "Just testing one",
+    "policy": [
+      {
+        "resources": [
+          "proj/*"
+        ],
+        "actions": [
+          "*"
+        ],
+        "effect": "deny"
+      },
+      {
+        "resources": [
+          "proj/*"
+        ],
+        "actions": [
+          "read"
+        ],
+        "effect": "allow"
+      }
+    ]
+  }
+]
+
