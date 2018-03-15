@@ -22,7 +22,7 @@ export class LaunchDarklyApiClient {
     static async create(API_TOKEN, log, swaggerYamlString) {
         log.debug(`creating api client with token: ${API_TOKEN}`);
 
-        let proxy = process.env.https_proxy;
+        let proxy = process.env.http_proxy || process.env.https_proxy || null;
         let agent = null;
         if (proxy) {
             agent = new HttpsProxyAgent(proxy);
