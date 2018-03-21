@@ -87,7 +87,7 @@
     "nock": "^9.1.6",
     "node-sass": "^4.7.2",
     "nyc": "^11.4.1",
-    "prettier": "1.11.0",
+    "prettier": "1.11.1",
     "rimraf": "^2.6.2",
     "semantic-release": "^15.0.0",
     "serverless": "^1.25.0",
