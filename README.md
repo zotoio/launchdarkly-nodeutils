@@ -182,4 +182,4 @@ Here is a summary.  For more detail see [Contributing](CONTRIBUTING.md).
 This project uses commitizen for conventional commit messages via `git cz` instead of `git commit`.
 The reason for this is that it attaches meaning to each commit that is useful to others, and that is used to automatically version new releases based on http://semver.org
 
-> Just use `npm run commit` instead of git commit and follow instructions..
+> Just use `npm run commit` instead of git commit and follow instructions.
