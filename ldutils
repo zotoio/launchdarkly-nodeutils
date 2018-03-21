@@ -201,7 +201,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         });
 
     program.on('--help', function() {
-        console.log('\n  See https://github.com/wyvern8/launchdarkly-nodeutils/API.md for examples.\n');
+        console.log('\n  See https://github.com/zotoio/launchdarkly-nodeutils/API.md for examples.\n');
     });
 
     if (process.argv.length < 3) {

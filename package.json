@@ -11,20 +11,20 @@
     "semantic-release": "semantic-release",
     "jsdoc2markdown": "node ./renderApiDocs.js"
   },
-  "author": "Andrew Vaughan <andrewv@smartcreations.com.au> (https://halt.sh)",
+  "author": "zotoio <io@zoto.io> (https://zoto.io)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wyvern8/launchdarkly-nodeutils.git"
+    "url": "git+https://github.com/zotoio/launchdarkly-nodeutils.git"
   },
   "keywords": [
     "launchdarkly",
     "featureflags"
   ],
   "bugs": {
-    "url": "https://github.com/wyvern8/launchdarkly-nodeutils/issues"
+    "url": "https://github.com/zotoio/launchdarkly-nodeutils/issues"
   },
-  "homepage": "https://github.com/wyvern8/launchdarkly-nodeutils#readme",
+  "homepage": "https://github.com/zotoio/launchdarkly-nodeutils#readme",
   "dependencies": {
     "app-root-path": "^2.0.1",
     "babel-plugin-transform-runtime": "^6.23.0",
