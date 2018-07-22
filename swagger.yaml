@@ -92,10 +92,7 @@ paths:
       tags:
         - Projects
     delete:
-      summary: >-
-        Delete a project by key. Caution-- deleting a project will delete all
-        associated environments and feature flags. You cannot delete the last
-        project in an account.
+      summary: Delete a project by key. Caution-- deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
       operationId: deleteProject
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -110,9 +107,7 @@ paths:
         - Projects
   '/projects/{projectKey}/environments':
     post:
-      summary: >-
-        Create a new environment in a specified project with a given name, key,
-        and swatch color.
+      summary: 'Create a new environment in a specified project with a given name, key, and swatch color.'
       operationId: postEnvironment
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -257,9 +252,7 @@ paths:
       tags:
         - Feature flags
     delete:
-      summary: >-
-        Delete a feature flag in all environments. Be careful-- only delete
-        feature flags that are no longer being used by your application.
+      summary: Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.
       operationId: deleteFeatureFlag
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -275,10 +268,7 @@ paths:
         - Feature flags
   '/flag-statuses/{projectKey}/{environmentKey}':
     get:
-      summary: >-
-        Get a list of statuses for all feature flags. The status includes the
-        last time the feature flag was requested, as well as the state of the
-        flag.
+      summary: 'Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as the state of the flag.'
       operationId: getFeatureFlagStatus
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -311,12 +301,7 @@ paths:
         - Feature flags
   '/users/{projectKey}/{environmentKey}':
     get:
-      summary: >-
-        List all users in the environment. Includes the total count of users. In
-        each page, there will be up to 'limit' users returned (default 20). This
-        is useful for exporting all users in the system for further analysis.
-        Paginated collections will include a next link containing a URL with the
-        next set of elements in the collection.
+      summary: 'List all users in the environment. Includes the total count of users. In each page, there will be up to ''limit'' users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.'
       operationId: getUsers
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -333,10 +318,7 @@ paths:
         - Users
   '/user-search/{projectKey}/{environmentKey}':
     get:
-      summary: >-
-        Search users in LaunchDarkly based on their last active date, or a
-        search query. It should not be used to enumerate all users in
-        LaunchDarkly-- use the List users API resource.
+      summary: 'Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.'
       operationId: getSearchUsers
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -429,9 +411,7 @@ paths:
       tags:
         - User settings
     put:
-      summary: >-
-        Specifically enable or disable a feature flag for a user based on their
-        key.
+      summary: Specifically enable or disable a feature flag for a user based on their key.
       operationId: putFlagSetting
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -452,10 +432,7 @@ paths:
         - User settings
   /auditlog:
     get:
-      summary: >-
-        Get a list of all audit log entries. The query parameters allow you to
-        restrict the returned results by date ranges, resource specifiers, or a
-        full-text search query.
+      summary: 'Get a list of all audit log entries. The query parameters allow you to restrict the returned results by date ranges, resource specifiers, or a full-text search query.'
       operationId: getAuditLogEntries
       parameters:
         - $ref: '#/parameters/Before'
@@ -722,9 +699,7 @@ paths:
         - Team members
   /:
     get:
-      description: >-
-        You can issue a GET request to the root resource to find all of the
-        resource categories supported by the API.
+      description: You can issue a GET request to the root resource to find all of the resource categories supported by the API.
       operationId: getRoot
       responses:
         '200':
@@ -761,10 +736,7 @@ definitions:
         example: 'https://example.com/example'
       secret:
         type: string
-        description: >-
-          If defined, the webhooks post request will include a X-LD-Signature
-          header whose value will contain an HMAC SHA256 hex digest of the
-          webhook payload, using the secret as the key.
+        description: 'If defined, the webhooks post request will include a X-LD-Signature header whose value will contain an HMAC SHA256 hex digest of the webhook payload, using the secret as the key.'
         example: frobozz
       'on':
         type: boolean
@@ -802,9 +774,7 @@ definitions:
       creationDate:
         type: number
         format: int64
-        description: >-
-          A unix epoch time in milliseconds specifying the creation time of this
-          flag.
+        description: A unix epoch time in milliseconds specifying the creation time of this flag.
         example: 1443652232590
       includeInSnippet:
         type: boolean
@@ -979,23 +949,13 @@ definitions:
         $ref: '#/definitions/Links'
       name:
         type: string
-        description: >
+        description: |
           | Name     | Description |
-
           | --------:| ----------- |
-
-          | new      | the feature flag was created within the last 7 days, and
-          has not been requested yet |
-
-          | active   | the feature flag was requested by your servers or clients
-          within the last 7 days |
-
-          | inactive | the feature flag was created more than 7 days ago, and
-          hasn't been requested by your servers or clients within the past 7
-          days |
-
-          | launched | one variation of the feature flag has been rolled out to
-          all your users for at least 7 days |
+          | new      | the feature flag was created within the last 7 days, and has not been requested yet |
+          | active   | the feature flag was requested by your servers or clients within the last 7 days |
+          | inactive | the feature flag was created more than 7 days ago, and hasn't been requested by your servers or clients within the past 7 days |
+          | launched | one variation of the feature flag has been rolled out to all your users for at least 7 days |
         enum:
           - new
           - active
@@ -1145,9 +1105,7 @@ definitions:
         example: changed the name of
       title:
         type: string
-        example: >-
-          [Reese Applebaum](mailto:refapp@launchdarkly.com) changed the name of
-          [Testing](https://app.launchdarkly.com/settings#/projects)
+        example: '[Reese Applebaum](mailto:refapp@launchdarkly.com) changed the name of [Testing](https://app.launchdarkly.com/settings#/projects)'
       target:
         type: object
         properties:
@@ -1177,19 +1135,11 @@ definitions:
         $ref: '#/definitions/Links'
       _value:
         type: boolean
-        description: >-
-          The most important attribute in the response. The _value is the
-          current setting for the user. For a boolean feature toggle, this will
-          be true, false, or null if there is no defined fallthrough value.
+        description: 'The most important attribute in the response. The _value is the current setting for the user. For a boolean feature toggle, this will be true, false, or null if there is no defined fallthrough value.'
         example: true
       setting:
         type: boolean
-        description: >-
-          The setting attribute indicates whether you've explicitly targeted
-          this user to receive a particular variation. For example, if you have
-          explicitly turned off a feature toggle for a user, setting will be
-          false. A setting of null means that you haven't assigned that user to
-          a specific variation.
+        description: 'The setting attribute indicates whether you''ve explicitly targeted this user to receive a particular variation. For example, if you have explicitly turned off a feature toggle for a user, setting will be false. A setting of null means that you haven''t assigned that user to a specific variation.'
         example: null
   UserFlagSettings:
     type: object
@@ -1209,8 +1159,7 @@ definitions:
           alternate.page:
             _links:
               self:
-                href: >-
-                  /api/v2/users/lacuna/production/Abbie_Braun/flags/alternate.page
+                href: /api/v2/users/lacuna/production/Abbie_Braun/flags/alternate.page
                 type: application/json
             _value: 'false,'
             setting: null
@@ -1225,16 +1174,12 @@ definitions:
         $ref: '#/definitions/Resources'
       notresources:
         $ref: '#/definitions/Resources'
-        description: >-
-          Targeted resource will be those resources NOT in this list. The
-          "resources`" field must be empty to use this field.
+        description: Targeted resource will be those resources NOT in this list. The "resources`" field must be empty to use this field.
       actions:
         $ref: '#/definitions/Actions'
       notactions:
         $ref: '#/definitions/Actions'
-        description: >-
-          Targeted actions will be those actions NOT in this list. The "actions"
-          field must be empty to use this field.
+        description: Targeted actions will be those actions NOT in this list. The "actions" field must be empty to use this field.
       effect:
         type: string
         enum:
@@ -1375,14 +1320,10 @@ parameters:
         secret:
           example: <password>
           type: string
-          description: >-
-            If sign is true, and the secret attribute is omitted, LaunchDarkly
-            will automatically generate a secret for you.
+          description: 'If sign is true, and the secret attribute is omitted, LaunchDarkly will automatically generate a secret for you.'
         sign:
           type: boolean
-          description: >-
-            If sign is false, the webhook will not include a signature header,
-            and the secret can be omitted.
+          description: 'If sign is false, the webhook will not include a signature header, and the secret can be omitted.'
         'on':
           type: boolean
           example: true
@@ -1401,9 +1342,7 @@ parameters:
       properties:
         name:
           type: string
-          description: >-
-            A human-friendly name for the feature flag. Remember to note if this
-            flag is intended to be temporary or permanent.
+          description: A human-friendly name for the feature flag. Remember to note if this flag is intended to be temporary or permanent.
           example: new test flag
         key:
           type: string
@@ -1425,9 +1364,7 @@ parameters:
           description: Tags for the feature flag.
         includeInSnippet:
           type: boolean
-          description: >-
-            Whether or not this flag should be made available to the client-side
-            JavaScript SDK.
+          description: Whether or not this flag should be made available to the client-side JavaScript SDK.
       required:
         - name
         - key
@@ -1467,9 +1404,7 @@ parameters:
           example: dev
         color:
           type: string
-          description: >-
-            A color swatch (as an RGB hex value with no leading '#', e.g.
-            C8C8C8).
+          description: 'A color swatch (as an RGB hex value with no leading ''#'', e.g. C8C8C8).'
           example: '417505'
         defaultTtl:
           type: number
@@ -1483,27 +1418,19 @@ parameters:
     name: projectKey
     in: path
     required: true
-    description: >-
-      The project key, used to tie the flags together under one project so they
-      can be managed together.
+    description: 'The project key, used to tie the flags together under one project so they can be managed together.'
     type: string
   EnvironmentKey:
     name: environmentKey
     in: path
     required: true
-    description: >-
-      The environment key, used to tie together flag configuration and users
-      under one environment so they can be managed together.
+    description: 'The environment key, used to tie together flag configuration and users under one environment so they can be managed together.'
     type: string
   EnvironmentKeyQuery:
     name: env
     in: query
     required: false
-    description: >-
-      By default, each feature will include configurations for each environment.
-      You can filter environments with the env query parameter. For example,
-      setting env=production will restrict the returned configurations to just
-      your production environment.
+    description: 'By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=production will restrict the returned configurations to just your production environment.'
     type: string
   FeatureFlagKey:
     name: featureFlagKey
@@ -1545,18 +1472,14 @@ parameters:
     name: after
     in: query
     required: false
-    description: >-
-      A timestamp filter, expressed as a Unix epoch time in milliseconds. All
-      entries returned will have occured after this timestamp.
+    description: 'A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp.'
     format: int64
     type: number
   PatchRequest:
     name: patchDelta
     in: body
     required: true
-    description: >-
-      Requires a JSON Patch representation of the desired changes to the
-      project. 'http://jsonpatch.com/'
+    description: 'Requires a JSON Patch representation of the desired changes to the project. ''http://jsonpatch.com/'''
     schema:
       type: array
       items:
@@ -1583,41 +1506,31 @@ parameters:
       properties:
         setting:
           type: boolean
-          description: >
-            The variation value to set for the user. Must match the variation
-            type of the flag.
+          description: |
+            The variation value to set for the user. Must match the variation type of the flag.
   Before:
     name: before
     in: query
     required: false
-    description: >-
-      A timestamp filter, expressed as a Unix epoch time in milliseconds. All
-      entries returned will have before this timestamp.
+    description: 'A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp.'
     type: number
   Q:
     name: q
     in: query
     required: false
-    description: >-
-      Text to search for. You can search for the full or partial name of the
-      resource involved or fullpartial email address of the member who made the
-      change.
+    description: Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change.
     type: string
   AuditLimit:
     name: limit
     in: query
     required: false
-    description: >-
-      A limit on the number of audit log entries to be returned, between 1 and
-      20.
+    description: 'A limit on the number of audit log entries to be returned, between 1 and 20.'
     type: number
   Spec:
     name: spec
     in: query
     required: false
-    description: >-
-      A resource specifier, allowing you to filter audit log listings by
-      resource.
+    description: 'A resource specifier, allowing you to filter audit log listings by resource.'
     type: string
   MembersPostRequest:
     name: membersBody
@@ -1690,11 +1603,7 @@ parameters:
     name: patchComment
     in: body
     required: true
-    description: >-
-      Requires a JSON Patch representation of the desired changes to the
-      project. 'http://jsonpatch.com/' Feature flag patches also support JSON
-      Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of
-      comments is also supported.
+    description: 'Requires a JSON Patch representation of the desired changes to the project. ''http://jsonpatch.com/'' Feature flag patches also support JSON Merge Patch format. ''https://tools.ietf.org/html/rfc7386'' The addition of comments is also supported.'
     schema:
       type: object
       properties:
@@ -1719,4 +1628,3 @@ parameters:
               - op
               - path
               - value
-
