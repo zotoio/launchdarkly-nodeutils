@@ -125,7 +125,8 @@ export class LaunchDarklyUtilsMembers {
 
     /**
      * Invite a New Team Member by their Email Address
-     * @param { String } emailAddress
+     * @param { String } emailAddress - Email Address of New Member
+     * @param { String } initialRoleKey - Default Role for New Member
      * @returns {Promise}
      * @fulfil {Object} Team Member JSON
      * @reject {Error} object with message
