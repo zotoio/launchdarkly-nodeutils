@@ -136,7 +136,7 @@ export class LaunchDarklyUtilsMembers {
         let user = { email: emailAddress };
         let members = { membersBody: [] };
         // If Custom Role is Requested, the Key in the Member Object is different...
-        !defaultRoles.includes(initialRoleKey) ? user.customRoles = [initialRoleKey] : user.role = initialRoleKey;
+        !defaultRoles.includes(initialRoleKey) ? (user.customRoles = [initialRoleKey]) : (user.role = initialRoleKey);
         members.membersBody.push(user);
         try {
             return this.apiClient.apis[this.API_GROUP].postMembers(members).then(response => {
