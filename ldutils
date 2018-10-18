@@ -165,6 +165,15 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         });
 
     program
+        .command('inviteTeamMember <emailAddress> <initialRoleName>')
+        .description('Invite a New Team Member')
+        .action(function(emailAddress, initialRoleName) {
+            ldUtils.members.inviteTeamMember(emailAddress, initialRoleName).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
         .command('getTeamMembers')
         .description('list all team members in account')
         .action(function() {
