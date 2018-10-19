@@ -98,4 +98,23 @@ describe('LaunchDarklyUtilsMembers', function() {
             });
         });
     });
+
+    describe('inviteTeamMember', function() {
+        before(done => {
+            let scope = nock('https://app.launchdarkly.com')
+                .post('/api/v2/members')
+                .replyWithFile(200, __dirname + '/fixtures/team-members-get.json', {
+                    'Content-Type': 'application/json'
+                });
+            assert(scope);
+            done();
+        });
+
+        it('should make expected api call and return results', async function() {
+            let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-get.json', 'utf-8'));
+            return ldutils.members.inviteTeamMember('owner-sample-account@launchdarkly.com', 'owner').then(actual => {
+                expect(actual).to.deep.equal(expected);
+            });
+        });
+    });
 });

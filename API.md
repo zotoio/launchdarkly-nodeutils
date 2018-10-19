@@ -272,6 +272,7 @@ ldutils restoreFeatureFlags my-project my-flag,my-flag-two prod ./preReleaseBack
     * [.getTeamMember(memberId)](#LaunchDarklyUtilsMembers+getTeamMember) ⇒ <code>Promise</code>
     * [.getTeamMemberByEmail(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberByEmail) ⇒ <code>Promise</code>
     * [.getTeamMemberCustomRoles(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberCustomRoles) ⇒ <code>Promise</code>
+    * [.inviteTeamMember(emailAddress)](#LaunchDarklyUtilsMembers+inviteTeamMember) ⇒ <code>Promise</code>
 
 <a name="new_LaunchDarklyUtilsMembers_new"></a>
 
@@ -355,6 +356,19 @@ Get a team member including customRoleKeys translated from customRoles array
 ```js
 ldutils getTeamMemberCustomRoles owner-sample-account@launchdarkly.com
 ```
+<a name="LaunchDarklyUtilsMembers+inviteTeamMember"></a>
+
+### launchDarklyUtilsMembers.inviteTeamMember(emailAddress) ⇒ <code>Promise</code>
+Invite a New Team Member by their Email Address
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
+**Fulfil**: <code>Object</code> Team Member JSON  
+**Reject**: <code>Error</code> object with message  
+
+| Param | Type |
+| --- | --- |
+| emailAddress | <code>String</code> | 
+
 <a name="LaunchDarklyUtilsRoles"></a>
 
 ## LaunchDarklyUtilsRoles

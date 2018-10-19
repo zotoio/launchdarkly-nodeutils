@@ -154,6 +154,11 @@ For details on role policy object structures, please see: https://docs.launchdar
 | getTeamMember | memberId |
 | getTeamMemberByEmail | emailAddress |
 | getTeamMemberCustomRoles | emailAddress |
+| inviteTeamMember | emailAddress, initialRole |
+
+```
+./ldutils inviteTeamMember user@zoto.io reader
+```
 
 ## node app usage
 Assumes that you have set the LAUNCHDARKLY_API_TOKEN environment var.

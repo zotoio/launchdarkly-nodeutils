@@ -122,4 +122,33 @@ export class LaunchDarklyUtilsMembers {
             return teamMember;
         });
     }
+
+    /**
+     * Invite a New Team Member by their Email Address
+     * @param { String } emailAddress - Email Address of New Member
+     * @param { String } initialRoleKey - Default Role for New Member
+     * @returns {Promise}
+     * @fulfil {Object} Team Member JSON
+     * @reject {Error} object with message
+     */
+    async inviteTeamMember(emailAddress, initialRoleKey = 'reader') {
+        // Define var instead of inlining it for ease of reading later...
+        let defaultRoles = ['reader', 'writer', 'admin', 'owner'];
+        let user = { email: emailAddress };
+        let members = { membersBody: [] };
+        // If Custom Role is Requested, the Key in the Member Object is different...
+        !defaultRoles.includes(initialRoleKey) ? (user.customRoles = [initialRoleKey]) : (user.role = initialRoleKey);
+        members.membersBody.push(user);
+        try {
+            return this.apiClient.apis[this.API_GROUP].postMembers(members).then(response => {
+                return response.body;
+            });
+        } catch (e) {
+            throw {
+                api: 'postMembers',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/create-team-members-1'
+            };
+        }
+    }
 }
