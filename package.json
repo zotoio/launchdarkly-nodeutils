@@ -9,7 +9,9 @@
     "lint": "node ./node_modules/.bin/eslint ./src ./test --fix --ext=.js --ignore-pattern node_modules/ --ignore-pattern dist/ --ignore-pattern coverage/ --quiet",
     "test": "npm run build && cross-env NODE_ENV=test nyc ./node_modules/.bin/mocha --timeout 10000 --require babel-core/register --require babel-polyfill './dist/test/**/*.spec.js' && npm run jsdoc2markdown",
     "semantic-release": "semantic-release",
-    "jsdoc2markdown": "node ./renderApiDocs.js"
+    "jsdoc2markdown": "node ./renderApiDocs.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "zotoio <io@zoto.io> (https://zoto.io)",
   "license": "MIT",
@@ -41,8 +43,9 @@
     "json-format": "^1.0.1",
     "lodash": "^4.17.5",
     "node-fetch": "^2.1.1",
-    "swagger-client": "^3.4.7",
-    "webpack": "^4.0.0"
+    "swagger-client": "^3.8.1",
+    "webpack": "^4.0.0",
+    "snyk": "^1.116.2"
   },
   "engines": {
     "node": ">=8.4.0"
@@ -93,5 +96,6 @@
     "serverless-webpack": "^5.0.0",
     "sinon": "^6.0.0",
     "supertest": "^3.0.0"
-  }
+  },
+  "snyk": true
 }
