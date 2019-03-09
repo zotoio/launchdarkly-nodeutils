@@ -92,6 +92,6 @@
     "serverless-dotenv-plugin": "^1.0.1",
     "serverless-webpack": "^5.0.0",
     "sinon": "^6.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "^4.0.0"
   }
 }
