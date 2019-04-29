@@ -103,7 +103,7 @@ describe('LaunchDarklyUtilsMembers', function() {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .post('/api/v2/members')
-                .replyWithFile(200, __dirname + '/fixtures/team-members-get.json', {
+                .replyWithFile(201, __dirname + '/fixtures/team-members-get.json', {
                     'Content-Type': 'application/json'
                 });
             assert(scope);

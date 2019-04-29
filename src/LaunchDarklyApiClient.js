@@ -47,7 +47,7 @@ export class LaunchDarklyApiClient {
             responseInterceptor: res => {
                 log.debug(`RESPONSE: ${json.plain(res)}`);
 
-                if (res.status !== 200) {
+                if (res.status > 299) {
                     log.debug(`ERROR: ${json.plain(res)}`);
                     throw res;
                 }
