@@ -97,7 +97,7 @@ Feature flag specific api functions attached as 'LaunchDarklyUtils.flags'
 
 <a name="LaunchDarklyUtilsFlags+API_GROUP"></a>
 
-### launchDarklyUtilsFlags.API_GROUP ⇒ <code>string</code>
+### launchDarklyUtilsFlags.API\_GROUP ⇒ <code>string</code>
 Api group object key in LD api
 
 **Kind**: instance property of [<code>LaunchDarklyUtilsFlags</code>](#LaunchDarklyUtilsFlags)  
@@ -289,7 +289,7 @@ Team member specific api functions attached as 'LaunchDarklyUtils.members'
 
 <a name="LaunchDarklyUtilsMembers+API_GROUP"></a>
 
-### launchDarklyUtilsMembers.API_GROUP ⇒ <code>string</code>
+### launchDarklyUtilsMembers.API\_GROUP ⇒ <code>string</code>
 Api group object key in LD api
 
 **Kind**: instance property of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
@@ -402,7 +402,7 @@ Custom role specific api functions attached as 'LaunchDarklyUtils.roles'
 
 <a name="LaunchDarklyUtilsRoles+API_GROUP"></a>
 
-### launchDarklyUtilsRoles.API_GROUP ⇒ <code>string</code>
+### launchDarklyUtilsRoles.API\_GROUP ⇒ <code>string</code>
 Api group object key in LD api
 
 **Kind**: instance property of [<code>LaunchDarklyUtilsRoles</code>](#LaunchDarklyUtilsRoles)  

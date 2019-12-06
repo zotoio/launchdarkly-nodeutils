@@ -1,12 +1,9 @@
 {
-  "presets": [
-    "es2015",
-    "stage-0"
-  ],
+  "presets": ["@babel/preset-env"],
   "plugins": [
-    "transform-async-to-generator",
-    "transform-class-properties",
-    "transform-runtime"
+    "@babel/transform-async-to-generator",
+    "@babel/proposal-class-properties",
+    "@babel/transform-runtime"
   ],
   "env": {
     "test": {
