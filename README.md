@@ -189,3 +189,4 @@ This project uses commitizen for conventional commit messages via `git cz` inste
 The reason for this is that it attaches meaning to each commit that is useful to others, and that is used to automatically version new releases based on http://semver.org
 
 > Just use `yarn commit` instead of git commit and follow instructions.
+
