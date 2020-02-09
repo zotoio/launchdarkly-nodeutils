@@ -21,26 +21,24 @@ export class LaunchDarklyUtils {
      * @reject {Error} object with message
      */
     async create(API_TOKEN, customLogger, swaggerYamlString) {
-        let that = this;
-        return new Promise(async (resolve, reject) => {
-            // setup logger
-            that.log = customLogger ? customLogger : LaunchDarklyLogger.logger();
-            that.log.debug('logger attached..');
+        // setup logger
+        this.log = customLogger ? customLogger : LaunchDarklyLogger.logger();
+        this.log.debug('logger attached..');
 
-            // create LaunchDarkly apiClient
-            try {
-                that.apiClient = await LaunchDarklyApiClient.create(API_TOKEN, this.log, swaggerYamlString);
-                that.log.debug('api client instantiated..');
+        // create LaunchDarkly apiClient
+        try {
+            this.apiClient = await LaunchDarklyApiClient.create(API_TOKEN, this.log, swaggerYamlString);
+            this.log.debug('api client instantiated..');
 
-                // attach utils
-                that.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log, that);
-                that.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log, that);
-                that.members = new LaunchDarklyUtilsMembers(this.apiClient, this.log, that);
-                that.log.debug(`utils ready.`);
-            } catch (e) {
-                return reject(e);
-            }
-            return resolve(that);
-        });
+            // attach utils
+            this.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log, this);
+            this.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log, this);
+            this.members = new LaunchDarklyUtilsMembers(this.apiClient, this.log, this);
+            this.log.debug(`utils ready.`);
+        } catch (e) {
+            this.log.error(e);
+            throw e;
+        }
+        return this;
     }
 }
