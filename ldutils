@@ -192,6 +192,15 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
                 console.log(json.plain(response));
             });
         });
+    
+    program
+        .command('getPendingTeamMembers')
+        .description('List all Pending Team Members in Account')
+        .action(function() {
+            ldUtils.members.getPendingTeamMembers().then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
 
     program
         .command('getTeamMember <memberId>')
@@ -207,6 +216,24 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         .description('get a team member by email address')
         .action(function(emailAddress) {
             ldUtils.members.getTeamMemberByEmail(emailAddress).then(function(response) {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command('deleteTeamMember <memberId>')
+        .description('Delete a Team Member by ID')
+        .action(function(memberId) {
+            ldUtils.members.deleteTeamMember(memberId).then(function(response) {
+                console.log(response ? "User Deleted" : "User Deletion Failed");
+            });
+        });
+
+    program
+        .command('deletePendingTeamMembers')
+        .description('Delete all Pending Team Members')
+        .action(function() {
+            ldUtils.members.deletePendingTeamMembers().then(function(response) {
                 console.log(json.plain(response));
             });
         });
