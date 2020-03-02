@@ -51,6 +51,28 @@ export class LaunchDarklyUtilsMembers {
     }
 
     /**
+     * Get all Pending Team Members in an Account
+     * @returns {Promise}
+     * @fulfil {Object} JSON List of Team Members who are Pending
+     * @reject {Error} An Error
+     * @example ldutils getPendingTeamMembers
+     */
+    async getPendingTeamMembers() {
+        try {
+            return this.apiClient.apis[this.API_GROUP].getMembers().then(response => {
+                response.body.items = response.body.items.filter(member => member._pendingInvite === true);
+                return response;
+            });
+        } catch (e) {
+            throw {
+                api: 'getMembers',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/docs/list-team-members'
+            };
+        }
+    }
+
+    /**
      * get a single team member by id
      * @param memberId - _id field of team member
      * @returns {Promise}
@@ -148,6 +170,53 @@ export class LaunchDarklyUtilsMembers {
                 api: 'postMembers',
                 message: e.message,
                 docs: 'https://apidocs.launchdarkly.com/docs/create-team-members-1'
+            };
+        }
+    }
+
+    /**
+     * Delete a Single Team Member by ID
+     * @param memberId - _id field of team member
+     * @returns {Promise}
+     * @fulfil {Boolean} Operation Status
+     * @reject {Error} An Error
+     * @example ldutils deleteTeamMember 5a3ad672761af020881a8814
+     */
+    async deleteTeamMember(memberId) {
+        try {
+            return this.apiClient.apis[this.API_GROUP].deleteMember({ memberId: memberId }).then(response => {
+                return response.status === 204;
+            });
+        } catch (e) {
+            throw {
+                api: 'deleteMember',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/reference#delete-team-member'
+            };
+        }
+    }
+
+    /**
+     * Delete All Pending Team Members
+     * @returns {Promise}
+     * @fulfil {Object} Array of Deleted Users
+     * @reject {Error} An Error
+     * @example ldutils deletePendingTeamMembers
+     */
+    async deletePendingTeamMembers() {
+        try {
+            return this.getPendingTeamMembers().then(response => {
+                return Promise.all(
+                    response.items.map(async member => {
+                        return this.deleteTeamMember(member._id);
+                    })
+                );
+            });
+        } catch (e) {
+            throw {
+                api: 'deleteMember',
+                message: e.message,
+                docs: 'https://apidocs.launchdarkly.com/reference#delete-team-member'
             };
         }
     }
