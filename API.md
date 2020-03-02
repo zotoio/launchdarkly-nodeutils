@@ -269,10 +269,13 @@ ldutils restoreFeatureFlags my-project my-flag,my-flag-two prod ./preReleaseBack
     * [new LaunchDarklyUtilsMembers(apiClient, log, ldUtils)](#new_LaunchDarklyUtilsMembers_new)
     * [.API_GROUP](#LaunchDarklyUtilsMembers+API_GROUP) ⇒ <code>string</code>
     * [.getTeamMembers()](#LaunchDarklyUtilsMembers+getTeamMembers) ⇒ <code>Promise</code>
+    * [.getPendingTeamMembers()](#LaunchDarklyUtilsMembers+getPendingTeamMembers) ⇒ <code>Promise</code>
     * [.getTeamMember(memberId)](#LaunchDarklyUtilsMembers+getTeamMember) ⇒ <code>Promise</code>
     * [.getTeamMemberByEmail(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberByEmail) ⇒ <code>Promise</code>
     * [.getTeamMemberCustomRoles(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberCustomRoles) ⇒ <code>Promise</code>
     * [.inviteTeamMember(emailAddress, initialRoleKey)](#LaunchDarklyUtilsMembers+inviteTeamMember) ⇒ <code>Promise</code>
+    * [.deleteTeamMember(memberId)](#LaunchDarklyUtilsMembers+deleteTeamMember) ⇒ <code>Promise</code>
+    * [.deletePendingTeamMembers()](#LaunchDarklyUtilsMembers+deletePendingTeamMembers) ⇒ <code>Promise</code>
 
 <a name="new_LaunchDarklyUtilsMembers_new"></a>
 
@@ -304,6 +307,18 @@ Get all team members in account
 **Example**  
 ```js
 ldutils getTeamMembers
+```
+<a name="LaunchDarklyUtilsMembers+getPendingTeamMembers"></a>
+
+### launchDarklyUtilsMembers.getPendingTeamMembers() ⇒ <code>Promise</code>
+Get all Pending Team Members in an Account
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
+**Fulfil**: <code>Object</code> JSON List of Team Members who are Pending  
+**Reject**: <code>Error</code> An Error  
+**Example**  
+```js
+ldutils getPendingTeamMembers
 ```
 <a name="LaunchDarklyUtilsMembers+getTeamMember"></a>
 
@@ -370,6 +385,35 @@ Invite a New Team Member by their Email Address
 | emailAddress | <code>String</code> |  | Email Address of New Member |
 | initialRoleKey | <code>String</code> | <code>reader</code> | Default Role for New Member |
 
+<a name="LaunchDarklyUtilsMembers+deleteTeamMember"></a>
+
+### launchDarklyUtilsMembers.deleteTeamMember(memberId) ⇒ <code>Promise</code>
+Delete a Single Team Member by ID
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
+**Fulfil**: <code>Boolean</code> Operation Status  
+**Reject**: <code>Error</code> An Error  
+
+| Param | Description |
+| --- | --- |
+| memberId | _id field of team member |
+
+**Example**  
+```js
+ldutils deleteTeamMember 5a3ad672761af020881a8814
+```
+<a name="LaunchDarklyUtilsMembers+deletePendingTeamMembers"></a>
+
+### launchDarklyUtilsMembers.deletePendingTeamMembers() ⇒ <code>Promise</code>
+Delete All Pending Team Members
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
+**Fulfil**: <code>Object</code> Array of Deleted Users  
+**Reject**: <code>Error</code> An Error  
+**Example**  
+```js
+ldutils deletePendingTeamMembers
+```
 <a name="LaunchDarklyUtilsRoles"></a>
 
 ## LaunchDarklyUtilsRoles

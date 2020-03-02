@@ -192,7 +192,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
                 console.log(json.plain(response));
             });
         });
-    
+
     program
         .command('getPendingTeamMembers')
         .description('List all Pending Team Members in Account')
@@ -225,7 +225,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         .description('Delete a Team Member by ID')
         .action(function(memberId) {
             ldUtils.members.deleteTeamMember(memberId).then(function(response) {
-                console.log(response ? "User Deleted" : "User Deletion Failed");
+                console.log(response ? 'User Deleted' : 'User Deletion Failed');
             });
         });
 

@@ -34,6 +34,26 @@ describe('LaunchDarklyUtilsMembers', function() {
         });
     });
 
+    describe('getPendingTeamMembers', function() {
+        before(done => {
+            let scope = nock('https://app.launchdarkly.com')
+                .get('/api/v2/members')
+                .replyWithFile(200, __dirname + '/fixtures/team-members-list.json', {
+                    'Content-Type': 'application/json'
+                });
+            assert(scope);
+            done();
+        });
+
+        it('should make expected api call and return results', async function() {
+            let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-list.json', 'utf-8'));
+            expected.items = expected.items.filter(member => member._pendingInvite === true);
+            return ldutils.members.getPendingTeamMembers().then(actual => {
+                expect(actual).to.deep.equal(expected);
+            });
+        });
+    });
+
     describe('getTeamMember', function() {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
@@ -114,6 +134,22 @@ describe('LaunchDarklyUtilsMembers', function() {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-get.json', 'utf-8'));
             return ldutils.members.inviteTeamMember('owner-sample-account@launchdarkly.com', 'owner').then(actual => {
                 expect(actual).to.deep.equal(expected);
+            });
+        });
+    });
+
+    describe('deleteTeamMember', function() {
+        before(done => {
+            let scope = nock('https://app.launchdarkly.com')
+                .delete('/api/v2/members/5a3ad672761af020881a8814')
+                .reply(204, {});
+            assert(scope);
+            done();
+        });
+
+        it('should make expected api call and return a boolean', async function() {
+            return ldutils.members.deleteTeamMember('5a3ad672761af020881a8814').then(actual => {
+                expect(actual).to.equal(true);
             });
         });
     });

@@ -61,7 +61,7 @@ export class LaunchDarklyUtilsMembers {
         try {
             return this.apiClient.apis[this.API_GROUP].getMembers().then(response => {
                 response.body.items = response.body.items.filter(member => member._pendingInvite === true);
-                return response;
+                return response.body;
             });
         } catch (e) {
             throw {
