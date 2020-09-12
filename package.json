@@ -40,8 +40,8 @@
     "json-diff": "^0.5.4",
     "json-format": "^1.0.1",
     "lodash": "^4.17.15",
-    "node-fetch": "^2.6.0",
-    "swagger-client": "^3.9.6",
+    "node-fetch": "^2.6.1",
+    "swagger-client": "^3.10.2",
     "webpack": "^4.41.2"
   },
   "engines": {
