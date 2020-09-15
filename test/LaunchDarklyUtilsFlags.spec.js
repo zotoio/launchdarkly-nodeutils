@@ -8,13 +8,13 @@ import { LaunchDarklyLogger } from '../src/LaunchDarklyLogger';
 
 let log = LaunchDarklyLogger.logger();
 
-describe('LaunchDarklyUtilsFlags', function() {
+describe('LaunchDarklyUtilsFlags', () => {
     let ldutils;
     beforeEach(async () => {
         ldutils = await new LaunchDarklyUtils().create('MOCK', log);
     });
 
-    describe('getFeatureFlags', function() {
+    describe('getFeatureFlags', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/flags/sample-project')
@@ -25,7 +25,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-list.json', 'utf-8'));
             return ldutils.flags.getFeatureFlags('sample-project').then(actual => {
                 expect(actual).to.deep.equal(expected);
@@ -33,7 +33,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         });
     });
 
-    describe('getFeatureFlag', function() {
+    describe('getFeatureFlag', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/flags/sample-project/sort.order')
@@ -44,7 +44,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-get.json', 'utf-8'));
             return ldutils.flags.getFeatureFlag('sample-project', 'sort.order').then(actual => {
                 expect(actual).to.deep.equal(expected);
@@ -52,7 +52,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         });
     });
 
-    describe('getFeatureFlagState', function() {
+    describe('getFeatureFlagState', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/flags/sample-project/sort.order?env=test')
@@ -63,7 +63,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = true;
             return ldutils.flags.getFeatureFlagState('sample-project', 'sort.order', 'test').then(actual => {
                 assert.equal(actual, expected);
@@ -71,7 +71,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         });
     });
 
-    describe('updateFeatureFlag', function() {
+    describe('updateFeatureFlag', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .patch('/api/v2/flags/sample-project/sort.order')
@@ -82,7 +82,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8'));
             return ldutils.flags
                 .updateFeatureFlag('sample-project', 'sort.order', [
@@ -94,7 +94,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         });
     });
 
-    describe('toggleFeatureFlag', function() {
+    describe('toggleFeatureFlag', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .patch('/api/v2/flags/sample-project/sort.order')
@@ -105,7 +105,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8'));
             return ldutils.flags.toggleFeatureFlag('sample-project', 'sort.order', 'test', true).then(actual => {
                 expect(actual).to.deep.equal(expected);
@@ -113,7 +113,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         });
     });
 
-    describe('migrateFeatureFlag', function() {
+    describe('migrateFeatureFlag', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/flags/sample-project/sort.order')
@@ -128,7 +128,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8'));
             return ldutils.flags
                 .migrateFeatureFlag('sample-project', 'sort.order', 'test', 'production')
@@ -138,7 +138,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         });
     });
 
-    describe('bulkMigrateFeatureFlags', function() {
+    describe('bulkMigrateFeatureFlags', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/flags/sample-project/sort.order')
@@ -161,7 +161,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = [];
             expected.push(JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8')));
             expected.push(JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update-two.json', 'utf-8')));
@@ -173,7 +173,7 @@ describe('LaunchDarklyUtilsFlags', function() {
         });
     });
 
-    describe('restoreFeatureFlags', function() {
+    describe('restoreFeatureFlags', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/flags/sample-project/sort.order')
@@ -196,7 +196,7 @@ describe('LaunchDarklyUtilsFlags', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = [];
             expected.push(JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8')));
             expected.push(JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update-two.json', 'utf-8')));

@@ -231,9 +231,9 @@ export class LaunchDarklyUtilsRoles {
 
         this.log.debug(`Bulk Upserting Roles from File: ${filePath}`);
 
-        return roles.reduce(function(acc, role) {
-            return acc.then(function(results) {
-                return that.upsertCustomRole(role.key, role.name, role.policy, role.description).then(function(data) {
+        return roles.reduce((acc, role) => {
+            return acc.then(results => {
+                return that.upsertCustomRole(role.key, role.name, role.policy, role.description).then(data => {
                     results.push(data);
                     return results;
                 });
@@ -256,7 +256,7 @@ export class LaunchDarklyUtilsRoles {
         let fileArray = globule.find(globMatch);
         let promises = [];
         let that = this;
-        fileArray.forEach(async function(file) {
+        fileArray.forEach(async file => {
             that.log.debug(`Found File '${file}'. Calling 'bulkUpsertCustomRoles'`);
             promises.push(that.bulkUpsertCustomRoles(file));
         });

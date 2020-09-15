@@ -9,13 +9,13 @@ import { LaunchDarklyLogger } from '../src/LaunchDarklyLogger';
 
 let log = LaunchDarklyLogger.logger();
 
-describe('LaunchDarklyUtilsMembers', function() {
+describe('LaunchDarklyUtilsMembers', () => {
     let ldutils;
     beforeEach(async () => {
         ldutils = await new LaunchDarklyUtils().create('MOCK', log);
     });
 
-    describe('getTeamMembers', function() {
+    describe('getTeamMembers', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/members')
@@ -26,7 +26,7 @@ describe('LaunchDarklyUtilsMembers', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-list.json', 'utf-8'));
             return ldutils.members.getTeamMembers().then(actual => {
                 expect(actual).to.deep.equal(expected);
@@ -34,7 +34,7 @@ describe('LaunchDarklyUtilsMembers', function() {
         });
     });
 
-    describe('getTeamMember', function() {
+    describe('getTeamMember', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/members/5a3ad672761af020881a8814')
@@ -45,7 +45,7 @@ describe('LaunchDarklyUtilsMembers', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-get.json', 'utf-8'));
             return ldutils.members.getTeamMember('5a3ad672761af020881a8814').then(actual => {
                 expect(actual).to.deep.equal(expected);
@@ -53,7 +53,7 @@ describe('LaunchDarklyUtilsMembers', function() {
         });
     });
 
-    describe('getTeamMemberByEmail', function() {
+    describe('getTeamMemberByEmail', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/members')
@@ -64,7 +64,7 @@ describe('LaunchDarklyUtilsMembers', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let memberList = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-list.json', 'utf-8'));
             let expected = _.filter(memberList.items, { email: 'Member.TheSecond@example.com' })[0];
             return ldutils.members.getTeamMemberByEmail('Member.TheSecond@example.com').then(actual => {
@@ -73,7 +73,7 @@ describe('LaunchDarklyUtilsMembers', function() {
         });
     });
 
-    describe('getTeamMemberCustomRoles', function() {
+    describe('getTeamMemberCustomRoles', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/members')
@@ -88,7 +88,7 @@ describe('LaunchDarklyUtilsMembers', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let teamMembers = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-list.json', 'utf-8'));
             let member = _.filter(teamMembers.items, { email: 'Member.TheSecond@example.com' })[0];
             let expected = _.cloneDeep(member);
@@ -99,7 +99,7 @@ describe('LaunchDarklyUtilsMembers', function() {
         });
     });
 
-    describe('inviteTeamMember', function() {
+    describe('inviteTeamMember', () => {
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .post('/api/v2/members')
@@ -110,7 +110,7 @@ describe('LaunchDarklyUtilsMembers', function() {
             done();
         });
 
-        it('should make expected api call and return results', async function() {
+        it('should make expected api call and return results', async () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/team-members-get.json', 'utf-8'));
             return ldutils.members.inviteTeamMember('owner-sample-account@launchdarkly.com', 'owner').then(actual => {
                 expect(actual).to.deep.equal(expected);
