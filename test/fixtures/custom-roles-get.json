@@ -12,7 +12,7 @@
   "name": "example role",
   "key": "example-role",
   "description": "sets a good example",
-  "_id": "5a554j890b575421b255d96e",
+  "_id": "deadbeef",
   "policy": [
     {
       "resources": [

@@ -84,7 +84,7 @@ export class LaunchDarklyUtilsRoles {
      * @returns {Promise}
      * @fulfil {Object} custom role json
      * @reject {Error} object with message
-     * @example ldutils getCustomRoleById 5a554j890b575421b255d96e
+     * @example ldutils getCustomRoleById <id>
      */
     async getCustomRoleById(customRoleId) {
         return this.apiClient.apis[this.API_GROUP].getCustomRoles().then(roleList => {

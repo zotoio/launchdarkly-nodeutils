@@ -185,10 +185,10 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
         });
 
     program
-        .command('getTeamMembers')
+        .command('getTeamMembers [limit] [offset] [filter]')
         .description('list all team members in account')
-        .action(function() {
-            ldUtils.members.getTeamMembers().then(function(response) {
+        .action(function(limit, offset, filter) {
+            ldUtils.members.getTeamMembers(limit, offset, filter).then(function(response) {
                 console.log(json.plain(response));
             });
         });

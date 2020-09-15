@@ -3,6 +3,9 @@
   "version": "0.0.0-semantically-released",
   "description": "NodeJs utils to manage LaunchDarkly SaaS Feature Flags via API",
   "main": "index.js",
+  "bin": {
+    "ldutils": "./ldutils"
+  },
   "scripts": {
     "build": "yarn lint && rimraf dist/ && babel ./src --out-dir dist/src --copy-files && babel ./test --out-dir dist/test --copy-files && babel ./*.js --out-dir dist/ --copy-files && cp swagger.yaml dist/",
     "commit": "./node_modules/.bin/git-cz",
@@ -26,9 +29,9 @@
   },
   "homepage": "https://github.com/zotoio/launchdarkly-nodeutils#readme",
   "dependencies": {
-    "app-root-path": "^3.0.0",
-    "@babel/runtime": "^7.7.4",
     "@babel/polyfill": "^7.7.0",
+    "@babel/runtime": "^7.7.4",
+    "app-root-path": "^3.0.0",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
     "dotenv": "^8.2.0",
@@ -36,6 +39,7 @@
     "format-json": "^1.0.3",
     "globule": "^1.2.1",
     "https-proxy-agent": "^3.0.1",
+    "commander": "^6.1.0",
     "js-yaml": "^3.13.1",
     "json-diff": "^0.5.4",
     "json-format": "^1.0.1",
@@ -66,13 +70,13 @@
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-istanbul": "^5.2.0",
-    "@babel/plugin-transform-async-to-generator": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-async-to-generator": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/register": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-istanbul": "^5.2.0",
     "chai": "^4.2.0",
     "commitizen": "^4.0.3",
     "cross-env": "^6.0.3",
