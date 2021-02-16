@@ -1,7 +1,7 @@
 # LaunchDarkly nodejs utils
 
 [![npm version](https://badge.fury.io/js/launchdarkly-nodeutils.svg)](https://badge.fury.io/js/launchdarkly-nodeutils)
-[![Build Status](https://travis-ci.org/zotoio/launchdarkly-nodeutils.svg?branch=master)](https://travis-ci.org/zotoio/launchdarkly-nodeutils)
+[![Build Status](https://travis-ci.com/zotoio/launchdarkly-nodeutils.svg?branch=master)](https://travis-ci.org/zotoio/launchdarkly-nodeutils)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/zotoio/launchdarkly-nodeutils.svg)](https://codeclimate.com/github/zotoio/launchdarkly-nodeutils)
 [![Test Coverage](https://codeclimate.com/github/zotoio/launchdarkly-nodeutils/badges/coverage.svg)](https://codeclimate.com/github/zotoio/launchdarkly-nodeutils/coverage)
 [![Greenkeeper badge](https://badges.greenkeeper.io/zotoio/launchdarkly-nodeutils.svg)](https://greenkeeper.io/)
@@ -16,12 +16,33 @@ This unofficial module provides NodeJs functions wrapping the LaunchDarkly API. 
 We need a way to manage flags as part of CI/CD pipelines, and there is not another project currently providing a simple interface to manage flags and other objects in LaunchDarkly via API in nodejs.
 
 ## How?
-There is a swagger.yaml available to generate bindings (https://launchdarkly.github.io/ld-openapi/swagger.yaml), so we use the swagger-js module to generate a client (https://github.com/swagger-api/swagger-js), and add some extra features around logging, error handling, and chaining of operations.
+There is an openapi spec available to generate bindings (https://launchdarkly.github.io/ld-openapi/openapi.yaml), so we use the swagger-js module to generate a client (https://github.com/swagger-api/swagger-js), and add some extra features around logging, error handling, and chaining of operations.
 In addition we expose apis as a commandline tool.
 
 ## Install
-1. `npm install launchdarkly-nodeutils --save` or clone this repo.
-2. Generate an access token with the permissions for the operations you will use. Please read: https://docs.launchdarkly.com/v2.0/docs/api-access-tokens
+1. `npm install launchdarkly-nodeutils -g` (this will install the `ldutils` command).
+1. Generate an access token with the permissions for the operations you will use. Please read: https://docs.launchdarkly.com/v2.0/docs/api-access-tokens
+1. export your api token `export LAUNCHDARKLY_API_TOKEN=<api-token>`
+1. run `ldutils` to confirm your installation was successful - you should see usage instructions.
+
+The installation instructions above should be all you need to do. Alternatively, you can clone this repo and install manually.
+
+After cloning this repo:
+1. run `yarn build`
+1. check that `ldutils` is executable and run it:
+```
+chmod 755 ./ldutils
+./ldutils
+```
+
+The above will display a help screen of instructions, thanks to https://github.com/tj/commander.js/
+
+Optionally you can add `ldutils` to your PATH, or symlink in a directory already in your path:
+
+```
+sudo ln -s /<clonepath>/launchdarkly-nodeutils/ldutils /usr/local/bin/ldutils
+```
+> Make sure you have env var LAUNCHDARKLY_API_TOKEN set, and if piping output to another command, ensure that LAUNCHDARKLY_API_LOGLEVEL is not set to 'debug' to ensure only the json result of the command is returned.
 
 ## Use cases
 The command line tool or nodejs module can be used for many things.  Here are some examples.
@@ -51,29 +72,8 @@ Copying flag attributes from prod back to preprod for testing. Also newly create
 
 
 ## Command line usage
-After cloning this repo you can make `ldutils` executable, and use it to make api calls based on passed in parameters.
 
-> please read the [API documentation](API.md) for examples.
-
-```
-chmod 755 ./ldutils
-./ldutils
-```
-
-The above will display a help screen of instructions, thanks to https://github.com/tj/commander.js/
-
-Optionally you can add `ldutils` to your PATH:
-
-```
-# cloned repo
-sudo ln -s /<clonepath>/launchdarkly-nodeutils/ldutils /usr/local/bin/ldutils
-
-# or after 'npm install launchdarkly-nodeutils --save'
-sudo ln -s /<installpath>/node_modules/launchdarkly-nodeutils/ldutils /usr/local/bin/ldutils
-```
-> Make sure you have env var LAUNCHDARKLY_API_TOKEN set, and if piping output to another command, ensure that LAUNCHDARKLY_API_LOGLEVEL is not set to 'debug' to ensure only the json result of the command is returned.
-
-Here are some examples of commandline usage (if you have not added ldutils to PATH, prefix with `./`:
+Here are some examples of commandline usage - see below for all available command modes:
 ```
 export LAUNCHDARKLY_API_TOKEN=<api-token>
 

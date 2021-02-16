@@ -19,14 +19,14 @@ process.on('unhandledRejection', (reason, p) => {
     process.exit(1);
 });
 
-new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(function(ldUtils) {
+new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(ldUtils => {
     program.version('1.0.0').description('Manage LaunchDarkly flags and other assets from the command line.');
 
     program
         .command('getFeatureFlags <projectKey>')
         .description('get all flags for a given project')
-        .action(function(projectKey) {
-            ldUtils.flags.getFeatureFlags(projectKey).then(function(response) {
+        .action(projectKey => {
+            ldUtils.flags.getFeatureFlags(projectKey).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -34,8 +34,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`getFeatureFlag <projectKey> <featureFlagKey> [environmentKeyQuery]`)
         .description('get a single flag - with optional env')
-        .action(function(projectKey, featureFlagKey, environmentKeyQuery) {
-            ldUtils.flags.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery).then(function(response) {
+        .action((projectKey, featureFlagKey, environmentKeyQuery) => {
+            ldUtils.flags.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -43,8 +43,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`getFeatureFlagState <projectKey> <featureFlagKey> <environmentKeyQuery>`)
         .description('get boolean flag state')
-        .action(function(projectKey, featureFlagKey, environmentKeyQuery) {
-            ldUtils.flags.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery).then(function(response) {
+        .action((projectKey, featureFlagKey, environmentKeyQuery) => {
+            ldUtils.flags.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -52,22 +52,20 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`toggleFeatureFlag <projectKey> <featureFlagKey> <environmentKeyQuery> <value>`)
         .description('set boolean flag state')
-        .action(function(projectKey, featureFlagKey, environmentKeyQuery, value) {
+        .action((projectKey, featureFlagKey, environmentKeyQuery, value) => {
             let enabled = value === 'true';
-            ldUtils.flags
-                .toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, enabled)
-                .then(function(response) {
-                    console.log(json.plain(response));
-                });
+            ldUtils.flags.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, enabled).then(response => {
+                console.log(json.plain(response));
+            });
         });
 
     program
         .command(`migrateFeatureFlag <projectKey> <featureFlagKey> <fromEnv> <toEnv> (includeState)`)
         .description('migrate flag settings from one environment to another')
-        .action(function(projectKey, featureFlagKey, fromEnv, toEnv, includeState) {
+        .action((projectKey, featureFlagKey, fromEnv, toEnv, includeState) => {
             ldUtils.flags
                 .migrateFeatureFlag(projectKey, featureFlagKey, fromEnv, toEnv, includeState)
-                .then(function(response) {
+                .then(response => {
                     console.log(json.plain(response));
                 });
         });
@@ -75,10 +73,10 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`bulkMigrateFeatureFlags <projectKey> <featureFlagKeys> <fromEnv> <toEnv> (includeState)`)
         .description('migrate multiple flag settings from one environment to another')
-        .action(function(projectKey, featureFlagKeys, fromEnv, toEnv, includeState) {
+        .action((projectKey, featureFlagKeys, fromEnv, toEnv, includeState) => {
             ldUtils.flags
                 .bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState)
-                .then(function(response) {
+                .then(response => {
                     console.log(json.plain(response));
                 });
         });
@@ -86,10 +84,10 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`restoreFeatureFlags <projectKey> <featureFlagKeys> <targetEnv> <backupJsonFile> (includeState)`)
         .description('restore environment flag settings from a backup file - backup from getFeatureFlags')
-        .action(function(projectKey, featureFlagKeys, targetEnv, backupJsonFile, includeState) {
+        .action((projectKey, featureFlagKeys, targetEnv, backupJsonFile, includeState) => {
             ldUtils.flags
                 .restoreFeatureFlags(projectKey, featureFlagKeys, targetEnv, backupJsonFile, includeState)
-                .then(function(response) {
+                .then(response => {
                     console.log(json.plain(response));
                 });
         });
@@ -97,8 +95,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('getCustomRoles')
         .description('get all custom roles in account')
-        .action(function() {
-            ldUtils.roles.getCustomRoles().then(function(response) {
+        .action(() => {
+            ldUtils.roles.getCustomRoles().then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -106,8 +104,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('getCustomRole <customRoleKey>')
         .description('get custom role by key')
-        .action(function(customRoleKey) {
-            ldUtils.roles.getCustomRole(customRoleKey).then(function(response) {
+        .action(customRoleKey => {
+            ldUtils.roles.getCustomRole(customRoleKey).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -115,8 +113,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('getCustomRoleById <customRoleId>')
         .description('get custom role by id')
-        .action(function(customRoleId) {
-            ldUtils.roles.getCustomRoleById(customRoleId).then(function(response) {
+        .action(customRoleId => {
+            ldUtils.roles.getCustomRoleById(customRoleId).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -124,11 +122,11 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`createCustomRole <customRoleKey> <customRoleName> <customRolePolicyArray> [customRoleDescription]`)
         .description('create custom role')
-        .action(function(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
+        .action((customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) => {
             customRolePolicyArray = JSON.parse(customRolePolicyArray);
             ldUtils.roles
                 .createCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription)
-                .then(function(response) {
+                .then(response => {
                     console.log(json.plain(response));
                 });
         });
@@ -136,11 +134,11 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`updateCustomRole <customRoleKey> <customRoleName> <customRolePolicyArray> [customRoleDescription]`)
         .description('update custom role')
-        .action(function(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
+        .action((customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) => {
             customRolePolicyArray = JSON.parse(customRolePolicyArray);
             ldUtils.roles
                 .updateCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription)
-                .then(function(response) {
+                .then(response => {
                     console.log(json.plain(response));
                 });
         });
@@ -148,11 +146,11 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command(`upsertCustomRole <customRoleKey> <customRoleName> <customRolePolicyArray> [customRoleDescription]`)
         .description('create or update custom role')
-        .action(function(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) {
+        .action((customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription) => {
             customRolePolicyArray = JSON.parse(customRolePolicyArray);
             ldUtils.roles
                 .upsertCustomRole(customRoleKey, customRoleName, customRolePolicyArray, customRoleDescription)
-                .then(function(response) {
+                .then(response => {
                     console.log(json.plain(response));
                 });
         });
@@ -160,8 +158,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('bulkUpsertCustomRoles <roleBulkLoadFile>')
         .description('path to a file containing array of role json')
-        .action(function(roleBulkLoadFile) {
-            ldUtils.roles.bulkUpsertCustomRoles(roleBulkLoadFile).then(function(response) {
+        .action(roleBulkLoadFile => {
+            ldUtils.roles.bulkUpsertCustomRoles(roleBulkLoadFile).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -169,8 +167,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('bulkUpsertCustomRoleFolder <roleFolder>')
         .description('path to a directory containing multiple files of role json')
-        .action(function(roleFolder) {
-            ldUtils.roles.bulkUpsertCustomRoleFolder(roleFolder).then(function(response) {
+        .action(roleFolder => {
+            ldUtils.roles.bulkUpsertCustomRoleFolder(roleFolder).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -178,17 +176,17 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('inviteTeamMember <emailAddress> <initialRoleName>')
         .description('Invite a New Team Member')
-        .action(function(emailAddress, initialRoleName) {
-            ldUtils.members.inviteTeamMember(emailAddress, initialRoleName).then(function(response) {
+        .action((emailAddress, initialRoleName) => {
+            ldUtils.members.inviteTeamMember(emailAddress, initialRoleName).then(response => {
                 console.log(json.plain(response));
             });
         });
 
     program
-        .command('getTeamMembers')
+        .command('getTeamMembers [limit] [offset] [filter]')
         .description('list all team members in account')
-        .action(function() {
-            ldUtils.members.getTeamMembers().then(function(response) {
+        .action((limit, offset, filter) => {
+            ldUtils.members.getTeamMembers(limit, offset, filter).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -196,8 +194,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('getTeamMember <memberId>')
         .description('get a team member by id')
-        .action(function(memberId) {
-            ldUtils.members.getTeamMember(memberId).then(function(response) {
+        .action(memberId => {
+            ldUtils.members.getTeamMember(memberId).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -205,8 +203,8 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('getTeamMemberByEmail <emailAddress>')
         .description('get a team member by email address')
-        .action(function(emailAddress) {
-            ldUtils.members.getTeamMemberByEmail(emailAddress).then(function(response) {
+        .action(emailAddress => {
+            ldUtils.members.getTeamMemberByEmail(emailAddress).then(response => {
                 console.log(json.plain(response));
             });
         });
@@ -214,13 +212,13 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(fun
     program
         .command('getTeamMemberCustomRoles <emailAddress>')
         .description('get a team members custom roles by email address')
-        .action(function(emailAddress) {
-            ldUtils.members.getTeamMemberCustomRoles(emailAddress).then(function(response) {
+        .action(emailAddress => {
+            ldUtils.members.getTeamMemberCustomRoles(emailAddress).then(response => {
                 console.log(json.plain(response));
             });
         });
 
-    program.on('--help', function() {
+    program.on('--help', () => {
         console.log('\n  See https://github.com/zotoio/launchdarkly-nodeutils/API.md for examples.\n');
     });
 

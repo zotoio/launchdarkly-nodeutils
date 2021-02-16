@@ -32,15 +32,20 @@ export class LaunchDarklyUtilsMembers {
     /**
      * Get all team members in account
      * @returns {Promise}
+     * @param limit - max number of members to return (defaults to 20 per api)
+     * @param offset - starting offset to return
+     * @param filter - an optional filter https://apidocs.launchdarkly.com/reference#list-team-members
      * @fulfil {Object} team member list json
      * @reject {Error} object with message
      * @example ldutils getTeamMembers
      */
-    async getTeamMembers() {
+    async getTeamMembers(limit, offset, filter) {
         try {
-            return this.apiClient.apis[this.API_GROUP].getMembers().then(response => {
-                return response.body;
-            });
+            return this.apiClient.apis[this.API_GROUP]
+                .getMembers({ limit: limit, offset: offset, filter: filter })
+                .then(response => {
+                    return response.body;
+                });
         } catch (e) {
             throw {
                 api: 'getMembers',

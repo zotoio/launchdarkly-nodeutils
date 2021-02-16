@@ -268,7 +268,7 @@ ldutils restoreFeatureFlags my-project my-flag,my-flag-two prod ./preReleaseBack
 * [LaunchDarklyUtilsMembers](#LaunchDarklyUtilsMembers)
     * [new LaunchDarklyUtilsMembers(apiClient, log, ldUtils)](#new_LaunchDarklyUtilsMembers_new)
     * [.API_GROUP](#LaunchDarklyUtilsMembers+API_GROUP) ⇒ <code>string</code>
-    * [.getTeamMembers()](#LaunchDarklyUtilsMembers+getTeamMembers) ⇒ <code>Promise</code>
+    * [.getTeamMembers(limit, offset, filter)](#LaunchDarklyUtilsMembers+getTeamMembers) ⇒ <code>Promise</code>
     * [.getTeamMember(memberId)](#LaunchDarklyUtilsMembers+getTeamMember) ⇒ <code>Promise</code>
     * [.getTeamMemberByEmail(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberByEmail) ⇒ <code>Promise</code>
     * [.getTeamMemberCustomRoles(emailAddress)](#LaunchDarklyUtilsMembers+getTeamMemberCustomRoles) ⇒ <code>Promise</code>
@@ -295,12 +295,19 @@ Api group object key in LD api
 **Kind**: instance property of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
 <a name="LaunchDarklyUtilsMembers+getTeamMembers"></a>
 
-### launchDarklyUtilsMembers.getTeamMembers() ⇒ <code>Promise</code>
+### launchDarklyUtilsMembers.getTeamMembers(limit, offset, filter) ⇒ <code>Promise</code>
 Get all team members in account
 
 **Kind**: instance method of [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers)  
 **Fulfil**: <code>Object</code> team member list json  
 **Reject**: <code>Error</code> object with message  
+
+| Param | Description |
+| --- | --- |
+| limit | max number of members to return (defaults to 20 per api) |
+| offset | starting offset to return |
+| filter | an optional filter https://apidocs.launchdarkly.com/reference#list-team-members |
+
 **Example**  
 ```js
 ldutils getTeamMembers
@@ -450,7 +457,7 @@ Get a single role by _id
 
 **Example**  
 ```js
-ldutils getCustomRoleById 5a554j890b575421b255d96e
+ldutils getCustomRoleById <id>
 ```
 <a name="LaunchDarklyUtilsRoles+createCustomRole"></a>
 
