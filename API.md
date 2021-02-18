@@ -11,6 +11,8 @@
 <dd></dd>
 <dt><a href="#LaunchDarklyUtilsMembers">LaunchDarklyUtilsMembers</a></dt>
 <dd></dd>
+<dt><a href="#LaunchDarklyUtilsProjects">LaunchDarklyUtilsProjects</a></dt>
+<dd></dd>
 <dt><a href="#LaunchDarklyUtilsRoles">LaunchDarklyUtilsRoles</a></dt>
 <dd></dd>
 </dl>
@@ -377,6 +379,125 @@ Invite a New Team Member by their Email Address
 | emailAddress | <code>String</code> |  | Email Address of New Member |
 | initialRoleKey | <code>String</code> | <code>reader</code> | Default Role for New Member |
 
+<a name="LaunchDarklyUtilsProjects"></a>
+
+## LaunchDarklyUtilsProjects
+**Kind**: global class  
+
+* [LaunchDarklyUtilsProjects](#LaunchDarklyUtilsProjects)
+    * [new LaunchDarklyUtilsProjects(apiClient, log, ldUtils)](#new_LaunchDarklyUtilsProjects_new)
+    * [.API_GROUP](#LaunchDarklyUtilsProjects+API_GROUP) ⇒ <code>string</code>
+    * [.getProjects()](#LaunchDarklyUtilsProjects+getProjects) ⇒ <code>Promise</code>
+    * [.getProject(projectKey)](#LaunchDarklyUtilsProjects+getProject) ⇒ <code>Promise</code>
+    * [.createProject(projectName, projectKey, includeInSnippetByDefault, tags, environments, defaultClientSideAvailability)](#LaunchDarklyUtilsProjects+createProject) ⇒ <code>Promise</code>
+    * [.updateProject(projectKey, jsonPatch)](#LaunchDarklyUtilsProjects+updateProject) ⇒ <code>Promise</code>
+    * [.deleteProject(projectKey)](#LaunchDarklyUtilsProjects+deleteProject)
+
+<a name="new_LaunchDarklyUtilsProjects_new"></a>
+
+### new LaunchDarklyUtilsProjects(apiClient, log, ldUtils)
+Projects specific api functions attached as 'LaunchDarklyUtils.projects'
+
+**Returns**: [<code>LaunchDarklyUtilsMembers</code>](#LaunchDarklyUtilsMembers) - team member api functions  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| apiClient | <code>Swagger</code> | generated launchdarkly apiClient |
+| log | <code>Object</code> | logger implementation, or 'console' |
+| ldUtils | [<code>LaunchDarklyUtils</code>](#LaunchDarklyUtils) | primary utils class |
+
+<a name="LaunchDarklyUtilsProjects+API_GROUP"></a>
+
+### launchDarklyUtilsProjects.API\_GROUP ⇒ <code>string</code>
+Api group object key in LD api
+
+**Kind**: instance property of [<code>LaunchDarklyUtilsProjects</code>](#LaunchDarklyUtilsProjects)  
+<a name="LaunchDarklyUtilsProjects+getProjects"></a>
+
+### launchDarklyUtilsProjects.getProjects() ⇒ <code>Promise</code>
+Get all projects in account
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsProjects</code>](#LaunchDarklyUtilsProjects)  
+**Fulfil**: <code>Object</code> List of projects JSON  
+**Reject**: <code>Error</code> object with message  
+**Example**  
+```js
+ldutils getProjects
+```
+<a name="LaunchDarklyUtilsProjects+getProject"></a>
+
+### launchDarklyUtilsProjects.getProject(projectKey) ⇒ <code>Promise</code>
+get a single project by project key
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsProjects</code>](#LaunchDarklyUtilsProjects)  
+**Fulfil**: <code>Object</code> project object json  
+**Reject**: <code>Error</code> object with message  
+
+| Param | Description |
+| --- | --- |
+| projectKey | _id field of team member |
+
+**Example**  
+```js
+ldutils getProject new-project
+```
+<a name="LaunchDarklyUtilsProjects+createProject"></a>
+
+### launchDarklyUtilsProjects.createProject(projectName, projectKey, includeInSnippetByDefault, tags, environments, defaultClientSideAvailability) ⇒ <code>Promise</code>
+Create a project in the account
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsProjects</code>](#LaunchDarklyUtilsProjects)  
+**Fulfil**: <code>Object</code> project object json  
+**Reject**: <code>Error</code> object with message  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| projectName | <code>\*</code> | the name of the project |
+| projectKey | <code>\*</code> | the key that identifies the project |
+| includeInSnippetByDefault | <code>\*</code> | boolean true / false of whether should include a snippet |
+| tags | <code>\*</code> | arrays of tags that can be associated with the project |
+| environments | <code>\*</code> | an array of environments that are associated with the account |
+| defaultClientSideAvailability | <code>\*</code> | An object that defines wether the SDK and / or mobile flags are available |
+
+**Example**  
+```js
+ldutils createProject new-project 'New Project' 'false' dev,Development,#41705:test,Test,f5a623 'true' 'false' marketing,online
+```
+<a name="LaunchDarklyUtilsProjects+updateProject"></a>
+
+### launchDarklyUtilsProjects.updateProject(projectKey, jsonPatch) ⇒ <code>Promise</code>
+Patch a single project using jsonPatch notation
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsProjects</code>](#LaunchDarklyUtilsProjects)  
+**Fulfil**: <code>Object</code> an empty project  
+**Reject**: <code>Error</code> object with message  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| projectKey | <code>\*</code> | projectKey a key that identifies the project |
+| jsonPatch | <code>\*</code> | an array of string using the JSON patch notation https://tools.ietf.org/html/rfc6902 |
+
+**Example**  
+```js
+ldutils updateProject new-project [{ op: 'replace', path: '/name', value: 'New project name' }]
+```
+<a name="LaunchDarklyUtilsProjects+deleteProject"></a>
+
+### launchDarklyUtilsProjects.deleteProject(projectKey)
+Delete a project
+
+**Kind**: instance method of [<code>LaunchDarklyUtilsProjects</code>](#LaunchDarklyUtilsProjects)  
+**Fulfil**: <code>Object</code> an empty project  
+**Reject**: <code>Error</code> object with message  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| projectKey | <code>\*</code> | projectKey a key that identifies the project |
+
+**Example**  
+```js
+ldutils deleteProject new-project
+```
 <a name="LaunchDarklyUtilsRoles"></a>
 
 ## LaunchDarklyUtilsRoles

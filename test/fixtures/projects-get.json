@@ -1,0 +1,54 @@
+{
+    "_links": {
+      "environments": {
+        "href": "/api/v2/projects/zentasks/environments",
+        "type": "application/json"
+      },
+      "self": {
+        "href": "/api/v2/projects/zentasks",
+        "type": "application/json"
+      }
+    },
+    "_id": "573e1e203e631d070e00000a",
+    "key": "zentasks",
+    "name": "Zentasks",
+    "includeInSnippetByDefault": false,
+    "environments": [
+      {
+        "_links": {
+        },
+        "_id": "573e20c78101c4070f00001d",
+        "key": "sample",
+        "name": "Sample Env",
+        "apiKey": "XXX",
+        "mobileKey": "XXX",
+        "color": "f1519a",
+        "defaultTtl": 3,
+        "secureMode": false
+      },
+      {
+        "_links": {
+        },
+        "_id": "573e1e203e631d070e00000b",
+        "key": "test",
+        "name": "Test",
+        "apiKey": "XXX",
+        "mobileKey": "XXX",
+        "color": "F5A623",
+        "defaultTtl": 0,
+        "secureMode": false
+      },
+      {
+        "_links": {
+        },
+        "_id": "573e1e203e631d070e00000c",
+        "key": "production",
+        "name": "Production",
+        "apiKey": "XXX",
+        "mobileKey": "XXX",
+        "color": "417505",
+        "defaultTtl": 0,
+        "secureMode": false
+      }
+    ]
+  }
