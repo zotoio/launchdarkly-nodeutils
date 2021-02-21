@@ -23,6 +23,55 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(ldU
     program.version('1.0.0').description('Manage LaunchDarkly flags and other assets from the command line.');
 
     program
+        .command('getProjects')
+        .description('get all the projects associated with the account')
+        .action(() => {
+            ldUtils.projects.getProjects().then(response => {
+                console.log(json.plain(reponse));
+            });
+        });
+
+    program
+        .command('getProject <projectKey>')
+        .description('get a project for the specified projectKey')
+        .action(projectKey => {
+            ldUtils.projects.getProject(projectKey).then(response => {
+                console.log(json.plain(response));
+            });
+        });
+
+    program
+        .command(
+            'createProject <projectKey> <projectName> [includeInSnippetByDefault] [environments] [defaultClientSideAvailability] [tags]'
+        )
+        .description('Create a new project')
+        .action(
+            (projectKey, projectName, includeInSnippetByDefault, tags, environments, defaultClientSideAvailability) => {
+                ldUtils.projects
+                    .createProject(
+                        projectKey,
+                        projectName,
+                        includeInSnippetByDefault,
+                        tags,
+                        environments,
+                        defaultClientSideAvailability
+                    )
+                    .then(response => {
+                        console.log(json.plain(reponse));
+                    });
+            }
+        );
+
+    program
+        .command('deleteProject <projectKey>')
+        .description('delete a project by the specified projectKey')
+        .action(projectKey => {
+            ldUtils.projects.deleteProject(projectKey).then(response => {
+                console.log(json.plain(reponse));
+            });
+        });
+
+    program
         .command('getFeatureFlags <projectKey>')
         .description('get all flags for a given project')
         .action(projectKey => {

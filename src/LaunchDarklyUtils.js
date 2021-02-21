@@ -4,6 +4,7 @@ import { LaunchDarklyUtilsRoles } from './LaunchDarklyUtilsRoles';
 import { LaunchDarklyApiClient } from './LaunchDarklyApiClient';
 import { LaunchDarklyLogger } from './LaunchDarklyLogger';
 import { default as dotenv } from 'dotenv';
+import { LaunchDarklyUtilsProjects } from './LaunchDarklyUtilsProjects';
 dotenv.config();
 
 /**
@@ -34,6 +35,7 @@ export class LaunchDarklyUtils {
             this.flags = new LaunchDarklyUtilsFlags(this.apiClient, this.log, this);
             this.roles = new LaunchDarklyUtilsRoles(this.apiClient, this.log, this);
             this.members = new LaunchDarklyUtilsMembers(this.apiClient, this.log, this);
+            this.projects = new LaunchDarklyUtilsProjects(this.apiClient, this.log, this);
             this.log.debug(`utils ready.`);
         } catch (e) {
             this.log.error(e);

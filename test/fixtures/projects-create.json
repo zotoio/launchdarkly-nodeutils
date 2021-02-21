@@ -1,0 +1,41 @@
+{
+    "_links": {
+      "environments": {
+        "href": "/api/v2/projects/new-project/environments",
+        "type": "application/json"
+      },
+      "self": {
+        "href": "/api/v2/projects/new-project",
+        "type": "application/json"
+      }
+    },
+    "_id": "57be1db38b75bf0772d11383",
+    "key": "new-project",
+    "name": "New project",
+    "environments": [
+      {
+        "_links": {
+        },
+        "_id": "57be1db38b75bf0772d11384",
+        "key": "test",
+        "name": "Test",
+        "apiKey": "XXX",
+        "mobileKey": "XXX",
+        "color": "F5A623",
+        "defaultTtl": 0,
+        "secureMode": false
+      },
+      {
+        "_links": {
+        },
+        "_id": "57be1db38b75bf0772d11385",
+        "key": "production",
+        "name": "Production",
+        "apiKey": "XXX",
+        "mobileKey": "XXX",
+        "color": "417505",
+        "defaultTtl": 0,
+        "secureMode": false
+      }
+    ]
+  }
