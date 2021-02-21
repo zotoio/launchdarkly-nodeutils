@@ -160,6 +160,16 @@ For details on role policy object structures, please see: https://docs.launchdar
 ./ldutils inviteTeamMember user@zoto.io reader
 ```
 
+#### Projects
+| Mode          | Parameter                                                                                        |
+|---------------|--------------------------------------------------------------------------------------------------|
+| getProjects   | none                                                                                             |
+| getProject    | projectKey                                                                                       |
+| createProject | projectKey, projectName, includeInSnippetByDefault, environments, defaultClientSideAvailability, tags |
+| deleteProject | projectKey                                                                                       |
+```
+./ldutils createProject test-project 'Test Project' true dev,Development,336699:prod,Production,417505
+
 ## node app usage
 Assumes that you have set the LAUNCHDARKLY_API_TOKEN environment var.
 
