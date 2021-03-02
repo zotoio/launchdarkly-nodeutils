@@ -27,7 +27,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(ldU
         .description('get all the projects associated with the account')
         .action(() => {
             ldUtils.projects.getProjects().then(response => {
-                console.log(json.plain(reponse));
+                console.log(json.plain(response));
             });
         });
 
@@ -57,7 +57,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(ldU
                         defaultClientSideAvailability
                     )
                     .then(response => {
-                        console.log(json.plain(reponse));
+                        console.log(json.plain(response));
                     });
             }
         );
@@ -67,7 +67,7 @@ new LaunchDarklyUtils().create(process.env.LAUNCHDARKLY_API_TOKEN, log).then(ldU
         .description('delete a project by the specified projectKey')
         .action(projectKey => {
             ldUtils.projects.deleteProject(projectKey).then(response => {
-                console.log(json.plain(reponse));
+                console.log(json.plain(response));
             });
         });
 
