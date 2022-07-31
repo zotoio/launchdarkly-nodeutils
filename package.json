@@ -44,7 +44,7 @@
     "json-diff": "^0.5.4",
     "json-format": "^1.0.1",
     "lodash": "^4.17.21",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.2.10",
     "swagger-client": "^3.9.6",
     "webpack": "^4.41.2"
   },
