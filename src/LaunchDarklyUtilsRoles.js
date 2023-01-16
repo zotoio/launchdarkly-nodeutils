@@ -49,7 +49,7 @@ export class LaunchDarklyUtilsRoles {
             throw {
                 api: 'getCustomRoles',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+                docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/getCustomRoles'
             };
         }
     }
@@ -73,7 +73,7 @@ export class LaunchDarklyUtilsRoles {
             throw {
                 api: 'getCustomRole',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+                docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/getCustomRoles'
             };
         }
     }
@@ -94,7 +94,7 @@ export class LaunchDarklyUtilsRoles {
                 throw {
                     api: 'getCustomRoles',
                     message: `role not found for _id ${customRoleId}`,
-                    docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/getCustomRoles'
                 };
             }
 
@@ -128,7 +128,7 @@ export class LaunchDarklyUtilsRoles {
             throw {
                 api: 'postCustomRole',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/create-custom-role'
+                docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/postCustomRole'
             };
         }
     }
@@ -174,7 +174,7 @@ export class LaunchDarklyUtilsRoles {
                     throw {
                         api: 'patchCustomRole',
                         message: e.message,
-                        docs: 'https://apidocs.launchdarkly.com/docs/update-custom-role'
+                        docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/patchCustomRole'
                     };
                 }
             });

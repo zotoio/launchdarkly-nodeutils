@@ -23,7 +23,7 @@
 **Kind**: global class  
 <a name="LaunchDarklyApiClient.create"></a>
 
-### LaunchDarklyApiClient.create(API_TOKEN, log, swaggerYamlString) ⇒ <code>Promise</code>
+### LaunchDarklyApiClient.create(API_TOKEN, log, openapiJsonString) ⇒ <code>Promise</code>
 Used internally by LaunchDarklyUtils to create an instance of
 Swagger apiClient with interceptors configured
 
@@ -35,7 +35,7 @@ Swagger apiClient with interceptors configured
 | --- | --- | --- |
 | API_TOKEN | <code>string</code> | from LaunchDarkly dashboard |
 | log | <code>Object</code> | logger implementation |
-| swaggerYamlString | <code>string</code> | optional serialized yaml |
+| openapiJsonString | <code>string</code> | optional serialized json |
 
 <a name="LaunchDarklyLogger"></a>
 

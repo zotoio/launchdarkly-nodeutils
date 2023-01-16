@@ -49,7 +49,7 @@ export class LaunchDarklyUtilsFlags {
             throw {
                 api: 'getFeatureFlags',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/list-feature-flags'
+                docs: 'https://apidocs.launchdarkly.com/tag/Feature-flags#operation/getFeatureFlags'
             };
         }
     }
@@ -79,7 +79,7 @@ export class LaunchDarklyUtilsFlags {
             throw {
                 api: 'getFeatureFlag',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/get-feature-flag'
+                docs: 'https://apidocs.launchdarkly.com/tag/Feature-flags#operation/getFeatureFlag'
             };
         }
     }
@@ -125,7 +125,7 @@ export class LaunchDarklyUtilsFlags {
             throw {
                 api: 'patchFeatureFlag',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/update-feature-flag'
+                docs: 'https://apidocs.launchdarkly.com/tag/Feature-flags#operation/patchFeatureFlag'
             };
         }
     }

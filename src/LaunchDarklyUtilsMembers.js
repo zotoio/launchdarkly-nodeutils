@@ -26,7 +26,7 @@ export class LaunchDarklyUtilsMembers {
      * @returns {string}
      */
     get API_GROUP() {
-        return 'Team members';
+        return 'Account members';
     }
 
     /**
@@ -50,7 +50,7 @@ export class LaunchDarklyUtilsMembers {
             throw {
                 api: 'getMembers',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/list-team-members'
+                docs: 'https://apidocs.launchdarkly.com/tag/Account-members#operation/getMembers'
             };
         }
     }
@@ -65,14 +65,14 @@ export class LaunchDarklyUtilsMembers {
      */
     async getTeamMember(memberId) {
         try {
-            return this.apiClient.apis[this.API_GROUP].getMember({ memberId: memberId }).then(response => {
+            return this.apiClient.apis[this.API_GROUP].getMember({ id: memberId }).then(response => {
                 return response.body;
             });
         } catch (e) {
             throw {
                 api: 'getMember',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/get-team-member'
+                docs: 'https://apidocs.launchdarkly.com/tag/Account-members#operation/getMember'
             };
         }
     }
@@ -93,7 +93,7 @@ export class LaunchDarklyUtilsMembers {
                 throw {
                     api: 'getTeamMembers',
                     message: `member not found for email ${emailAddress}`,
-                    docs: 'https://apidocs.launchdarkly.com/docs/list-team-members'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Account-members#operation/getMembers'
                 };
             }
 
@@ -120,7 +120,7 @@ export class LaunchDarklyUtilsMembers {
                     throw {
                         api: 'getTeamMemberCustomRoles',
                         message: `role not found for _id ${memberRoleId}`,
-                        docs: 'https://apidocs.launchdarkly.com/docs/list-team-members'
+                        docs: 'https://apidocs.launchdarkly.com/tag/Account-members#operation/getMembers'
                     };
                 }
             });
@@ -152,7 +152,7 @@ export class LaunchDarklyUtilsMembers {
             throw {
                 api: 'postMembers',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/create-team-members-1'
+                docs: 'https://apidocs.launchdarkly.com/tag/Account-members#operation/postMembers'
             };
         }
     }
