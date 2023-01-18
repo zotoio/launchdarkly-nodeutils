@@ -145,7 +145,7 @@ export class LaunchDarklyUtilsMembers {
         !defaultRoles.includes(initialRoleKey) ? (user.customRoles = [initialRoleKey]) : (user.role = initialRoleKey);
         members.membersBody.push(user);
         try {
-            return this.apiClient.apis[this.API_GROUP].postMembers(members).then(response => {
+            return this.apiClient.apis[this.API_GROUP].postMembers({}, { requestBody: members }).then(response => {
                 return response.body;
             });
         } catch (e) {

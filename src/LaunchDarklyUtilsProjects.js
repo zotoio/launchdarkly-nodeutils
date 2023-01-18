@@ -132,7 +132,7 @@ export class LaunchDarklyUtilsProjects {
             defaultClientSideAvailability
         };
         return this.apiClient.apis[this.API_GROUP]
-            .postProject({ projectBody: newProject })
+            .postProject({}, { requestBody: newProject })
             .then(response => {
                 return response.body;
             })
@@ -156,7 +156,7 @@ export class LaunchDarklyUtilsProjects {
      */
     async updateProject(projectKey, jsonPatch) {
         return this.apiClient.apis[this.API_GROUP]
-            .patchProject({ projectKey: projectKey, patchDelta: jsonPatch })
+            .patchProject({ projectKey: projectKey }, { requestBody: jsonPatch })
             .then(response => {
                 return response.body;
             })

@@ -134,9 +134,13 @@ describe('LaunchDarklyUtilsProjects', () => {
     });
 
     describe('createProject successful with project key and name only', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -147,14 +151,23 @@ describe('LaunchDarklyUtilsProjects', () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/projects-create.json', 'utf-8'));
             return ldutils.projects.createProject('testProject', 'Test Project').then(actual => {
                 expect(actual).to.deep.equal(expected);
+                expect(postBody).to.deep.equal({
+                    key: 'testProject',
+                    name: 'Test Project',
+                    tags: []
+                });
             });
         });
     });
 
     describe('createProject successful with project key and name and includeInSnippetByDefault as true', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -165,14 +178,24 @@ describe('LaunchDarklyUtilsProjects', () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/projects-create.json', 'utf-8'));
             return ldutils.projects.createProject('testProject', 'Test Project', 'true').then(actual => {
                 expect(actual).to.deep.equal(expected);
+                expect(postBody).to.deep.equal({
+                    key: 'testProject',
+                    name: 'Test Project',
+                    includeInSnippetByDefault: true,
+                    tags: []
+                });
             });
         });
     });
 
     describe('createProject successful with project key and name and includeInSnippetByDefault as false', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -183,14 +206,24 @@ describe('LaunchDarklyUtilsProjects', () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/projects-create.json', 'utf-8'));
             return ldutils.projects.createProject('testProject', 'Test Project', 'false').then(actual => {
                 expect(actual).to.deep.equal(expected);
+                expect(postBody).to.deep.equal({
+                    key: 'testProject',
+                    name: 'Test Project',
+                    includeInSnippetByDefault: false,
+                    tags: []
+                });
             });
         });
     });
 
     describe('createProject successful with project key, name, includeInSnippetByDefault and environment', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -203,14 +236,25 @@ describe('LaunchDarklyUtilsProjects', () => {
                 .createProject('testProject', 'Test Project', 'false', 'dev,Development,blue')
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        key: 'testProject',
+                        name: 'Test Project',
+                        includeInSnippetByDefault: false,
+                        tags: [],
+                        environments: [{ key: 'dev', name: 'Development', color: 'blue' }]
+                    });
                 });
         });
     });
 
     describe('createProject successful with project key, name, environment and usingEnvironmentId is true', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -223,14 +267,28 @@ describe('LaunchDarklyUtilsProjects', () => {
                 .createProject('testProject', 'Test Project', undefined, 'dev,Development,blue', 'true')
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        key: 'testProject',
+                        name: 'Test Project',
+                        tags: [],
+                        environments: [{ key: 'dev', name: 'Development', color: 'blue' }],
+                        defaultClientSideAvailability: {
+                            usingEnvironmentId: true,
+                            usingMobileKey: true
+                        }
+                    });
                 });
         });
     });
 
     describe('createProject successful with project key, name, environment and usingEnvironmentId is false', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -243,14 +301,28 @@ describe('LaunchDarklyUtilsProjects', () => {
                 .createProject('testProject', 'Test Project', undefined, 'dev,Development,blue', 'false')
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        key: 'testProject',
+                        name: 'Test Project',
+                        tags: [],
+                        environments: [{ key: 'dev', name: 'Development', color: 'blue' }],
+                        defaultClientSideAvailability: {
+                            usingEnvironmentId: false,
+                            usingMobileKey: true
+                        }
+                    });
                 });
         });
     });
 
     describe('createProject successful with project key, name, environment ,usingEnvironmentId and mobileKey is true', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -263,14 +335,28 @@ describe('LaunchDarklyUtilsProjects', () => {
                 .createProject('testProject', 'Test Project', undefined, 'dev,Development,blue', 'true', 'true')
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        key: 'testProject',
+                        name: 'Test Project',
+                        tags: [],
+                        environments: [{ key: 'dev', name: 'Development', color: 'blue' }],
+                        defaultClientSideAvailability: {
+                            usingEnvironmentId: true,
+                            usingMobileKey: true
+                        }
+                    });
                 });
         });
     });
 
     describe('createProject successful with project key, name, environment ,usingEnvironmentId and mobileKey is false', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -283,14 +369,28 @@ describe('LaunchDarklyUtilsProjects', () => {
                 .createProject('testProject', 'Test Project', undefined, 'dev,Development,blue', 'true', 'false')
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        key: 'testProject',
+                        name: 'Test Project',
+                        tags: [],
+                        environments: [{ key: 'dev', name: 'Development', color: 'blue' }],
+                        defaultClientSideAvailability: {
+                            usingEnvironmentId: true,
+                            usingMobileKey: false
+                        }
+                    });
                 });
         });
     });
 
     describe('createProject successful with project key, name, includeInSnippetByDefault, environment ,usingEnvironmentId and mobileKey', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -303,14 +403,25 @@ describe('LaunchDarklyUtilsProjects', () => {
                 .createProject('testProject', 'Test Project', 'true', 'dev,Development,blue', 'true', 'false')
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        key: 'testProject',
+                        name: 'Test Project',
+                        tags: [],
+                        environments: [{ key: 'dev', name: 'Development', color: 'blue' }],
+                        includeInSnippetByDefault: true
+                    });
                 });
         });
     });
 
     describe('createProject successful with project key, name, includeInSnippetByDefault, environment ,usingEnvironmentId, mobileKey and tags', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/projects')
+                .post('/api/v2/projects', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(201, __dirname + '/fixtures/projects-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -323,6 +434,13 @@ describe('LaunchDarklyUtilsProjects', () => {
                 .createProject('testProject', 'Test Project', 'true', 'dev,Development,blue', 'true', 'true', 'foo,bar')
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        key: 'testProject',
+                        name: 'Test Project',
+                        tags: ['foo', 'bar'],
+                        environments: [{ key: 'dev', name: 'Development', color: 'blue' }],
+                        includeInSnippetByDefault: true
+                    });
                 });
         });
     });
@@ -357,8 +475,14 @@ describe('LaunchDarklyUtilsProjects', () => {
     });
 
     describe('updateProject successful', () => {
+        let patchBody;
         before(done => {
-            let scope = nock('https://app.launchdarkly.com').patch('/api/v2/projects/abc123').reply(200, {});
+            let scope = nock('https://app.launchdarkly.com')
+                .patch('/api/v2/projects/abc123', body => {
+                    patchBody = body;
+                    return body;
+                })
+                .reply(200, {});
             assert(scope);
             done();
         });
@@ -366,6 +490,7 @@ describe('LaunchDarklyUtilsProjects', () => {
             const jsonPatch = [{ op: 'replace', path: '/name', value: 'New project name' }];
             return ldutils.projects.updateProject('abc123', jsonPatch).then(actual => {
                 expect(actual).to.deep.equal({});
+                expect(patchBody).to.deep.equal([{ op: 'replace', path: '/name', value: 'New project name' }]);
             });
         });
     });

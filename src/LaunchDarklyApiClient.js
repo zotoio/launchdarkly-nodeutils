@@ -1,5 +1,4 @@
 import Swagger from 'swagger-client';
-//import jsYaml from 'js-yaml';
 import { default as fs } from 'fs';
 import { default as json } from 'format-json';
 import { default as HttpsProxyAgent } from 'https-proxy-agent';
@@ -35,6 +34,7 @@ export class LaunchDarklyApiClient {
         return Swagger({
             spec: JSON.parse(openapiJson),
             usePromise: true,
+            requestContentType: 'application/json',
             requestInterceptor: req => {
                 req.userFetch = fetch;
                 req.agent = agent;

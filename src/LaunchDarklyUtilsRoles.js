@@ -121,9 +121,11 @@ export class LaunchDarklyUtilsRoles {
             policy: customRolePolicyArray
         };
         try {
-            return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole }).then(response => {
-                return response.body;
-            });
+            return this.apiClient.apis[this.API_GROUP]
+                .postCustomRole({}, { requestBody: customRole })
+                .then(response => {
+                    return response.body;
+                });
         } catch (e) {
             throw {
                 api: 'postCustomRole',
@@ -163,10 +165,14 @@ export class LaunchDarklyUtilsRoles {
             .then(patchDelta => {
                 try {
                     return this.apiClient.apis[this.API_GROUP]
-                        .patchCustomRole({
-                            customRoleKey: customRoleKey,
-                            patchDelta: patchDelta
-                        })
+                        .patchCustomRole(
+                            {
+                                customRoleKey: customRoleKey
+                            },
+                            {
+                                requestBody: patchDelta
+                            }
+                        )
                         .then(response => {
                             return response.body;
                         });

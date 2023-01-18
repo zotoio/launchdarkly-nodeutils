@@ -104,20 +104,24 @@ export class LaunchDarklyUtilsFlags {
      * patch a feature flag by key
      * @param {string} projectKey - project identifier
      * @param {string} featureFlagKey - feature flag identifier
-     * @param {Array<Object>} patchComment - array of valid json patch descriptors
+     * @param {Array<Object>} patch - array of valid json patch descriptors
      * @returns {Promise}
      * @fulfil {Object} updated feature flag json
      * @reject {Error} object with message
      * @example ldutils updateFeatureFlag my-project my-flag {jsonPatch}
      */
-    async updateFeatureFlag(projectKey, featureFlagKey, patchComment) {
+    async updateFeatureFlag(projectKey, featureFlagKey, patch) {
         try {
             return this.apiClient.apis[this.API_GROUP]
-                .patchFeatureFlag({
-                    projectKey: projectKey,
-                    featureFlagKey: featureFlagKey,
-                    patchComment: patchComment
-                })
+                .patchFeatureFlag(
+                    {
+                        projectKey: projectKey,
+                        featureFlagKey: featureFlagKey
+                    },
+                    {
+                        requestBody: patch
+                    }
+                )
                 .then(response => {
                     return response.body;
                 });
@@ -170,15 +174,15 @@ export class LaunchDarklyUtilsFlags {
                 return patchDelta;
             })
             .then(patchDelta => {
-                let patchComment = this.assembleFlagPatch(patchDelta, toEnv, includeState);
+                let patch = this.assembleFlagPatch(patchDelta, toEnv, includeState);
 
-                that.log.debug(`patchComment for '${featureFlagKey}' in ${toEnv} : ${json.plain(patchComment)}`);
-                return this.updateFeatureFlag(projectKey, featureFlagKey, patchComment);
+                that.log.debug(`patch for '${featureFlagKey}' in ${toEnv} : ${json.plain(patch)}`);
+                return this.updateFeatureFlag(projectKey, featureFlagKey, patch);
             });
     }
 
     assembleFlagPatch(patchDelta, targetEnv, includeState) {
-        let patchComment = [];
+        let patches = [];
         patchDelta.forEach(patch => {
             if (
                 patch.path.startsWith('/targets') ||
@@ -190,10 +194,10 @@ export class LaunchDarklyUtilsFlags {
             ) {
                 // add target env obj path and push
                 patch.path = `/environments/${targetEnv}${patch.path}`;
-                patchComment.push(patch);
+                patches.push(patch);
             }
         });
-        return patchComment;
+        return patches;
     }
 
     /**
@@ -256,10 +260,10 @@ export class LaunchDarklyUtilsFlags {
                         return patchDelta;
                     })
                     .then(patchDelta => {
-                        let patchComment = this.assembleFlagPatch(patchDelta, targetEnv, includeState);
+                        let patch = this.assembleFlagPatch(patchDelta, targetEnv, includeState);
 
-                        that.log.debug(`patchComment for '${key}' in ${targetEnv} : ${json.plain(patchComment)}`);
-                        return this.updateFeatureFlag(projectKey, key, patchComment);
+                        that.log.debug(`patch for '${key}' in ${targetEnv} : ${json.plain(patch)}`);
+                        return this.updateFeatureFlag(projectKey, key, patch);
                     })
             );
         });
