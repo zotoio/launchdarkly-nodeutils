@@ -45,7 +45,7 @@ export class LaunchDarklyUtilsProjects {
                 throw {
                     api: 'getProjects',
                     message: e.message,
-                    docs: 'https://apidocs.launchdarkly.com/reference#list-projects'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/getProjects'
                 };
             });
     }
@@ -68,7 +68,7 @@ export class LaunchDarklyUtilsProjects {
                 throw {
                     api: 'getProject',
                     message: e.message,
-                    docs: 'https://apidocs.launchdarkly.com/reference#get-project'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/getProjects'
                 };
             });
     }
@@ -132,7 +132,7 @@ export class LaunchDarklyUtilsProjects {
             defaultClientSideAvailability
         };
         return this.apiClient.apis[this.API_GROUP]
-            .postProject({ projectBody: newProject })
+            .postProject({}, { requestBody: newProject })
             .then(response => {
                 return response.body;
             })
@@ -140,7 +140,7 @@ export class LaunchDarklyUtilsProjects {
                 throw {
                     api: 'createProject',
                     message: e.message,
-                    docs: 'https://apidocs.launchdarkly.com/reference#create-project'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/postProject'
                 };
             });
     }
@@ -156,7 +156,7 @@ export class LaunchDarklyUtilsProjects {
      */
     async updateProject(projectKey, jsonPatch) {
         return this.apiClient.apis[this.API_GROUP]
-            .patchProject({ projectKey: projectKey, patchDelta: jsonPatch })
+            .patchProject({ projectKey: projectKey }, { requestBody: jsonPatch })
             .then(response => {
                 return response.body;
             })
@@ -164,7 +164,7 @@ export class LaunchDarklyUtilsProjects {
                 throw {
                     api: 'patchProject',
                     message: e.message,
-                    docs: 'https://apidocs.launchdarkly.com/reference#update-project'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/patchProject'
                 };
             });
     }
@@ -186,7 +186,7 @@ export class LaunchDarklyUtilsProjects {
                 throw {
                     api: 'deleteProject',
                     message: e.message,
-                    docs: 'https://apidocs.launchdarkly.com/reference#delete-project'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/deleteProject'
                 };
             });
     }

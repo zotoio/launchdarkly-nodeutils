@@ -10,7 +10,7 @@ import { LaunchDarklyLogger } from '../src/LaunchDarklyLogger';
 
 let log = LaunchDarklyLogger.logger();
 
-describe('LaunchDarklyUtilsFlags', () => {
+describe('LaunchDarklyUtilsProjects', () => {
     let ldutils;
     beforeEach(async () => {
         ldutils = await new LaunchDarklyUtils().create('MOCK', log);
@@ -57,7 +57,7 @@ describe('LaunchDarklyUtilsFlags', () => {
                 api: 'getProjects',
                 message:
                     'request to https://app.launchdarkly.com/api/v2/projects failed, reason: Something bad happened',
-                docs: 'https://apidocs.launchdarkly.com/reference#list-projects'
+                docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/getProjects'
             };
             return ldutils.projects
                 .getProjects()
@@ -101,7 +101,7 @@ describe('LaunchDarklyUtilsFlags', () => {
             const expected = {
                 api: 'getProject',
                 message: 'request to https://app.launchdarkly.com/api/v2/projects/foo failed, reason: 404',
-                docs: 'https://apidocs.launchdarkly.com/reference#get-project'
+                docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/getProjects'
             };
             return ldutils.projects
                 .getProject('foo')
@@ -459,7 +459,7 @@ describe('LaunchDarklyUtilsFlags', () => {
                 api: 'createProject',
                 message:
                     'request to https://app.launchdarkly.com/api/v2/projects failed, reason: Account already has a project with that key',
-                docs: 'https://apidocs.launchdarkly.com/reference#create-project'
+                docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/postProject'
             };
             const tags = 'foo,bar';
             const environments = 'dev,Development,blue';
@@ -475,8 +475,14 @@ describe('LaunchDarklyUtilsFlags', () => {
     });
 
     describe('updateProject successful', () => {
+        let patchBody;
         before(done => {
-            let scope = nock('https://app.launchdarkly.com').patch('/api/v2/projects/abc123').reply(200, {});
+            let scope = nock('https://app.launchdarkly.com')
+                .patch('/api/v2/projects/abc123', body => {
+                    patchBody = body;
+                    return body;
+                })
+                .reply(200, {});
             assert(scope);
             done();
         });
@@ -484,6 +490,7 @@ describe('LaunchDarklyUtilsFlags', () => {
             const jsonPatch = [{ op: 'replace', path: '/name', value: 'New project name' }];
             return ldutils.projects.updateProject('abc123', jsonPatch).then(actual => {
                 expect(actual).to.deep.equal({});
+                expect(patchBody).to.deep.equal([{ op: 'replace', path: '/name', value: 'New project name' }]);
             });
         });
     });
@@ -502,7 +509,7 @@ describe('LaunchDarklyUtilsFlags', () => {
                 api: 'patchProject',
                 message:
                     'request to https://app.launchdarkly.com/api/v2/projects/abc123 failed, reason: Unsupported json-patch operation',
-                docs: 'https://apidocs.launchdarkly.com/reference#update-project'
+                docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/patchProject'
             };
             const jsonPatch = [
                 { op: 'replace', path: '/baz', value: 'boo' },
@@ -549,7 +556,7 @@ describe('LaunchDarklyUtilsFlags', () => {
                 api: 'deleteProject',
                 message:
                     'request to https://app.launchdarkly.com/api/v2/projects/foo failed, reason: Unknown project key foo',
-                docs: 'https://apidocs.launchdarkly.com/reference#delete-project'
+                docs: 'https://apidocs.launchdarkly.com/tag/Projects#operation/deleteProject'
             };
             return ldutils.projects
                 .deleteProject('foo')

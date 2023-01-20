@@ -76,9 +76,13 @@ describe('LaunchDarklyUtilsRoles', () => {
     });
 
     describe('createCustomRole', () => {
+        let postBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .post('/api/v2/roles')
+                .post('/api/v2/roles', body => {
+                    postBody = body;
+                    return body;
+                })
                 .replyWithFile(200, __dirname + '/fixtures/custom-roles-create.json', {
                     'Content-Type': 'application/json'
                 });
@@ -103,18 +107,34 @@ describe('LaunchDarklyUtilsRoles', () => {
                 )
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(postBody).to.deep.equal({
+                        name: 'test role',
+                        key: 'test-role',
+                        description: 'Allow access to production',
+                        policy: [
+                            {
+                                resources: ['proj/*:env/production'],
+                                actions: ['*'],
+                                effect: 'allow'
+                            }
+                        ]
+                    });
                 });
         });
     });
 
     describe('updateCustomRole', () => {
+        let patchBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
                 .get('/api/v2/roles/sample-role')
                 .replyWithFile(200, __dirname + '/fixtures/custom-roles-get.json', {
                     'Content-Type': 'application/json'
                 })
-                .patch('/api/v2/roles/sample-role')
+                .patch('/api/v2/roles/sample-role', body => {
+                    patchBody = body;
+                    return body;
+                })
                 .replyWithFile(200, __dirname + '/fixtures/custom-roles-update.json', {
                     'Content-Type': 'application/json'
                 });
@@ -127,7 +147,7 @@ describe('LaunchDarklyUtilsRoles', () => {
             return ldutils.roles
                 .updateCustomRole(
                     'sample-role',
-                    'sample-role',
+                    'sample role',
                     [
                         {
                             resources: ['proj/*:env/production'],
@@ -139,6 +159,15 @@ describe('LaunchDarklyUtilsRoles', () => {
                 )
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(patchBody).to.deep.equal([
+                        { op: 'replace', path: '/policy/0/effect', value: 'allow' },
+                        { op: 'replace', path: '/policy/0/resources/0', value: 'proj/*:env/production' },
+                        { op: 'remove', path: '/_id' },
+                        { op: 'replace', path: '/description', value: 'Allow access to production' },
+                        { op: 'replace', path: '/key', value: 'sample-role' },
+                        { op: 'replace', path: '/name', value: 'sample role' },
+                        { op: 'remove', path: '/_links' }
+                    ]);
                 });
         });
     });

@@ -23,7 +23,7 @@
 **Kind**: global class  
 <a name="LaunchDarklyApiClient.create"></a>
 
-### LaunchDarklyApiClient.create(API_TOKEN, log, swaggerYamlString) ⇒ <code>Promise</code>
+### LaunchDarklyApiClient.create(API_TOKEN, log, openapiJsonString) ⇒ <code>Promise</code>
 Used internally by LaunchDarklyUtils to create an instance of
 Swagger apiClient with interceptors configured
 
@@ -35,7 +35,7 @@ Swagger apiClient with interceptors configured
 | --- | --- | --- |
 | API_TOKEN | <code>string</code> | from LaunchDarkly dashboard |
 | log | <code>Object</code> | logger implementation |
-| swaggerYamlString | <code>string</code> | optional serialized yaml |
+| openapiJsonString | <code>string</code> | optional serialized json |
 
 <a name="LaunchDarklyLogger"></a>
 
@@ -78,7 +78,7 @@ as api grouping util classes are attached to this class.
     * [.getFeatureFlags(projectKey)](#LaunchDarklyUtilsFlags+getFeatureFlags) ⇒ <code>Promise</code>
     * [.getFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery)](#LaunchDarklyUtilsFlags+getFeatureFlag) ⇒ <code>Promise</code>
     * [.getFeatureFlagState(projectKey, featureFlagKey, environmentKeyQuery)](#LaunchDarklyUtilsFlags+getFeatureFlagState) ⇒ <code>Promise</code>
-    * [.updateFeatureFlag(projectKey, featureFlagKey, patchComment)](#LaunchDarklyUtilsFlags+updateFeatureFlag) ⇒ <code>Promise</code>
+    * [.updateFeatureFlag(projectKey, featureFlagKey, patch)](#LaunchDarklyUtilsFlags+updateFeatureFlag) ⇒ <code>Promise</code>
     * [.toggleFeatureFlag(projectKey, featureFlagKey, environmentKeyQuery, value)](#LaunchDarklyUtilsFlags+toggleFeatureFlag) ⇒ <code>Promise</code>
     * [.migrateFeatureFlag(projectKey, featureFlagKey, fromEnv, toEnv, includeState)](#LaunchDarklyUtilsFlags+migrateFeatureFlag) ⇒ <code>Promise</code>
     * [.bulkMigrateFeatureFlags(projectKey, featureFlagKeys, fromEnv, toEnv, includeState)](#LaunchDarklyUtilsFlags+bulkMigrateFeatureFlags) ⇒ <code>Promise</code>
@@ -160,7 +160,7 @@ ldutils getFeatureFlagState my-project my-flag dev
 ```
 <a name="LaunchDarklyUtilsFlags+updateFeatureFlag"></a>
 
-### launchDarklyUtilsFlags.updateFeatureFlag(projectKey, featureFlagKey, patchComment) ⇒ <code>Promise</code>
+### launchDarklyUtilsFlags.updateFeatureFlag(projectKey, featureFlagKey, patch) ⇒ <code>Promise</code>
 patch a feature flag by key
 
 **Kind**: instance method of [<code>LaunchDarklyUtilsFlags</code>](#LaunchDarklyUtilsFlags)  
@@ -171,7 +171,7 @@ patch a feature flag by key
 | --- | --- | --- |
 | projectKey | <code>string</code> | project identifier |
 | featureFlagKey | <code>string</code> | feature flag identifier |
-| patchComment | <code>Array.&lt;Object&gt;</code> | array of valid json patch descriptors |
+| patch | <code>Array.&lt;Object&gt;</code> | array of valid json patch descriptors |
 
 **Example**  
 ```js

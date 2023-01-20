@@ -49,7 +49,7 @@ export class LaunchDarklyUtilsRoles {
             throw {
                 api: 'getCustomRoles',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+                docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/getCustomRoles'
             };
         }
     }
@@ -73,7 +73,7 @@ export class LaunchDarklyUtilsRoles {
             throw {
                 api: 'getCustomRole',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+                docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/getCustomRoles'
             };
         }
     }
@@ -94,7 +94,7 @@ export class LaunchDarklyUtilsRoles {
                 throw {
                     api: 'getCustomRoles',
                     message: `role not found for _id ${customRoleId}`,
-                    docs: 'https://apidocs.launchdarkly.com/docs/list-custom-roles'
+                    docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/getCustomRoles'
                 };
             }
 
@@ -121,14 +121,16 @@ export class LaunchDarklyUtilsRoles {
             policy: customRolePolicyArray
         };
         try {
-            return this.apiClient.apis[this.API_GROUP].postCustomRole({ customRoleBody: customRole }).then(response => {
-                return response.body;
-            });
+            return this.apiClient.apis[this.API_GROUP]
+                .postCustomRole({}, { requestBody: customRole })
+                .then(response => {
+                    return response.body;
+                });
         } catch (e) {
             throw {
                 api: 'postCustomRole',
                 message: e.message,
-                docs: 'https://apidocs.launchdarkly.com/docs/create-custom-role'
+                docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/postCustomRole'
             };
         }
     }
@@ -163,10 +165,14 @@ export class LaunchDarklyUtilsRoles {
             .then(patchDelta => {
                 try {
                     return this.apiClient.apis[this.API_GROUP]
-                        .patchCustomRole({
-                            customRoleKey: customRoleKey,
-                            patchDelta: patchDelta
-                        })
+                        .patchCustomRole(
+                            {
+                                customRoleKey: customRoleKey
+                            },
+                            {
+                                requestBody: patchDelta
+                            }
+                        )
                         .then(response => {
                             return response.body;
                         });
@@ -174,7 +180,7 @@ export class LaunchDarklyUtilsRoles {
                     throw {
                         api: 'patchCustomRole',
                         message: e.message,
-                        docs: 'https://apidocs.launchdarkly.com/docs/update-custom-role'
+                        docs: 'https://apidocs.launchdarkly.com/tag/Custom-roles#operation/patchCustomRole'
                     };
                 }
             });

@@ -72,9 +72,13 @@ describe('LaunchDarklyUtilsFlags', () => {
     });
 
     describe('updateFeatureFlag', () => {
+        let patchBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .patch('/api/v2/flags/sample-project/sort.order')
+                .patch('/api/v2/flags/sample-project/sort.order', body => {
+                    patchBody = body;
+                    return body;
+                })
                 .replyWithFile(200, __dirname + '/fixtures/feature-flags-update.json', {
                     'Content-Type': 'application/json'
                 });
@@ -90,14 +94,21 @@ describe('LaunchDarklyUtilsFlags', () => {
                 ])
                 .then(actual => {
                     expect(actual).to.deep.equal(expected);
+                    expect(patchBody).to.deep.equal([
+                        { op: 'replace', path: '/environments/production/on', value: false }
+                    ]);
                 });
         });
     });
 
     describe('toggleFeatureFlag', () => {
+        let patchBody;
         before(done => {
             let scope = nock('https://app.launchdarkly.com')
-                .patch('/api/v2/flags/sample-project/sort.order')
+                .patch('/api/v2/flags/sample-project/sort.order', body => {
+                    patchBody = body;
+                    return body;
+                })
                 .replyWithFile(200, __dirname + '/fixtures/feature-flags-update.json', {
                     'Content-Type': 'application/json'
                 });
@@ -109,6 +120,7 @@ describe('LaunchDarklyUtilsFlags', () => {
             let expected = JSON.parse(fs.readFileSync(__dirname + '/fixtures/feature-flags-update.json', 'utf-8'));
             return ldutils.flags.toggleFeatureFlag('sample-project', 'sort.order', 'test', true).then(actual => {
                 expect(actual).to.deep.equal(expected);
+                expect(patchBody).to.deep.equal([{ op: 'replace', path: `/environments/test/on`, value: true }]);
             });
         });
     });
