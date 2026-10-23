@@ -8,6 +8,11 @@ on:
     branches:
       - master    
 
+# Cost controls (2026-10-23): cancel superseded runs on the same PR/branch (never on master).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
